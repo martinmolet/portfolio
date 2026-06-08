@@ -393,10 +393,6 @@ function StatusBar({ content, sectionId }) {
   const idx = Math.max(0, sections.indexOf(sectionId));
   return (
     <footer className="statusbar">
-      <div className="sb-cell"><span className="sb-k">FILE</span><span>{content.meta.filename}</span></div>
-      <div className="sb-cell"><span className="sb-k">SHEET</span><span>{String(idx + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}</span></div>
-      <div className="sb-cell"><span className="sb-k">SCALE</span><span>1:1</span></div>
-      <div className="sb-cell"><span className="sb-k">REV</span><span>{content.meta.lastUpdated}</span></div>
       <div className="sb-cell flex-1 right">
         <span className="sb-k">STATUS</span>
         <span className="status-pill"><span className="dot" /> {content.meta.status}</span>
