@@ -318,7 +318,7 @@ const CONTENT = {
     meta: {
       role: 'Product Designer · Design System & Design Ops',
       location: 'Marseille / Remote',
-      status: 'Ouvert au CDI · Freelance dispo',
+      status: 'Dispo Freelance ou CDI',
       lastUpdated: 'Avr. 2026',
       filename: 'martin-molet.portfolio.v4',
     },
