@@ -1,4 +1,5 @@
 // Bilingual content store — Martin Molet, real CV.
+
 const CONTENT = {
   en: {
     nav: ['Index', 'Practices', 'Case studies', 'Experience', 'Contact'],
@@ -104,7 +105,7 @@ const CONTENT = {
       items: [
         {
           id: 'sg',
-          detailUrl: 'sg.html',
+          detailUrl: 'cases/sg.html',
           client: 'Société Générale × Devoteam',
           role: 'Consultant Design System Manager',
           period: 'Mar 2024 — Sep 2025',
@@ -127,7 +128,7 @@ const CONTENT = {
         },
         {
           id: 'ecv',
-          detailUrl: 'ecv.html',
+          detailUrl: 'cases/ecv.html',
           client: 'ECV Aix-en-Provence',
           role: 'Speaker — Atomic & Design System',
           period: 'Feb 2025 + Apr 2026 · 2 cohorts',
@@ -150,7 +151,7 @@ const CONTENT = {
         },
         {
           id: 'fdj',
-          detailUrl: 'fdj.html',
+          detailUrl: 'cases/fdj.html',
           client: 'Française des Jeux × Devoteam',
           role: 'Consultant Product Designer · System Designer',
           period: 'Jul 2022 — Dec 2023',
@@ -324,11 +325,11 @@ const CONTENT = {
     home: {
       kicker: '01 — Sommaire',
       title: 'J\'aide les équipes à\nscale\nleur DS.',
-      sub: '8 ans de Product Design, spécialisé design system et design ops. De l\'e-commerce à la banque retail, je transmets aux équipes une façon de travailler, pas seulement des composants.',
+      sub: '8 ans de Product Design, spécialisé design system et design ops. De l\'e-commerce à la banque retail, je transmets aux équipes une façon de travailler — pas seulement des composants.',
       cta1: 'Voir les études',
       cta2: 'Me contacter',
       metrics: [
-        { value: 40, suffix: '+', label: 'Designers formés sur le système Société Générale', note: 'Ateliers, open hours, tutoriels et guides écrits de l\'adoption, pas de l\'imposition.' },
+        { value: 40, suffix: '+', label: 'Designers formés sur le système Société Générale', note: 'Ateliers, open hours, tutoriels et guides écrits — de l\'adoption, pas de l\'imposition.' },
         { value: 2, suffix: ' → 1', label: 'Design systems fusionnés en une seule librairie', note: 'Systèmes client + conseiller réunis, avec des modes dédiés. Moins de doublons, moins de dérive.' },
         { value: 8, suffix: '+', label: 'Ans à livrer des systèmes en production', note: '7 sites e-commerce, banque retail, mobile gaming, souscription telecom.' },
       ],
@@ -416,13 +417,13 @@ const CONTENT = {
       items: [
         {
           id: 'sg',
-          detailUrl: 'sg.html',
+          detailUrl: 'cases/sg.html',
           client: 'Société Générale × Devoteam',
           role: 'Consultant Design System Manager',
           period: 'Mars 2024 — Sept. 2025',
-          summary: 'Refonte et unification des librairies Figma pour la banque retail : une source unique pour le client et le conseiller.',
-          context: 'Deux design systems en parallèle : un pour l\'app client, un pour l\'interface conseiller. La dérive s\'accumulait. Les designers passaient plus de temps à se recaler sur les specs qu\'à concevoir.',
-          problem: 'Aucune règle claire. Des librairies dupliquées, difficiles à naviguer et à maintenir. Une adoption inégale selon les équipes. Aucune gouvernance documentée.',
+          summary: 'Refonte et unification des librairies Figma pour la banque retail — une source unique pour le client et le conseiller.',
+          context: 'Deux design systems en parallèle — un pour l\'app client, un pour l\'outillage conseiller. La dérive s\'accumulait. Les designers passaient plus de temps à se recaler sur les specs qu\'à concevoir. Les devs reconstruisaient des composants au lieu de les réutiliser.',
+          problem: 'Pas de contrat partagé. Des librairies dupliquées, difficiles à naviguer et à maintenir. Une adoption inégale selon les équipes. Aucune gouvernance documentée.',
           action: [
             'Réorganisation des librairies Figma — classement alphabétique aligné sur Storybook',
             '280+ tokens de taille et 230+ tokens de couleur — une librairie, plusieurs modes',
@@ -439,19 +440,19 @@ const CONTENT = {
         },
         {
           id: 'ecv',
-          detailUrl: 'ecv.html',
+          detailUrl: 'cases/ecv.html',
           client: 'ECV Aix-en-Provence',
           role: 'Intervenant — Atomic & Design System',
           period: 'Févr. 2025 + Avr. 2026 · 2 promotions',
           summary: 'Deux ateliers avec des étudiants Master 1 pour apprendre à concevoir et documenter un Design System de A à Z.',
-          context: 'Premier vrai contact avec l\'Atomic Design, les tokens, le theming et la gouvernance.',
-          problem: 'Le risque : produire de beaux écrans sans savoir passer de 10 à 100 sans tout casser.',
+          context: 'Étudiants M1 avec un bon instinct UI mais sans modèles mentaux pour penser à l\'échelle système. Premier vrai contact avec l\'Atomic Design, les tokens, le theming et la gouvernance.',
+          problem: 'Sans bases solides pour penser système, la cohérence reste un accident. Le risque : produire de beaux écrans sans savoir passer de 10 à 100 sans tout casser.',
           action: [
             'Fondamentaux de l\'Atomic Design — atoms, molecules, organisms, templates, pages',
             'Variables, types de tokens (primitive, sémantique, composant) et nommage',
             'Chaque étudiant construit une librairie Figma complète — de la palette aux templates',
             'Ateliers pratiques sur la décomposition modulaire et la réutilisation',
-            'Chaque étudiant documente ses composants : usages, règles, contraintes, variantes',
+            'Chaque étudiant documente ses composants — usages, règles, contraintes, variantes',
           ],
           result: [
             { k: '2', s: '', v: 'Années consécutives, deux promotions formées' },
@@ -462,25 +463,25 @@ const CONTENT = {
         },
         {
           id: 'fdj',
-          detailUrl: 'fdj.html',
+          detailUrl: 'cases/fdj.html',
           client: 'Française des Jeux × Devoteam',
           role: 'Consultant Product Designer · System Designer',
           period: 'Juil. 2022 — Déc. 2023',
-          summary: 'Prise en main du design system mobile de bout en bout, de contributeur à référent, avec un mode light/dark piloté par tokens.',
+          summary: 'Prise en main du design system mobile de bout en bout — de contributeur à référent — avec un mode light/dark piloté par tokens.',
           context: 'Une app mobile gaming avec une librairie Figma morcelée. Les variantes étaient maintenues à la main. Aucun contrat de thème. Le même composant existait en plusieurs versions légèrement différentes selon les écrans.',
           problem: 'Designers et développeurs ralentis. La cohérence visuelle était aléatoire. Impossible de livrer le light/dark sans base tokenisée.',
           action: [
-            'Concevoir et améliorer les parcours en parallèle du DS',
-            'Prendre en main le design system mobile, d\'abord designer, puis référent',
-            'Refonte complète de la librairie Figma : variantes automatisées, tokens, switch light/dark',
+            'Concevoir et améliorer les parcours en parallèle du travail système',
+            'Prendre en main le design system mobile — d\'abord designer, puis référent',
+            'Refonte complète de la librairie Figma — variantes automatisées, tokens, switch light/dark',
             'Tenir la cohérence graphique sur l\'ensemble de l\'app et outiller le workflow design + dev',
             'Travailler avec les équipes eng et produit pour intégrer les composants proprement',
           ],
           result: [
             { k: '1', s: '', v: 'Mode light/dark piloté par tokens livré en production' },
             { k: '100', s: '%', v: 'Variantes automatisées, zéro maintenance manuelle' },
-            { k: '17', s: ' mois', v: 'Mission, dont le rôle de référent DS' },
-            { k: '1', s: '', v: 'Librairie unique : une source pour toute l\'app' },
+            { k: '17', s: ' mois', v: 'Mission, dont le rôle de référent système' },
+            { k: '1', s: '', v: 'Librairie unique — une source pour toute l\'app' },
           ],
         },
       ],
@@ -505,8 +506,8 @@ const CONTENT = {
           period: 'Mars 2024 — Sept. 2025',
           location: 'Paris · Remote',
           impact: [
-            'Restructuration des librairies Figma : lisibilité, maintenabilité, adoption',
-            'Fusion des librairies client + conseiller en une librairie avec modes dédiés',
+            'Restructuration des librairies Figma — lisibilité, maintenabilité, adoption',
+            'Fusion des systèmes client + conseiller en une librairie avec modes dédiés',
             '40+ designers formés via ateliers, open hours et guides écrits',
           ],
         },
@@ -527,7 +528,7 @@ const CONTENT = {
           location: 'Paris',
           impact: [
             'En charge du design system mobile — d\'abord designer, puis référent',
-            'Refonte Figma : variantes automatisées, tokens, switch light/dark',
+            'Refonte Figma — variantes automatisées, tokens, switch light/dark',
             'Cohérence graphique tenue sur l\'app, workflow design + dev outillé',
           ],
         },
@@ -549,7 +550,7 @@ const CONTENT = {
           location: 'Paris',
           impact: [
             'Refonte complète de la librairie Figma de zéro',
-            'Cohérence graphique tenue sur l\'ensemble des écrans, workflow design + dev',
+            'Cohérence graphique tenue sur l\'ensemble des écrans, workflow design + dev outillé',
           ],
         },
         {
@@ -558,7 +559,7 @@ const CONTENT = {
           period: 'Mars 2018 — Févr. 2021',
           location: 'France',
           impact: [
-            'Modernisation et harmonisation de 7 sites e-commerce, sortie de l\'image hard-discount',
+            'Modernisation et harmonisation de 7 sites e-commerce — sortie de l\'image hard-discount',
             'Conception de configurateurs produits simples et efficaces',
             'Mise en place d\'un design system cohérent sur les 7 plateformes',
           ],
@@ -613,4 +614,5 @@ const CONTENT = {
     },
   },
 };
+
 window.CONTENT = CONTENT;
