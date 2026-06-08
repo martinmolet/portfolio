@@ -8,6 +8,169 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
+<style>
+
+/* ── Chantier cards ── */
+.chantier {
+  position: relative;
+  border-top: 1px solid var(--line);
+  padding: 64px 0 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 80px;
+  align-items: start;
+  overflow: hidden;
+}
+.chantier + .chantier { border-top: 1px solid var(--line-2); }
+
+/* Numéro géant en filigrane */
+.chantier-num {
+  position: absolute;
+  top: -16px;
+  right: -8px;
+  font-size: clamp(120px, 14vw, 200px);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  color: var(--line-2);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* Colonne gauche : titre + tag */
+.chantier-l {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-right: 0;
+}
+.chantier-tag {
+  font-size: 10px;
+  letter-spacing: .24em;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.chantier-tag::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+.chantier-title {
+  font-size: clamp(22px, 2.8vw, 36px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.chantier-problem {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 42ch;
+  border-left: 2px solid var(--line-2);
+  padding-left: 16px;
+  margin-top: 4px;
+}
+
+/* Colonne droite : items clés */
+.chantier-r {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-left: 1px solid var(--line-2);
+  padding-left: 48px;
+}
+.chantier-item {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.chantier-item:first-child { padding-top: 0; }
+.chantier-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.chantier-n {
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: .12em;
+  min-width: 28px;
+  flex-shrink: 0;
+}
+.chantier-text {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+
+/* Résultat highlight */
+.chantier-result {
+  margin-top: 28px;
+  padding: 20px 24px;
+  background: rgba(255,122,89,.04);
+  border: 1px solid rgba(255,122,89,.18);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.chantier-result::before {
+  content: '↗';
+  color: var(--accent);
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.chantier-result p {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+/* Sous-chantiers (EX.01, EX.02...) */
+.sub-chantiers { display: flex; flex-direction: column; gap: 0; margin-top: 0; }
+.sub-chantier {
+  padding: 40px 0;
+  border-top: 1px solid var(--line-2);
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.sub-chantier-l { display: flex; flex-direction: column; gap: 10px; }
+.sub-tag { font-size: 10px; letter-spacing: .2em; color: var(--muted-2); }
+.sub-title { font-size: 18px; font-weight: 500; letter-spacing: -.01em; color: var(--ink); line-height: 1.2; }
+.sub-chantier-r { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.sub-block { display: flex; flex-direction: column; gap: 8px; }
+.sub-label { font-size: 10px; color: var(--muted-2); letter-spacing: .18em; }
+.sub-body { font-size: 13px; color: var(--ink-2); line-height: 1.65; }
+
+/* Section title light */
+.section-title-light {
+  font-size: 11px;
+  letter-spacing: .22em;
+  color: var(--muted-2);
+  margin-bottom: 0;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .chantier { grid-template-columns: 1fr; gap: 32px; }
+  .chantier-r { border-left: 0; padding-left: 0; border-top: 1px solid var(--line-2); padding-top: 24px; }
+  .chantier-num { font-size: 80px; top: -8px; right: 0; }
+  .sub-chantier { grid-template-columns: 1fr; gap: 20px; }
+  .sub-chantier-r { grid-template-columns: 1fr; gap: 16px; }
+}
+</style>
 </head>
 <body>
 
@@ -23,6 +186,8 @@
 
 <main>
   <section class="sheet">
+
+    <!-- HERO -->
     <div class="hero">
       <div class="hero-l">
         <div class="case-id">CASE / SG · AVENIR</div>
@@ -37,6 +202,7 @@
       </div>
     </div>
 
+    <!-- CONTEXTE -->
     <div class="section">
       <div class="section-h">
         <span class="num">00</span>
@@ -46,283 +212,192 @@
       <div class="intro-grid">
         <div class="intro-cell">
           <div class="l">Existant</div>
-          <p>Quand j'ai rejoint la Société Générale en tant que Design System Manager, le DS AVENIR était déjà opérationnel depuis trois ans. Outil utilisé par +40 Product Designers répartis sur 3 domaines distincts : le grand public, l'assurance et le conseil.</p>
+          <p>Quand j'ai rejoint la Société Générale en tant que Design System Manager, le DS AVENIR était déjà opérationnel depuis trois ans. Outil utilisé par +40 Product Designers répartis sur 3 domaines : grand public, assurance et conseil.</p>
         </div>
         <div class="intro-cell">
           <div class="l">Problème</div>
-          <p>Un seul Product Designer était chargé du DS et se trouvait débordé par un grand nombre de demandes. La gestion et l'évolution du système étaient bloquées par le volume, l'isolement et l'absence de gouvernance partagée.</p>
+          <p>Un seul Product Designer était chargé du DS et se trouvait débordé. La gestion et l'évolution du système étaient bloquées par le volume, l'isolement et l'absence de gouvernance partagée.</p>
         </div>
       </div>
     </div>
 
+    <!-- CHANTIERS -->
     <div class="section">
       <div class="section-h">
-        <span class="num">01</span>
-        <span class="title">Fluidifier la communication</span>
+        <span class="num">01 — 06</span>
+        <span class="title">Chantiers</span>
         <span class="rule"></span>
       </div>
 
-      <div class="block">
-        <div class="block-h"><span class="tag">CHANTIER A</span><span class="name">Optimisation de la communication</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Problématique</div>
-            <p>Beaucoup de demandes directes perturbaient nos cycles de travail. Les Product Designers manquaient de visibilité sur les projets du Design System et sur les difficultés rencontrées. La coordination et l'efficacité en souffraient.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Solution</div>
-            <ul>
-              <li data-n="01">Limiter les sollicitations directes pour éviter les pertes d'information</li>
-              <li data-n="02">Canaux dédiés, modérés par l'équipe DS, pour les échanges</li>
-              <li data-n="03">Rituels OpenHours + réunions de release DS pour encourager la communication</li>
-              <li data-n="04">Système de tickets Jira pour donner la visibilité aux projets</li>
-            </ul>
-          </div>
-          <div class="block-col">
-            <div class="label">Résultat</div>
-            <p>Collaboration nettement améliorée entre équipes. Une communauté designers + POs + dévs s'est formée. Des membres expérimentés sont devenus ambassadeurs du DS. L'équipe DS communique ses avancées sans être submergée par des demandes répétitives.</p>
+      <!-- A -->
+      <div class="chantier">
+        <div class="chantier-num">A</div>
+        <div class="chantier-l">
+          <span class="chantier-tag">CHANTIER A</span>
+          <h3 class="chantier-title">Fluidifier<br/>la communication</h3>
+          <p class="chantier-problem">Beaucoup de demandes directes perturbaient les cycles de travail. Les designers manquaient de visibilité sur les projets DS et les difficultés rencontrées.</p>
+        </div>
+        <div class="chantier-r">
+          <div class="chantier-item"><span class="chantier-n">01</span><span class="chantier-text">Canaux dédiés, modérés par l'équipe DS</span></div>
+          <div class="chantier-item"><span class="chantier-n">02</span><span class="chantier-text">Rituels OpenHours + réunions de release</span></div>
+          <div class="chantier-item"><span class="chantier-n">03</span><span class="chantier-text">Tickets Jira pour la visibilité projet</span></div>
+          <div class="chantier-item"><span class="chantier-n">04</span><span class="chantier-text">Ambassadeurs DS parmi les designers seniors</span></div>
+          <div class="chantier-result"><p>Une communauté designers + POs + dévs s'est formée. L'équipe DS communique ses avancées sans être submergée par des demandes répétitives.</p></div>
+        </div>
+      </div>
+
+      <!-- B -->
+      <div class="chantier">
+        <div class="chantier-num">B</div>
+        <div class="chantier-l">
+          <span class="chantier-tag">CHANTIER B</span>
+          <h3 class="chantier-title">Réorganiser<br/>la librairie</h3>
+          <p class="chantier-problem">La localisation des composants dans Figma était complexe. Classés par famille, ils demandaient une connaissance préalable pour être retrouvés.</p>
+        </div>
+        <div class="chantier-r">
+          <div class="chantier-item"><span class="chantier-n">01</span><span class="chantier-text">Organisation alphabétique, navigation simplifiée</span></div>
+          <div class="chantier-item"><span class="chantier-n">02</span><span class="chantier-text">Alignement avec les standards Storybook</span></div>
+          <div class="chantier-item"><span class="chantier-n">03</span><span class="chantier-text">Barre latérale repensée, séparateurs définis</span></div>
+          <div class="chantier-item"><span class="chantier-n">04</span><span class="chantier-text">Une page dédiée par composant</span></div>
+          <div class="chantier-result"><p>Figma aligné avec Storybook — navigation fluide entre design et développement. Réduction du temps de recherche composant.</p></div>
+        </div>
+      </div>
+
+      <!-- C -->
+      <div class="chantier">
+        <div class="chantier-num">C</div>
+        <div class="chantier-l">
+          <span class="chantier-tag">CHANTIER C</span>
+          <h3 class="chantier-title">Tokens<br/>de size</h3>
+          <p class="chantier-problem">Presque aucun token n'était configuré à l'arrivée. Tous dans une seule collection sans structure sémantique — aucune source de vérité pour les dimensions.</p>
+        </div>
+        <div class="chantier-r">
+          <div class="chantier-item"><span class="chantier-n">280+</span><span class="chantier-text">Variables créées — écrans, éléments, espacements</span></div>
+          <div class="chantier-item"><span class="chantier-n">✦</span><span class="chantier-text">Grilles, radius et typographie tokenisés</span></div>
+          <div class="chantier-item"><span class="chantier-n">✦</span><span class="chantier-text">Même token d'espacement pour mobile et desktop</span></div>
+          <div class="chantier-item"><span class="chantier-n">4×</span><span class="chantier-text">Plus rapide en déclinaison d'écrans</span></div>
+          <div class="chantier-result"><p>Source unique de vérité pour toutes les dimensions. Un même écran s'affiche dans 2 modes en quelques secondes.</p></div>
+        </div>
+      </div>
+
+      <!-- D -->
+      <div class="chantier">
+        <div class="chantier-num">D</div>
+        <div class="chantier-l">
+          <span class="chantier-tag">CHANTIER D</span>
+          <h3 class="chantier-title">Tokens<br/>de couleur</h3>
+          <p class="chantier-problem">Les couleurs pouvaient être appliquées sans indication d'usage. Cela bloquait le theming et obligeait à maintenir plusieurs bibliothèques identiques en parallèle.</p>
+        </div>
+        <div class="chantier-r">
+          <div class="chantier-item"><span class="chantier-n">230+</span><span class="chantier-text">Variables couleur — 2 modes distincts</span></div>
+          <div class="chantier-item"><span class="chantier-n">✦</span><span class="chantier-text">Chaque teinte avec une fonction distincte (status, brand, ui)</span></div>
+          <div class="chantier-item"><span class="chantier-n">✦</span><span class="chantier-text">Tokens avec alias spécifiques pour l'intégration</span></div>
+          <div class="chantier-item"><span class="chantier-n">2→1</span><span class="chantier-text">Bibliothèques fusionnées en une seule thématisée</span></div>
+          <div class="chantier-result"><p>Fin de la double maintenance. Switch client ↔ conseiller en un changement de mode Figma.</p></div>
+        </div>
+      </div>
+
+      <!-- E : composants -->
+      <div class="chantier">
+        <div class="chantier-num">E</div>
+        <div class="chantier-l">
+          <span class="chantier-tag">CHANTIER E</span>
+          <h3 class="chantier-title">Évolution<br/>des composants</h3>
+          <p class="chantier-problem">185+ composants refondus ou créés. Chaque intervention suit le même principe : périmètre clair, slots pour la flexibilité, variables pour le responsive.</p>
+        </div>
+        <div class="chantier-r">
+          <div class="sub-chantiers">
+            <div class="sub-chantier" style="border-top:0;padding-top:0">
+              <div class="sub-chantier-l">
+                <span class="sub-tag">EX.01</span>
+                <span class="sub-title">Refonte header & footer</span>
+              </div>
+              <div class="sub-chantier-r">
+                <div class="sub-block">
+                  <div class="sub-label">AVANT</div>
+                  <div class="sub-body">Header, footer et sidebar regroupés dans un seul composant — propriétés croisées, erreurs d'affichage fréquentes.</div>
+                </div>
+                <div class="sub-block">
+                  <div class="sub-label">APRÈS</div>
+                  <div class="sub-body">Deux entités distinctes, chacune avec ses propres propriétés. Périmètre clair, contrat lisible pour design et dev.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sub-chantier">
+              <div class="sub-chantier-l">
+                <span class="sub-tag">EX.02</span>
+                <span class="sub-title">Layout slots & variables</span>
+              </div>
+              <div class="sub-chantier-r">
+                <div class="sub-block">
+                  <div class="sub-label">AVANT</div>
+                  <div class="sub-body">Un variant par combinaison possible : onglet ou pas ? stepper ? Combien d'étapes ? Combinatoire ingérable.</div>
+                </div>
+                <div class="sub-block">
+                  <div class="sub-label">APRÈS</div>
+                  <div class="sub-body">Un slot remplace le contenu. Un seul Layout au lieu de dizaines de variants. Mobile géré automatiquement par variables.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sub-chantier">
+              <div class="sub-chantier-l">
+                <span class="sub-tag">EX.03</span>
+                <span class="sub-title">Patterns automatisés</span>
+              </div>
+              <div class="sub-chantier-r">
+                <div class="sub-block">
+                  <div class="sub-label">AVANT</div>
+                  <div class="sub-body">Configuration manuelle composant par composant — long, source d'erreurs, impossible à maintenir à l'échelle.</div>
+                </div>
+                <div class="sub-block">
+                  <div class="sub-label">APRÈS</div>
+                  <div class="sub-body">Patterns intégrant grilles, espacements et configs. Déclinaisons en un clic. Maintenance réduite, variants supprimés.</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- F : formation -->
+      <div class="chantier">
+        <div class="chantier-num">F</div>
+        <div class="chantier-l">
+          <span class="chantier-tag">CHANTIER F</span>
+          <h3 class="chantier-title">Support &<br/>accompagnement</h3>
+          <p class="chantier-problem">Un DS sans accompagnement reste un dépôt qu'on consulte. L'enjeu : que les 40+ designers adoptent le système et montent en compétence.</p>
+        </div>
+        <div class="chantier-r">
+          <div class="chantier-item"><span class="chantier-n">✦</span><span class="chantier-text">Sessions tutorielles à chaque nouveauté</span></div>
+          <div class="chantier-item"><span class="chantier-n">✦</span><span class="chantier-text">Documentation dans Figma, Zeroheight et Storybook</span></div>
+          <div class="chantier-item"><span class="chantier-n">✦</span><span class="chantier-text">Doc adaptée au support : design / code / lecture longue</span></div>
+          <div class="chantier-item"><span class="chantier-n">40+</span><span class="chantier-text">Designers formés, communauté constituée</span></div>
+          <div class="chantier-result"><p>Les designers se sentent accompagnés et montent en compétence. Réduction des délais, équipe plus précise et autonome.</p></div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="section">
-      <div class="section-h">
-        <span class="num">02</span>
-        <span class="title">Réorganiser la librairie</span>
-        <span class="rule"></span>
-      </div>
-
-      <div class="block">
-        <div class="block-h"><span class="tag">CHANTIER B</span><span class="name">Architecture de la librairie principale</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Problématique</div>
-            <p>L'analyse des bibliothèques a révélé que la localisation des composants dans Figma était complexe. Les composants étaient classés par famille, demandant une connaissance préalable pour les retrouver.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Solution</div>
-            <ul>
-              <li data-n="01">Organisation alphabétique pour simplifier la recherche</li>
-              <li data-n="02">Alignement avec les standards Storybook</li>
-              <li data-n="03">Barre latérale repensée pour la navigation et l'ergonomie</li>
-              <li data-n="04">Sections mieux définies avec des séparateurs</li>
-              <li data-n="05">Une page dédiée par composant</li>
-            </ul>
-          </div>
-          <div class="block-col">
-            <div class="label">Résultat</div>
-            <p>L'organisation alphabétique a amélioré la recherche. Figma est désormais aligné avec Storybook, offrant une navigation fluide entre design et développement.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-h">
-        <span class="num">03</span>
-        <span class="title">Tokens de size</span>
-        <span class="rule"></span>
-      </div>
-
-      <div class="block">
-        <div class="block-h"><span class="tag">CHANTIER C</span><span class="name">Création des tokens de size</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Problématique</div>
-            <p>À mon arrivée, presque aucun token n'était configuré. Ils étaient tous rassemblés dans une seule collection sans structure sémantique. Aucune source unique de vérité pour les dimensions.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Solution</div>
-            <ul>
-              <li data-n="01">+280 variables créées pour les tailles d'écran, éléments, espacements</li>
-              <li data-n="02">Grilles, radius et typographie tokenisés</li>
-              <li data-n="03">Variables qui contrôlent l'affichage mobile, desktop et app</li>
-              <li data-n="04">Mêmes tokens d'espacement utilisés pour mobile et desktop</li>
-            </ul>
-          </div>
-          <div class="block-col">
-            <div class="label">Résultat</div>
-            <p>Les tokens ont réduit la friction et minimisé les erreurs. Ils sont la nouvelle source de vérité et permettent une déclinaison des écrans 4× plus rapide. Un même écran s'affiche dans 2 modes différents en quelques secondes.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-h">
-        <span class="num">04</span>
-        <span class="title">Tokens de couleur</span>
-        <span class="rule"></span>
-      </div>
-
-      <div class="block">
-        <div class="block-h"><span class="tag">CHANTIER D</span><span class="name">Création des tokens de couleur</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Problématique</div>
-            <p>Historiquement, les couleurs pouvaient être appliquées à n'importe quel type d'élément sans indication d'usage. Cela bloquait le theming et obligeait à maintenir plusieurs bibliothèques identiques.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Solution</div>
-            <ul>
-              <li data-n="01">Inventaire des couleurs existantes pour éviter les redondances</li>
-              <li data-n="02">Nouvelle palette répondant aux exigences spécifiques du projet</li>
-              <li data-n="03">Chaque teinte avec une fonction distincte (status, brand, ui)</li>
-              <li data-n="04">Tokens avec alias spécifiques pour faciliter l'intégration</li>
-            </ul>
-          </div>
-          <div class="block-col">
-            <div class="label">Résultat</div>
-            <p>+230 variables de couleur créées pour afficher 2 modes distincts. Fin de la maintenance de 2 bibliothèques en parallèle : une seule bibliothèque commune thématisée.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="diagram">
-        <div class="label"><span>FIG.04 — TOKEN ALIASES</span><span class="id">/ AVENIR</span></div>
-        <div class="swatches">
-          <div class="swatch">
-            <div class="chip" style="background:#298737"></div>
-            <div class="name">color.status.success</div>
-            <div class="hex">green.70 · #298737</div>
-          </div>
-          <div class="swatch">
-            <div class="chip" style="background:#298737"></div>
-            <div class="name">text.success</div>
-            <div class="hex">green.70</div>
-          </div>
-          <div class="swatch">
-            <div class="chip" style="background:#298737"></div>
-            <div class="name">border.success</div>
-            <div class="hex">green.70</div>
-          </div>
-          <div class="swatch">
-            <div class="chip" style="background:#E2010A"></div>
-            <div class="name">color.brand.client</div>
-            <div class="hex">red.60 · #E2010A</div>
-          </div>
-          <div class="swatch">
-            <div class="chip" style="background:#2F54E0"></div>
-            <div class="name">color.brand.agence</div>
-            <div class="hex">blue.30 · #2F54E0</div>
-          </div>
-          <div class="swatch">
-            <div class="chip" style="background:#FF7A59"></div>
-            <div class="name">icon.brand.agence</div>
-            <div class="hex">— · alias</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-h">
-        <span class="num">05</span>
-        <span class="title">Évolution des composants</span>
-        <span class="rule"></span>
-      </div>
-
-      <div class="block">
-        <div class="block-h"><span class="tag">EX.01</span><span class="name">Refonte header & footer</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Contexte</div>
-            <p>Le footer et le header étaient regroupés dans un seul composant. Les propriétés du header, du footer et du sidebar se mélangeaient, ce qui provoquait des erreurs d'affichage.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Solution</div>
-            <p>Séparer ces deux composants en deux entités bien distinctes avec chacune leurs propriétés propres. Plus de fuite de logique entre header, footer et sidebar.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Bénéfice</div>
-            <p>Plus d'erreurs d'affichage liées à des propriétés croisées. Chaque composant a un périmètre clair et un contrat lisible pour les designers et les dévs.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-h"><span class="tag">EX.02</span><span class="name">Refonte du Layout — slots et variables</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Contexte</div>
-            <p>Le Layout est essentiel au début de chaque page. L'ancienne version manquait de flexibilité et devait anticiper chaque état possible : onglet ou pas ? stepper ? combien d'étapes ? Une combinatoire ingérable.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Solution</div>
-            <p>Utiliser les variables pour ne plus avoir à concevoir la version mobile séparément. Un slot remplace le contenu pour une meilleure flexibilité et permet aux designers de personnaliser le composant selon leur besoin réel.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Bénéfice</div>
-            <p>Un seul Layout au lieu de dizaines de variants. Les designers n'ont plus à jongler avec les options : ils insèrent ce dont ils ont besoin dans le slot.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-h"><span class="tag">EX.03</span><span class="name">Création de patterns</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Contexte</div>
-            <p>Avec l'arrivée des variables, l'automatisation a pris une place importante. Avant, chaque composant devait être configuré manuellement : travail long, fastidieux et source d'erreurs.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Solution</div>
-            <p>Automatiser l'affichage de chaque composant au format choisi. Pour aller plus loin, créer des <strong style="color:var(--ink)">patterns</strong> : composants qui intègrent directement les bonnes grilles, espacements et configurations, avec des déclinaisons en un clic.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Bénéfice</div>
-            <p>Composants réactifs aux variables, plus facilement déclinables. Simplification de la librairie (chaque composant a un périmètre délimité). Maintenance réduite : suppression d'un grand nombre de variants inutiles.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-h">
-        <span class="num">06</span>
-        <span class="title">Support & accompagnement</span>
-        <span class="rule"></span>
-      </div>
-
-      <div class="block">
-        <div class="block-h"><span class="tag">CHANTIER E</span><span class="name">Tutoriels, documentation, formation</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Tutoriels</div>
-            <p>Sessions tutorielles pour aider les designers à assimiler les nouveautés. Chaque nouvelle fonctionnalité expliquée en détail, avec ses contraintes et ses cas d'usage.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Documentation 360°</div>
-            <p>Chaque composant documenté dans Figma, Zeroheight et Storybook. La documentation est adaptée au support : design dans Figma, code dans Storybook, contexte en lecture longue.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Résultat</div>
-            <p>Les designers se sentent mieux accompagnés et montent en compétence grâce au DS. Une communauté se crée autour du système, renforçant son adoption. Réduction des délais, équipe plus précise et efficace.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <!-- IMPACT -->
     <div class="section">
       <div class="section-h">
         <span class="num">07</span>
         <span class="title">Impact mesuré</span>
         <span class="rule"></span>
       </div>
-
       <div class="results-grid">
         <div class="result-stat"><div class="num">40<span class="s">+</span></div><div class="lbl">Designers formés sur le système</div></div>
         <div class="result-stat"><div class="num">280<span class="s">+</span></div><div class="lbl">Tokens de size, source unique</div></div>
         <div class="result-stat"><div class="num">230<span class="s">+</span></div><div class="lbl">Tokens de couleur, 2 modes</div></div>
         <div class="result-stat"><div class="num">4<span class="s">×</span></div><div class="lbl">Plus rapide en déclinaison d'écrans</div></div>
-        <div class="result-stat"><div class="num">2 → 1</div><div class="lbl">Bibliothèques fusionnées</div></div>
+        <div class="result-stat"><div class="num">2→1</div><div class="lbl">Bibliothèques fusionnées</div></div>
         <div class="result-stat"><div class="num">185<span class="s">+</span></div><div class="lbl">Composants refondus ou créés</div></div>
         <div class="result-stat"><div class="num">300<span class="s">+</span></div><div class="lbl">Icons reconstruits et optimisés</div></div>
         <div class="result-stat"><div class="num">18<span class="s"> mo</span></div><div class="lbl">Durée de mission, 4 releases livrées</div></div>
       </div>
     </div>
 
+    <!-- RELATED -->
     <div class="related">
       <div class="related-h">AUTRES CASES</div>
       <div class="related-grid">
@@ -339,6 +414,7 @@
       </div>
     </div>
 
+    <!-- CONTACT -->
     <div class="contact-sheet">
       <div class="section-h">
         <span class="num">CTA</span>
@@ -370,14 +446,15 @@
         </div>
       </div>
     </div>
+
   </section>
 </main>
 
 <footer class="statusbar">
-  <div class="sb-cell"><span class="sb-k">FILE</span><span>case.sg.v1</span></div>
+  <div class="sb-cell"><span class="sb-k">FILE</span><span>case.sg.v2</span></div>
   <div class="sb-cell"><span class="sb-k">SHEET</span><span>01 / 03</span></div>
   <div class="sb-cell"><span class="sb-k">SCALE</span><span>1:1</span></div>
-  <div class="sb-cell"><span class="sb-k">REV</span><span>Mai 2026</span></div>
+  <div class="sb-cell"><span class="sb-k">REV</span><span>Juin 2026</span></div>
   <div class="sb-cell"><a href="index.html" style="color:var(--accent)">← Retour portfolio</a></div>
 </footer>
 <script>
