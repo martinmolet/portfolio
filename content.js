@@ -105,7 +105,7 @@ const CONTENT = {
       items: [
         {
           id: 'sg',
-          detailUrl: 'cases/sg.html',
+          detailUrl: 'sg.html',
           client: 'Société Générale × Devoteam',
           role: 'Consultant Design System Manager',
           period: 'Mar 2024 — Sep 2025',
@@ -128,7 +128,7 @@ const CONTENT = {
         },
         {
           id: 'ecv',
-          detailUrl: 'cases/ecv.html',
+          detailUrl: 'ecv.html',
           client: 'ECV Aix-en-Provence',
           role: 'Speaker — Atomic & Design System',
           period: 'Feb 2025 + Apr 2026 · 2 cohorts',
@@ -151,7 +151,7 @@ const CONTENT = {
         },
         {
           id: 'fdj',
-          detailUrl: 'cases/fdj.html',
+          detailUrl: 'fdj.html',
           client: 'Française des Jeux × Devoteam',
           role: 'Consultant Product Designer · System Designer',
           period: 'Jul 2022 — Dec 2023',
@@ -417,7 +417,7 @@ const CONTENT = {
       items: [
         {
           id: 'sg',
-          detailUrl: 'cases/sg.html',
+          detailUrl: 'sg.html',
           client: 'Société Générale × Devoteam',
           role: 'Consultant Design System Manager',
           period: 'Mars 2024 — Sept. 2025',
@@ -440,7 +440,7 @@ const CONTENT = {
         },
         {
           id: 'ecv',
-          detailUrl: 'cases/ecv.html',
+          detailUrl: 'ecv.html',
           client: 'ECV Aix-en-Provence',
           role: 'Intervenant — Atomic & Design System',
           period: 'Févr. 2025 + Avr. 2026 · 2 promotions',
@@ -463,7 +463,7 @@ const CONTENT = {
         },
         {
           id: 'fdj',
-          detailUrl: 'cases/fdj.html',
+          detailUrl: 'fdj.html',
           client: 'Française des Jeux × Devoteam',
           role: 'Consultant Product Designer · System Designer',
           period: 'Juil. 2022 — Déc. 2023',
