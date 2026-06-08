@@ -8,90 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
-<style>
-/* ── Interactive demos ── */
-.demo { margin-top: 24px; border: 1px solid var(--line-2); background: var(--bg-2); overflow: hidden; }
-.demo-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--line); font-size: 11px; letter-spacing: .14em; color: var(--muted-2); }
-.demo-bar .demo-title { color: var(--accent); }
-.demo-body { padding: 28px; }
-
-/* Token chain demo */
-.token-chain { display: flex; align-items: stretch; gap: 0; }
-.tc-col { flex: 1; border-right: 1px solid var(--line); padding: 0 20px 20px; }
-.tc-col:last-child { border-right: 0; }
-.tc-col-h { font-size: 10px; letter-spacing: .2em; color: var(--muted-2); padding: 14px 0 16px; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
-.tc-token { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border: 1px solid var(--line); margin-bottom: 8px; cursor: default; transition: border-color .15s, background .15s; position: relative; }
-.tc-token:hover { border-color: var(--accent); background: rgba(255,122,89,.04); }
-.tc-token .tn { font-size: 11px; color: var(--ink); }
-.tc-token .tv { font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.tc-token .chip { width: 100%; height: 3px; margin-top: 6px; border-radius: 1px; }
-.tc-arrow { display: flex; align-items: center; justify-content: center; padding: 0 4px; color: var(--accent); font-size: 16px; align-self: center; flex-shrink: 0; }
-.tc-highlight { border-color: var(--accent) !important; background: rgba(255,122,89,.07) !important; }
-.tc-highlight::after { content: '←'; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 10px; }
-
-/* Theme switcher demo */
-.theme-demo { display: flex; flex-direction: column; gap: 16px; }
-.theme-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.theme-btn { padding: 6px 14px; border: 1px solid var(--line); font: inherit; font-size: 11px; letter-spacing: .1em; cursor: pointer; transition: all .15s; background: transparent; color: var(--muted); }
-.theme-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(255,122,89,.08); }
-.theme-label { font-size: 10px; color: var(--muted-2); letter-spacing: .18em; margin-right: 4px; }
-.theme-preview { border: 1px solid var(--line); overflow: hidden; transition: all .3s; }
-.tp-topbar { height: 48px; display: flex; align-items: center; padding: 0 20px; gap: 12px; border-bottom: 1px solid rgba(255,255,255,.1); font-size: 12px; font-weight: 500; }
-.tp-logo { width: 24px; height: 24px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
-.tp-body { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.tp-card { padding: 16px; border-radius: 4px; border: 1px solid; }
-.tp-card-label { font-size: 10px; letter-spacing: .1em; margin-bottom: 8px; }
-.tp-card-val { font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
-.tp-card-sub { font-size: 11px; margin-top: 4px; opacity: .6; }
-.tp-btn { margin-top: 12px; padding: 8px 16px; border: none; border-radius: 3px; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; letter-spacing: .04em; }
-.tp-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: 600; }
-.tp-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-
-/* Slot demo */
-.slot-demo { display: flex; flex-direction: column; gap: 16px; }
-.slot-controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.slot-preview { border: 1px solid var(--line); }
-.sp-header { border-bottom: 1px solid var(--line-2); background: #111518; }
-.sp-nav { height: 52px; display: flex; align-items: center; padding: 0 20px; gap: 16px; border-bottom: 1px solid var(--line-2); }
-.sp-nav-logo { font-size: 13px; font-weight: 600; color: #E2010A; letter-spacing: .02em; }
-.sp-nav-links { display: flex; gap: 20px; margin-left: auto; }
-.sp-nav-link { font-size: 11px; color: #8b9199; letter-spacing: .04em; }
-.sp-slot { min-height: 44px; display: flex; align-items: center; padding: 0 20px; gap: 12px; transition: all .3s; }
-.sp-slot-label { font-size: 10px; color: #5a6068; letter-spacing: .2em; flex-shrink: 0; }
-.sp-slot-content { display: flex; align-items: center; gap: 8px; flex: 1; }
-.sp-body { padding: 24px 20px; background: #0c0e10; }
-.sp-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #5a6068; margin-bottom: 16px; }
-.sp-breadcrumb span { color: #E2010A; }
-.sp-content { background: #14171a; border: 1px solid #1f2428; padding: 20px; }
-.sp-content-h { font-size: 16px; font-weight: 500; margin-bottom: 8px; color: #e8eaed; }
-.sp-content-p { font-size: 12px; color: #8b9199; line-height: 1.6; }
-
-/* Tabs */
-.step-tab { padding: 6px 14px; border: 1px solid var(--line); font: inherit; font-size: 11px; letter-spacing: .04em; cursor: pointer; background: transparent; color: var(--muted); transition: all .15s; }
-.step-tab-wrap { display: flex; gap: 0; }
-.step-tab-wrap .step-tab { border-right: 0; }
-.step-tab-wrap .step-tab:last-child { border-right: 1px solid var(--line); }
-.step-tab.active { background: var(--accent); color: #0c0e10; border-color: var(--accent); }
-
-/* Stepper slot content */
-.slot-stepper { display: flex; align-items: center; gap: 0; }
-.slot-step { display: flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 11px; position: relative; }
-.slot-step-n { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; flex-shrink: 0; }
-.slot-step-n.done { background: #298737; color: #fff; }
-.slot-step-n.current { background: #E2010A; color: #fff; }
-.slot-step-n.todo { background: #1f2428; color: #5a6068; border: 1px solid #2a3036; }
-.slot-step-lbl { color: #c7ccc8; font-size: 10px; white-space: nowrap; }
-.slot-step-sep { width: 24px; height: 1px; background: #2a3036; flex-shrink: 0; }
-
-/* Tab slot */
-.slot-tabs { display: flex; gap: 0; }
-.slot-tab-item { padding: 10px 20px; font-size: 11px; border-bottom: 2px solid transparent; color: #5a6068; cursor: pointer; white-space: nowrap; }
-.slot-tab-item.active { color: #E2010A; border-bottom-color: #E2010A; }
-
-/* Empty slot */
-.slot-empty { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #5a6068; font-style: italic; }
-.slot-empty::before { content: '⊡'; color: #2a3036; font-size: 14px; font-style: normal; }
-</style>
 </head>
 <body>
 
@@ -145,25 +61,26 @@
         <span class="title">Fluidifier la communication</span>
         <span class="rule"></span>
       </div>
+
       <div class="block">
         <div class="block-h"><span class="tag">CHANTIER A</span><span class="name">Optimisation de la communication</span></div>
         <div class="block-cols">
           <div class="block-col">
             <div class="label">Problématique</div>
-            <p>Beaucoup de demandes directes perturbaient nos cycles de travail. Les Product Designers manquaient de visibilité sur les projets du Design System et sur les difficultés rencontrées.</p>
+            <p>Beaucoup de demandes directes perturbaient nos cycles de travail. Les Product Designers manquaient de visibilité sur les projets du Design System et sur les difficultés rencontrées. La coordination et l'efficacité en souffraient.</p>
           </div>
           <div class="block-col">
             <div class="label">Solution</div>
             <ul>
-              <li data-n="01">Canaux dédiés, modérés par l'équipe DS</li>
-              <li data-n="02">Rituels OpenHours + réunions de release DS</li>
-              <li data-n="03">Système de tickets Jira pour la visibilité</li>
-              <li data-n="04">Limiter les sollicitations directes</li>
+              <li data-n="01">Limiter les sollicitations directes pour éviter les pertes d'information</li>
+              <li data-n="02">Canaux dédiés, modérés par l'équipe DS, pour les échanges</li>
+              <li data-n="03">Rituels OpenHours + réunions de release DS pour encourager la communication</li>
+              <li data-n="04">Système de tickets Jira pour donner la visibilité aux projets</li>
             </ul>
           </div>
           <div class="block-col">
             <div class="label">Résultat</div>
-            <p>Une communauté designers + POs + dévs s'est formée. Des membres expérimentés sont devenus ambassadeurs du DS. L'équipe DS communique ses avancées sans être submergée.</p>
+            <p>Collaboration nettement améliorée entre équipes. Une communauté designers + POs + dévs s'est formée. Des membres expérimentés sont devenus ambassadeurs du DS. L'équipe DS communique ses avancées sans être submergée par des demandes répétitives.</p>
           </div>
         </div>
       </div>
@@ -175,25 +92,27 @@
         <span class="title">Réorganiser la librairie</span>
         <span class="rule"></span>
       </div>
+
       <div class="block">
         <div class="block-h"><span class="tag">CHANTIER B</span><span class="name">Architecture de la librairie principale</span></div>
         <div class="block-cols">
           <div class="block-col">
             <div class="label">Problématique</div>
-            <p>La localisation des composants dans Figma était complexe. Les composants étaient classés par famille, demandant une connaissance préalable pour les retrouver.</p>
+            <p>L'analyse des bibliothèques a révélé que la localisation des composants dans Figma était complexe. Les composants étaient classés par famille, demandant une connaissance préalable pour les retrouver.</p>
           </div>
           <div class="block-col">
             <div class="label">Solution</div>
             <ul>
               <li data-n="01">Organisation alphabétique pour simplifier la recherche</li>
               <li data-n="02">Alignement avec les standards Storybook</li>
-              <li data-n="03">Barre latérale repensée pour la navigation</li>
-              <li data-n="04">Une page dédiée par composant</li>
+              <li data-n="03">Barre latérale repensée pour la navigation et l'ergonomie</li>
+              <li data-n="04">Sections mieux définies avec des séparateurs</li>
+              <li data-n="05">Une page dédiée par composant</li>
             </ul>
           </div>
           <div class="block-col">
             <div class="label">Résultat</div>
-            <p>Figma est désormais aligné avec Storybook, offrant une navigation fluide entre design et développement.</p>
+            <p>L'organisation alphabétique a amélioré la recherche. Figma est désormais aligné avec Storybook, offrant une navigation fluide entre design et développement.</p>
           </div>
         </div>
       </div>
@@ -205,108 +124,26 @@
         <span class="title">Tokens de size</span>
         <span class="rule"></span>
       </div>
+
       <div class="block">
         <div class="block-h"><span class="tag">CHANTIER C</span><span class="name">Création des tokens de size</span></div>
         <div class="block-cols">
           <div class="block-col">
             <div class="label">Problématique</div>
-            <p>Presque aucun token n'était configuré à mon arrivée. Tous rassemblés dans une seule collection sans structure sémantique. Aucune source unique de vérité pour les dimensions.</p>
+            <p>À mon arrivée, presque aucun token n'était configuré. Ils étaient tous rassemblés dans une seule collection sans structure sémantique. Aucune source unique de vérité pour les dimensions.</p>
           </div>
           <div class="block-col">
             <div class="label">Solution</div>
             <ul>
-              <li data-n="01">+280 variables pour tailles d'écran, éléments, espacements</li>
+              <li data-n="01">+280 variables créées pour les tailles d'écran, éléments, espacements</li>
               <li data-n="02">Grilles, radius et typographie tokenisés</li>
-              <li data-n="03">Variables qui contrôlent mobile, desktop et app</li>
-              <li data-n="04">Mêmes tokens d'espacement pour mobile et desktop</li>
+              <li data-n="03">Variables qui contrôlent l'affichage mobile, desktop et app</li>
+              <li data-n="04">Mêmes tokens d'espacement utilisés pour mobile et desktop</li>
             </ul>
           </div>
           <div class="block-col">
             <div class="label">Résultat</div>
-            <p>Les tokens sont la nouvelle source de vérité et permettent une déclinaison des écrans 4× plus rapide. Un même écran s'affiche dans 2 modes différents en quelques secondes.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- DÉMO INTERACTIVE : Chaîne de tokens -->
-      <div class="demo">
-        <div class="demo-bar">
-          <span class="demo-title">FIG.03 — CHAÎNE DE TOKENS</span>
-          <span>Survolez un token pour voir ses alias →</span>
-        </div>
-        <div class="demo-body">
-          <div class="token-chain" id="tokenChain">
-            <div class="tc-col">
-              <div class="tc-col-h">PRIMITIVES</div>
-              <div class="tc-token" data-id="sp4" onmouseenter="highlightToken('sp4')" onmouseleave="clearHighlight()">
-                <span class="tn">spacing.4</span>
-                <span class="tv">= 4px</span>
-              </div>
-              <div class="tc-token" data-id="sp8" onmouseenter="highlightToken('sp8')" onmouseleave="clearHighlight()">
-                <span class="tn">spacing.8</span>
-                <span class="tv">= 8px</span>
-              </div>
-              <div class="tc-token" data-id="sp16" onmouseenter="highlightToken('sp16')" onmouseleave="clearHighlight()">
-                <span class="tn">spacing.16</span>
-                <span class="tv">= 16px</span>
-              </div>
-              <div class="tc-token" data-id="sp24" onmouseenter="highlightToken('sp24')" onmouseleave="clearHighlight()">
-                <span class="tn">spacing.24</span>
-                <span class="tv">= 24px</span>
-              </div>
-              <div class="tc-token" data-id="r4" onmouseenter="highlightToken('r4')" onmouseleave="clearHighlight()">
-                <span class="tn">radius.4</span>
-                <span class="tv">= 4px</span>
-              </div>
-            </div>
-            <div class="tc-arrow">→</div>
-            <div class="tc-col">
-              <div class="tc-col-h">SÉMANTIQUES</div>
-              <div class="tc-token" data-aliases="sp4" data-id="sem-xs" onmouseenter="highlightAlias(this)" onmouseleave="clearHighlight()">
-                <span class="tn">space.xs</span>
-                <span class="tv">↳ spacing.4</span>
-              </div>
-              <div class="tc-token" data-aliases="sp8" data-id="sem-sm" onmouseenter="highlightAlias(this)" onmouseleave="clearHighlight()">
-                <span class="tn">space.sm</span>
-                <span class="tv">↳ spacing.8</span>
-              </div>
-              <div class="tc-token" data-aliases="sp16" data-id="sem-md" onmouseenter="highlightAlias(this)" onmouseleave="clearHighlight()">
-                <span class="tn">space.md</span>
-                <span class="tv">↳ spacing.16</span>
-              </div>
-              <div class="tc-token" data-aliases="sp24" data-id="sem-lg" onmouseenter="highlightAlias(this)" onmouseleave="clearHighlight()">
-                <span class="tn">space.lg</span>
-                <span class="tv">↳ spacing.24</span>
-              </div>
-              <div class="tc-token" data-aliases="r4" data-id="sem-r" onmouseenter="highlightAlias(this)" onmouseleave="clearHighlight()">
-                <span class="tn">radius.sm</span>
-                <span class="tv">↳ radius.4</span>
-              </div>
-            </div>
-            <div class="tc-arrow">→</div>
-            <div class="tc-col">
-              <div class="tc-col-h">COMPOSANTS</div>
-              <div class="tc-token" data-aliases="sem-sm sem-r" onmouseenter="highlightAlias(this)" onmouseleave="clearHighlight()">
-                <span class="tn">button.padding-x</span>
-                <span class="tv">↳ space.sm</span>
-              </div>
-              <div class="tc-token" data-aliases="sem-xs sem-r" onmouseenter="highlightAlias(this)" onmouseleave="clearHighlight()">
-                <span class="tn">button.padding-y</span>
-                <span class="tv">↳ space.xs</span>
-              </div>
-              <div class="tc-token" data-aliases="sem-md" onmouseenter="highlightAlias(this)" onmouseleave="clearHighlight()">
-                <span class="tn">card.gap</span>
-                <span class="tv">↳ space.md</span>
-              </div>
-              <div class="tc-token" data-aliases="sem-lg" onmouseenter="highlightAlias(this)" onmouseleave="clearHighlight()">
-                <span class="tn">layout.section-gap</span>
-                <span class="tv">↳ space.lg</span>
-              </div>
-              <div class="tc-token" data-aliases="sem-r" onmouseenter="highlightAlias(this)" onmouseleave="clearHighlight()">
-                <span class="tn">input.radius</span>
-                <span class="tv">↳ radius.sm</span>
-              </div>
-            </div>
+            <p>Les tokens ont réduit la friction et minimisé les erreurs. Ils sont la nouvelle source de vérité et permettent une déclinaison des écrans 4× plus rapide. Un même écran s'affiche dans 2 modes différents en quelques secondes.</p>
           </div>
         </div>
       </div>
@@ -318,70 +155,62 @@
         <span class="title">Tokens de couleur</span>
         <span class="rule"></span>
       </div>
+
       <div class="block">
         <div class="block-h"><span class="tag">CHANTIER D</span><span class="name">Création des tokens de couleur</span></div>
         <div class="block-cols">
           <div class="block-col">
             <div class="label">Problématique</div>
-            <p>Les couleurs pouvaient être appliquées à n'importe quel type d'élément sans indication d'usage. Cela bloquait le theming et obligeait à maintenir plusieurs bibliothèques identiques.</p>
+            <p>Historiquement, les couleurs pouvaient être appliquées à n'importe quel type d'élément sans indication d'usage. Cela bloquait le theming et obligeait à maintenir plusieurs bibliothèques identiques.</p>
           </div>
           <div class="block-col">
             <div class="label">Solution</div>
             <ul>
-              <li data-n="01">Inventaire des couleurs existantes</li>
-              <li data-n="02">Chaque teinte avec une fonction distincte (status, brand, ui)</li>
-              <li data-n="03">Tokens avec alias spécifiques pour l'intégration</li>
-              <li data-n="04">+230 variables pour 2 modes distincts</li>
+              <li data-n="01">Inventaire des couleurs existantes pour éviter les redondances</li>
+              <li data-n="02">Nouvelle palette répondant aux exigences spécifiques du projet</li>
+              <li data-n="03">Chaque teinte avec une fonction distincte (status, brand, ui)</li>
+              <li data-n="04">Tokens avec alias spécifiques pour faciliter l'intégration</li>
             </ul>
           </div>
           <div class="block-col">
             <div class="label">Résultat</div>
-            <p>Fin de la maintenance de 2 bibliothèques en parallèle : une seule bibliothèque commune thématisée. Switch client ↔ conseiller instantané.</p>
+            <p>+230 variables de couleur créées pour afficher 2 modes distincts. Fin de la maintenance de 2 bibliothèques en parallèle : une seule bibliothèque commune thématisée.</p>
           </div>
         </div>
       </div>
 
-      <!-- DÉMO INTERACTIVE : Theme switcher client / conseiller -->
-      <div class="demo">
-        <div class="demo-bar">
-          <span class="demo-title">FIG.04 — SWITCH THÈME AVENIR</span>
-          <span id="themeStatus">MODE : CLIENT</span>
-        </div>
-        <div class="demo-body">
-          <div class="theme-demo">
-            <div class="theme-controls">
-              <span class="theme-label">THÈME</span>
-              <button class="theme-btn active" onclick="setTheme('client')">Client</button>
-              <button class="theme-btn" onclick="setTheme('conseiller')">Conseiller</button>
-            </div>
-            <div class="theme-preview" id="themePreview">
-              <div class="tp-topbar" id="tp-topbar">
-                <div class="tp-logo" id="tp-logo">SG</div>
-                <span id="tp-appname" style="font-size:12px">Mes Comptes</span>
-                <div style="margin-left:auto;display:flex;gap:16px">
-                  <span style="font-size:11px;opacity:.5">Notifications</span>
-                  <span style="font-size:11px;opacity:.5">Profil</span>
-                </div>
-              </div>
-              <div class="tp-body">
-                <div class="tp-card" id="tp-card1">
-                  <div class="tp-card-label" id="tp-card1-label">COMPTE COURANT</div>
-                  <div class="tp-card-val" id="tp-card1-val">2 480,50 €</div>
-                  <div class="tp-card-sub">Mis à jour à l'instant</div>
-                  <div style="margin-top:12px">
-                    <span class="tp-badge" id="tp-badge">Actif</span>
-                  </div>
-                </div>
-                <div class="tp-card" id="tp-card2">
-                  <div class="tp-card-label" id="tp-card2-label">LIVRET A</div>
-                  <div class="tp-card-val" id="tp-card2-val">8 200,00 €</div>
-                  <div class="tp-card-sub">Taux : 3%</div>
-                  <div style="margin-top:12px">
-                    <button class="tp-btn" id="tp-btn">Virer des fonds</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div class="diagram">
+        <div class="label"><span>FIG.04 — TOKEN ALIASES</span><span class="id">/ AVENIR</span></div>
+        <div class="swatches">
+          <div class="swatch">
+            <div class="chip" style="background:#298737"></div>
+            <div class="name">color.status.success</div>
+            <div class="hex">green.70 · #298737</div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background:#298737"></div>
+            <div class="name">text.success</div>
+            <div class="hex">green.70</div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background:#298737"></div>
+            <div class="name">border.success</div>
+            <div class="hex">green.70</div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background:#E2010A"></div>
+            <div class="name">color.brand.client</div>
+            <div class="hex">red.60 · #E2010A</div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background:#2F54E0"></div>
+            <div class="name">color.brand.agence</div>
+            <div class="hex">blue.30 · #2F54E0</div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background:#FF7A59"></div>
+            <div class="name">icon.brand.agence</div>
+            <div class="hex">— · alias</div>
           </div>
         </div>
       </div>
@@ -399,15 +228,15 @@
         <div class="block-cols">
           <div class="block-col">
             <div class="label">Contexte</div>
-            <p>Le footer et le header étaient regroupés dans un seul composant. Les propriétés du header, du footer et du sidebar se mélangeaient, provoquant des erreurs d'affichage.</p>
+            <p>Le footer et le header étaient regroupés dans un seul composant. Les propriétés du header, du footer et du sidebar se mélangeaient, ce qui provoquait des erreurs d'affichage.</p>
           </div>
           <div class="block-col">
             <div class="label">Solution</div>
-            <p>Séparer ces deux composants en deux entités bien distinctes avec chacune leurs propriétés propres.</p>
+            <p>Séparer ces deux composants en deux entités bien distinctes avec chacune leurs propriétés propres. Plus de fuite de logique entre header, footer et sidebar.</p>
           </div>
           <div class="block-col">
             <div class="label">Bénéfice</div>
-            <p>Plus d'erreurs d'affichage liées à des propriétés croisées. Chaque composant a un périmètre clair et un contrat lisible.</p>
+            <p>Plus d'erreurs d'affichage liées à des propriétés croisées. Chaque composant a un périmètre clair et un contrat lisible pour les designers et les dévs.</p>
           </div>
         </div>
       </div>
@@ -417,78 +246,33 @@
         <div class="block-cols">
           <div class="block-col">
             <div class="label">Contexte</div>
-            <p>L'ancienne version devait anticiper chaque état possible : onglet ou pas ? stepper ? combien d'étapes ? Une combinatoire ingérable.</p>
+            <p>Le Layout est essentiel au début de chaque page. L'ancienne version manquait de flexibilité et devait anticiper chaque état possible : onglet ou pas ? stepper ? combien d'étapes ? Une combinatoire ingérable.</p>
           </div>
           <div class="block-col">
             <div class="label">Solution</div>
-            <p>Un slot remplace le contenu pour une meilleure flexibilité. Les variables gèrent le responsive automatiquement — plus besoin de concevoir mobile séparément.</p>
+            <p>Utiliser les variables pour ne plus avoir à concevoir la version mobile séparément. Un slot remplace le contenu pour une meilleure flexibilité et permet aux designers de personnaliser le composant selon leur besoin réel.</p>
           </div>
           <div class="block-col">
             <div class="label">Bénéfice</div>
-            <p>Un seul Layout au lieu de dizaines de variants. Les designers insèrent ce dont ils ont besoin dans le slot.</p>
+            <p>Un seul Layout au lieu de dizaines de variants. Les designers n'ont plus à jongler avec les options : ils insèrent ce dont ils ont besoin dans le slot.</p>
           </div>
         </div>
       </div>
 
-      <!-- DÉMO INTERACTIVE : Slot Layout -->
-      <div class="demo">
-        <div class="demo-bar">
-          <span class="demo-title">FIG.05 — LAYOUT · PATTERN SLOT</span>
-          <span>Changez le contenu du slot →</span>
-        </div>
-        <div class="demo-body">
-          <div class="slot-demo">
-            <div class="slot-controls">
-              <span class="theme-label">SLOT HEADER</span>
-              <div class="step-tab-wrap">
-                <button class="step-tab active" onclick="setSlot('none')">Vide</button>
-                <button class="step-tab" onclick="setSlot('tabs')">Onglets</button>
-                <button class="step-tab" onclick="setSlot('stepper')">Stepper</button>
-              </div>
-            </div>
-            <div class="slot-preview">
-              <div class="sp-header">
-                <div class="sp-nav">
-                  <span class="sp-nav-logo">SOCIÉTÉ GÉNÉRALE</span>
-                  <div class="sp-nav-links">
-                    <span class="sp-nav-link">Comptes</span>
-                    <span class="sp-nav-link">Épargne</span>
-                    <span class="sp-nav-link">Crédits</span>
-                  </div>
-                </div>
-                <div class="sp-slot" id="slotArea">
-                  <span class="sp-slot-label">SLOT /</span>
-                  <div class="sp-slot-content" id="slotContent">
-                    <span class="slot-empty">Aucun contenu — slot libre</span>
-                  </div>
-                </div>
-              </div>
-              <div class="sp-body">
-                <div class="sp-breadcrumb">Accueil <span>›</span> <span>Mes comptes</span></div>
-                <div class="sp-content">
-                  <div class="sp-content-h">Solde global</div>
-                  <div class="sp-content-p">Le même composant Layout s'adapte à n'importe quel contenu via le slot — sans créer de nouveau variant.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="block" style="margin-top:24px">
+      <div class="block">
         <div class="block-h"><span class="tag">EX.03</span><span class="name">Création de patterns</span></div>
         <div class="block-cols">
           <div class="block-col">
             <div class="label">Contexte</div>
-            <p>Avec l'arrivée des variables, l'automatisation a pris une place importante. Avant, chaque composant devait être configuré manuellement.</p>
+            <p>Avec l'arrivée des variables, l'automatisation a pris une place importante. Avant, chaque composant devait être configuré manuellement : travail long, fastidieux et source d'erreurs.</p>
           </div>
           <div class="block-col">
             <div class="label">Solution</div>
-            <p>Créer des <strong style="color:var(--ink)">patterns</strong> : composants qui intègrent directement les bonnes grilles, espacements et configurations, avec des déclinaisons en un clic.</p>
+            <p>Automatiser l'affichage de chaque composant au format choisi. Pour aller plus loin, créer des <strong style="color:var(--ink)">patterns</strong> : composants qui intègrent directement les bonnes grilles, espacements et configurations, avec des déclinaisons en un clic.</p>
           </div>
           <div class="block-col">
             <div class="label">Bénéfice</div>
-            <p>Composants réactifs aux variables. Maintenance réduite : suppression d'un grand nombre de variants inutiles.</p>
+            <p>Composants réactifs aux variables, plus facilement déclinables. Simplification de la librairie (chaque composant a un périmètre délimité). Maintenance réduite : suppression d'un grand nombre de variants inutiles.</p>
           </div>
         </div>
       </div>
@@ -500,6 +284,7 @@
         <span class="title">Support & accompagnement</span>
         <span class="rule"></span>
       </div>
+
       <div class="block">
         <div class="block-h"><span class="tag">CHANTIER E</span><span class="name">Tutoriels, documentation, formation</span></div>
         <div class="block-cols">
@@ -509,11 +294,11 @@
           </div>
           <div class="block-col">
             <div class="label">Documentation 360°</div>
-            <p>Chaque composant documenté dans Figma, Zeroheight et Storybook. La documentation est adaptée au support : design dans Figma, code dans Storybook.</p>
+            <p>Chaque composant documenté dans Figma, Zeroheight et Storybook. La documentation est adaptée au support : design dans Figma, code dans Storybook, contexte en lecture longue.</p>
           </div>
           <div class="block-col">
             <div class="label">Résultat</div>
-            <p>Les designers se sentent mieux accompagnés et montent en compétence. Une communauté se crée autour du système, renforçant son adoption.</p>
+            <p>Les designers se sentent mieux accompagnés et montent en compétence grâce au DS. Une communauté se crée autour du système, renforçant son adoption. Réduction des délais, équipe plus précise et efficace.</p>
           </div>
         </div>
       </div>
@@ -525,6 +310,7 @@
         <span class="title">Impact mesuré</span>
         <span class="rule"></span>
       </div>
+
       <div class="results-grid">
         <div class="result-stat"><div class="num">40<span class="s">+</span></div><div class="lbl">Designers formés sur le système</div></div>
         <div class="result-stat"><div class="num">280<span class="s">+</span></div><div class="lbl">Tokens de size, source unique</div></div>
@@ -588,13 +374,12 @@
 </main>
 
 <footer class="statusbar">
-  <div class="sb-cell"><span class="sb-k">FILE</span><span>case.sg.v2</span></div>
+  <div class="sb-cell"><span class="sb-k">FILE</span><span>case.sg.v1</span></div>
   <div class="sb-cell"><span class="sb-k">SHEET</span><span>01 / 03</span></div>
   <div class="sb-cell"><span class="sb-k">SCALE</span><span>1:1</span></div>
-  <div class="sb-cell"><span class="sb-k">REV</span><span>Juin 2026</span></div>
+  <div class="sb-cell"><span class="sb-k">REV</span><span>Mai 2026</span></div>
   <div class="sb-cell"><a href="index.html" style="color:var(--accent)">← Retour portfolio</a></div>
 </footer>
-
 <script>
 (function(){
   var h=document.createElement('div'),v=document.createElement('div');
@@ -602,131 +387,6 @@
   document.body.appendChild(h);document.body.appendChild(v);
   window.addEventListener('mousemove',function(e){h.style.top=e.clientY+'px';v.style.left=e.clientX+'px';});
 })();
-
-/* ── Token chain hover ── */
-function highlightToken(id) {
-  document.querySelectorAll('.tc-token').forEach(el => {
-    const aliases = (el.dataset.aliases || '').split(' ');
-    if (aliases.includes(id) || el.dataset.id === id) el.classList.add('tc-highlight');
-  });
-}
-function highlightAlias(el) {
-  const aliases = (el.dataset.aliases || '').split(' ');
-  document.querySelectorAll('.tc-token').forEach(t => {
-    if (aliases.includes(t.dataset.id) || aliases.includes(t.dataset.aliases) || t === el) t.classList.add('tc-highlight');
-  });
-}
-function clearHighlight() {
-  document.querySelectorAll('.tc-token').forEach(el => el.classList.remove('tc-highlight'));
-}
-
-/* ── Theme switcher ── */
-const themes = {
-  client: {
-    topbar: { bg: '#0c0e10', color: '#e8eaed', border: '1px solid #1f2428' },
-    logo: { bg: '#E2010A', color: '#fff' },
-    appname: 'Mes Comptes',
-    card1: { bg: '#14171a', border: '#1f2428', label: '#8b9199', val: '#e8eaed' },
-    card1label: 'COMPTE COURANT',
-    card2: { bg: '#14171a', border: '#E2010A', label: '#8b9199', val: '#e8eaed' },
-    card2label: 'LIVRET A',
-    btn: { bg: '#E2010A', color: '#fff' },
-    badge: { bg: 'rgba(41,135,55,.15)', color: '#298737' },
-    status: 'MODE : CLIENT',
-  },
-  conseiller: {
-    topbar: { bg: '#0d1220', color: '#c8d4f0', border: '1px solid #1a2540' },
-    logo: { bg: '#2F54E0', color: '#fff' },
-    appname: 'Espace Conseiller',
-    card1: { bg: '#111a30', border: '#1a2540', label: '#6878a8', val: '#c8d4f0' },
-    card1label: 'PORTEFEUILLE CLIENT',
-    card2: { bg: '#111a30', border: '#2F54E0', label: '#6878a8', val: '#c8d4f0' },
-    card2label: 'OBJECTIF ÉPARGNE',
-    btn: { bg: '#2F54E0', color: '#fff' },
-    badge: { bg: 'rgba(47,84,224,.15)', color: '#7a9aff' },
-    status: 'MODE : CONSEILLER',
-  }
-};
-
-function setTheme(mode) {
-  const t = themes[mode];
-  const preview = document.getElementById('themePreview');
-  const topbar = document.getElementById('tp-topbar');
-  const logo = document.getElementById('tp-logo');
-
-  preview.style.background = t.topbar.bg;
-  topbar.style.background = t.topbar.bg;
-  topbar.style.color = t.topbar.color;
-  topbar.style.borderBottom = t.topbar.border;
-  logo.style.background = t.logo.bg;
-  logo.style.color = t.logo.color;
-  document.getElementById('tp-appname').style.color = t.topbar.color;
-  document.getElementById('tp-card1-label').textContent = t.card1label;
-  document.getElementById('tp-card2-label').textContent = t.card2label;
-
-  const card1 = document.getElementById('tp-card1');
-  card1.style.background = t.card1.bg;
-  card1.style.borderColor = t.card1.border;
-  document.getElementById('tp-card1-label').style.color = t.card1.label;
-  document.getElementById('tp-card1-val').style.color = t.card1.val;
-
-  const card2 = document.getElementById('tp-card2');
-  card2.style.background = t.card2.bg;
-  card2.style.borderColor = t.card2.border;
-  document.getElementById('tp-card2-label').style.color = t.card2.label;
-  document.getElementById('tp-card2-val').style.color = t.card2.val;
-
-  const btn = document.getElementById('tp-btn');
-  btn.style.background = t.btn.bg;
-  btn.style.color = t.btn.color;
-
-  const badge = document.getElementById('tp-badge');
-  badge.style.background = t.badge.bg;
-  badge.style.color = t.badge.color;
-
-  document.getElementById('themeStatus').textContent = t.status;
-
-  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-}
-
-/* ── Slot switcher ── */
-const slotContents = {
-  none: '<span class="slot-empty">Aucun contenu — slot libre</span>',
-  tabs: `<div class="slot-tabs">
-    <div class="slot-tab-item active">Tous les comptes</div>
-    <div class="slot-tab-item">Épargne</div>
-    <div class="slot-tab-item">Crédits</div>
-    <div class="slot-tab-item">Assurance</div>
-  </div>`,
-  stepper: `<div class="slot-stepper">
-    <div class="slot-step">
-      <div class="slot-step-n done">✓</div>
-      <div class="slot-step-lbl">Identification</div>
-    </div>
-    <div class="slot-step-sep"></div>
-    <div class="slot-step">
-      <div class="slot-step-n current">2</div>
-      <div class="slot-step-lbl">Montant</div>
-    </div>
-    <div class="slot-step-sep"></div>
-    <div class="slot-step">
-      <div class="slot-step-n todo">3</div>
-      <div class="slot-step-lbl">Confirmation</div>
-    </div>
-    <div class="slot-step-sep"></div>
-    <div class="slot-step">
-      <div class="slot-step-n todo">4</div>
-      <div class="slot-step-lbl">Récapitulatif</div>
-    </div>
-  </div>`
-};
-
-function setSlot(type) {
-  document.getElementById('slotContent').innerHTML = slotContents[type];
-  document.querySelectorAll('.step-tab').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-}
 </script>
 </body>
 </html>
