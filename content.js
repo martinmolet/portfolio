@@ -412,7 +412,7 @@ const CONTENT = {
     },
     cases: {
       kicker: '03 — Études de cas',
-      title: 'Mes derniers travaux.',
+      title: '3 environements.',
       items: [
         {
           id: 'sg',

@@ -662,15 +662,26 @@ function CaseRow({ c, open, onToggle }) {
           <div className="case-toggle">{open ? '— close' : '+ open'}</div>
         </div>
       </div>
-      <div className="case-results-always">
-        {c.result.map((r, i) => (
-          <CaseStat key={i} r={r} index={i} start={seen} />
-        ))}
-      </div>
       <div className="case-body">
         <div className="case-inner">
           <CaseBlock label="Context" body={c.context} />
           <CaseBlock label="Problem" body={c.problem} />
+          <div className="case-block">
+            <div className="cb-l"><span>Action</span><span className="cb-rule" /></div>
+            <ul className="case-actions">
+              {c.action.map((a, i) => (
+                <li key={i}><span className="ca-n">{String(i + 1).padStart(2, '0')}</span><span>{a}</span></li>
+              ))}
+            </ul>
+          </div>
+          <div className="case-block">
+            <div className="cb-l"><span>Result</span><span className="cb-rule" /></div>
+            <div className="case-results">
+              {c.result.map((r, i) => (
+                <CaseStat key={i} r={r} index={i} start={open && seen} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </article>
