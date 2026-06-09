@@ -3,11 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ECV Aix-en-Provence — Atomic & Design System | Martin Molet</title>
+<title>ECV Aix-en-Provence · Atomic & Design System | Martin Molet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
+<style>
+.editorial { max-width: 720px; margin: 0 auto; padding: 80px 0 0; }
+.ed-intro { font-size: clamp(17px, 2vw, 22px); color: var(--ink-2); line-height: 1.7; margin-bottom: 64px; font-weight: 300; }
+.ed-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line-2); margin-bottom: 96px; }
+.ed-meta-cell { padding: 20px 24px; border-right: 1px solid var(--line-2); }
+.ed-meta-cell:nth-child(even) { border-right: 0; }
+.ed-meta-cell:nth-child(n+3) { border-top: 1px solid var(--line-2); }
+.ed-meta-k { font-size: 10px; letter-spacing: .22em; color: var(--muted-2); margin-bottom: 6px; }
+.ed-meta-v { font-size: 13px; color: var(--ink); }
+.ed-section { margin-bottom: 96px; }
+.ed-section-label { font-size: 10px; letter-spacing: .28em; color: var(--accent); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+.ed-section-label::after { content: ''; flex: 1; height: 1px; background: var(--line-2); max-width: 48px; }
+.ed-h2 { font-size: clamp(24px, 3vw, 38px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.15; color: var(--ink); margin-bottom: 28px; }
+.ed-body { font-size: 15px; color: var(--ink-2); line-height: 1.8; margin-bottom: 20px; }
+.ed-pull { border-left: 2px solid var(--accent); padding: 4px 0 4px 24px; margin: 40px 0; font-size: 17px; color: var(--ink); line-height: 1.6; font-weight: 400; letter-spacing: -0.01em; }
+.ed-list { list-style: none; padding: 0; margin: 28px 0; }
+.ed-list li { padding: 14px 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-2); line-height: 1.6; display: flex; gap: 16px; }
+.ed-list li:last-child { border-bottom: 1px solid var(--line); }
+.ed-list-n { color: var(--accent); font-size: 11px; min-width: 28px; padding-top: 2px; flex-shrink: 0; }
+.ed-results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line-2); margin-top: 48px; }
+.ed-stat { padding: 28px 20px; border-right: 1px solid var(--line); }
+.ed-stat:last-child { border-right: 0; }
+.ed-stat-n { font-size: clamp(28px, 3.5vw, 44px); font-weight: 500; letter-spacing: -0.04em; color: var(--accent); line-height: 1; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+.ed-stat-n .s { font-size: .55em; }
+.ed-stat-l { font-size: 11px; color: var(--ink-2); line-height: 1.5; }
+.ed-divider { border: 0; border-top: 1px solid var(--line); margin: 80px 0; }
+@media (max-width: 900px) {
+  .editorial { padding: 40px 0 0; }
+  .ed-meta { grid-template-columns: 1fr; }
+  .ed-meta-cell { border-right: 0; border-bottom: 1px solid var(--line-2); }
+  .ed-meta-cell:last-child { border-bottom: 0; }
+  .ed-results { grid-template-columns: repeat(2, 1fr); }
+  .ed-stat:nth-child(2) { border-right: 0; }
+}
+</style>
 </head>
 <body>
 
@@ -15,7 +50,7 @@
   <div class="tb-l">
     <a class="back-link" href="index.html"><span class="arrow">←</span><span>Retour au portfolio</span></a>
   </div>
-  <div class="tb-c"><span class="accent">CASE / ECV</span> · Atomic & Design System · 2025 — 2026</div>
+  <div class="tb-c"><span class="accent">CASE / ECV</span> · Atomic &amp; Design System · 2025 + 2026</div>
   <div class="tb-r">
     <div class="lang-toggle"><button class="on">FR</button></div>
   </div>
@@ -23,6 +58,7 @@
 
 <main>
   <section class="sheet">
+
     <div class="hero">
       <div class="hero-l">
         <div class="case-id">CASE / ECV · M1</div>
@@ -30,186 +66,107 @@
         <p class="summary">Deux ateliers avec des étudiants Master 1 pour apprendre à concevoir et documenter un Design System. Pas de théorie seule : du hands-on et des bases solides pour le travail réel.</p>
       </div>
       <div class="hero-r">
-        <div><span class="k">RÔLE</span><span class="v">Intervenant — Atomic & Design System</span></div>
+        <div><span class="k">RÔLE</span><span class="v">Intervenant · Atomic &amp; Design System</span></div>
         <div><span class="k">PÉRIODE</span><span class="v">Févr. 2025 + Avr. 2026 · 2 promotions</span></div>
         <div><span class="k">COHORTES</span><span class="v">8 étudiants + 6 étudiants</span></div>
         <div><span class="k">FORMAT</span><span class="v">5 jours · hands-on</span></div>
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-h">
-        <span class="num">00</span>
-        <span class="title">Contexte</span>
-        <span class="rule"></span>
-      </div>
-      <div class="intro-grid">
-        <div class="intro-cell">
-          <div class="l">Public</div>
-          <p>Étudiants Master 1 de l'ECV Aix-en-Provence. Bon instinct UI, formation produit déjà engagée. Premier vrai contact avec la pensée système : Atomic Design, tokens, theming, gouvernance, documentation.</p>
-        </div>
-        <div class="intro-cell">
-          <div class="l">Problème pédagogique</div>
-          <p>Sans modèles mentaux solides pour penser système, la cohérence et l'échelle restent des accidents. Le risque : produire de jolis écrans mais ne jamais savoir comment passer de 10 à 100 sans tout casser.</p>
-        </div>
-      </div>
-    </div>
+    <div class="editorial">
 
-    <div class="section">
-      <div class="section-h">
-        <span class="num">01</span>
-        <span class="title">Fondamentaux du Design System</span>
-        <span class="rule"></span>
-      </div>
+      <p class="ed-intro">Des étudiants M1 avec un bon instinct UI, déjà engagés dans une formation produit. Mais sans modèles mentaux pour penser à l'échelle, la cohérence reste un accident. L'objectif : qu'ils soient capables de penser système le lendemain, pas juste de réciter Atomic Design.</p>
 
-      <div class="block">
-        <div class="block-h"><span class="tag">SESSION A</span><span class="name">Comprendre les briques</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Atomic Design</div>
-            <p>Présentation des fondamentaux : atoms → molecules → organisms → templates → pages. Pourquoi cette hiérarchie tient debout dans le travail réel et où elle a ses limites.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Variables & tokens</div>
-            <p>Le rôle des variables dans la cohérence. Différence entre primitives, sémantiques et composant. Comment un token bien nommé documente son propre usage.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Theming</div>
-            <p>Pourquoi le theming est un test de qualité du système : un DS qui ne sait pas thémer est un DS qui n'a pas vraiment de contrat.</p>
-          </div>
+      <div class="ed-meta">
+        <div class="ed-meta-cell">
+          <div class="ed-meta-k">MA CONTRIBUTION</div>
+          <div class="ed-meta-v">Conception pédagogique · Coaching · Notation</div>
+        </div>
+        <div class="ed-meta-cell">
+          <div class="ed-meta-k">FORMAT</div>
+          <div class="ed-meta-v">5 jours intensifs · zéro slide statique</div>
+        </div>
+        <div class="ed-meta-cell">
+          <div class="ed-meta-k">COHORTES</div>
+          <div class="ed-meta-v">Promo 2025 · Promo 2026</div>
+        </div>
+        <div class="ed-meta-cell">
+          <div class="ed-meta-k">LIVRABLE ÉTUDIANT</div>
+          <div class="ed-meta-v">Librairie Figma documentée de A à Z</div>
         </div>
       </div>
-    </div>
 
-    <div class="section">
-      <div class="section-h">
-        <span class="num">02</span>
-        <span class="title">Exercices pratiques</span>
-        <span class="rule"></span>
+      <div class="ed-section">
+        <div class="ed-section-label">01 · FONDAMENTAUX</div>
+        <h2 class="ed-h2">Donner les bons modèles mentaux avant de toucher Figma.</h2>
+        <p class="ed-body">Avant de construire quoi que ce soit, il faut comprendre pourquoi une hiérarchie atomique tient debout dans le travail réel. Atoms, molecules, organisms : pas une taxonomie scolaire, mais une façon de penser la composition et la maintenance.</p>
+        <p class="ed-body">Les variables et tokens arrivent ensuite : différence entre primitives et sémantiques, comment un token bien nommé documente son propre usage. Et le theming comme test de qualité du système : un DS qui ne sait pas thémer n'a pas de vrai contrat.</p>
+        <div class="ed-pull">Un DS qui ne sait pas thémer est un DS qui n'a pas vraiment de contrat.</div>
       </div>
 
-      <div class="block">
-        <div class="block-h"><span class="tag">SESSION B</span><span class="name">Construire sa propre librairie</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Énoncé</div>
-            <p>Chaque étudiant construit sa propre librairie Figma en suivant la structure atomique. Pas un fichier à remplir : une librairie complète, partant des couleurs et finissant aux templates.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Étapes</div>
-            <ul>
-              <li data-n="01">Définir une palette + nommer les tokens sémantiquement</li>
-              <li data-n="02">Construire les atoms (boutons, inputs, labels)</li>
-              <li data-n="03">Composer en molecules (form fields, list items)</li>
-              <li data-n="04">Assembler en organisms (forms, navigation, cards)</li>
-              <li data-n="05">Documenter chaque composant : usages, règles, contraintes</li>
-            </ul>
-          </div>
-          <div class="block-col">
-            <div class="label">Coaching</div>
-            <p>Revues individuelles courtes pour débloquer, valider les choix de nommage, pointer les pièges classiques (composant trop large, token trop spécifique, doc trop technique).</p>
-          </div>
+      <hr class="ed-divider">
+
+      <div class="ed-section">
+        <div class="ed-section-label">02 · LIBRAIRIE</div>
+        <h2 class="ed-h2">Chaque étudiant construit sa propre librairie Figma de A à Z.</h2>
+        <p class="ed-body">Pas un fichier à remplir. Une librairie complète, partant des couleurs primitives et finissant aux templates. L'exercice force à se confronter à des vrais choix : comment nommer un token, où placer la limite d'un composant, quoi documenter.</p>
+        <ul class="ed-list">
+          <li><span class="ed-list-n">01</span>Définir une palette et nommer les tokens sémantiquement</li>
+          <li><span class="ed-list-n">02</span>Construire les atoms : boutons, inputs, labels</li>
+          <li><span class="ed-list-n">03</span>Composer en molecules : form fields, list items</li>
+          <li><span class="ed-list-n">04</span>Assembler en organisms : forms, navigation, cards</li>
+          <li><span class="ed-list-n">05</span>Documenter chaque composant : usages, règles, contraintes</li>
+        </ul>
+        <p class="ed-body">Des revues individuelles courtes permettent de débloquer, valider les choix de nommage et pointer les pièges classiques : composant trop large, token trop spécifique, doc trop technique.</p>
+      </div>
+
+      <hr class="ed-divider">
+
+      <div class="ed-section">
+        <div class="ed-section-label">03 · MODULARITÉ</div>
+        <h2 class="ed-h2">Décomposer un composant existant pour comprendre ce qui doit être un token, un slot, une prop.</h2>
+        <p class="ed-body">On prend un composant complexe déjà existant : carte produit, modal multi-étapes. On le démonte. On identifie ce qui doit rester fixe, ce qui doit être flexible, ce qui doit être piloté par token.</p>
+        <div class="ed-pull">Un composant trop intelligent devient impossible à maintenir. La modularité paie sur le long terme.</div>
+        <p class="ed-body">Chaque étudiant repart avec une version refactorisée et une note justifiant les choix de découpe. Pas une correction : une conversation sur les arbitrages.</p>
+      </div>
+
+      <hr class="ed-divider">
+
+      <div class="ed-section">
+        <div class="ed-section-label">04 · DOCUMENTATION</div>
+        <h2 class="ed-h2">Documenter ce qui rend un composant utilisable par quelqu'un qui n'était pas dans la pièce.</h2>
+        <p class="ed-body">La doc n'est pas une formalité. C'est ce qui transforme un composant en outil partageable. Sans doc, un DS reste un musée privé que seul son auteur sait naviguer.</p>
+        <ul class="ed-list">
+          <li><span class="ed-list-n">01</span>Usage : quand utiliser, quand éviter</li>
+          <li><span class="ed-list-n">02</span>Bonnes pratiques avec exemples visuels valides et invalides</li>
+          <li><span class="ed-list-n">03</span>Règles de cohérence : alignement, espacement, contenu</li>
+          <li><span class="ed-list-n">04</span>Variantes : combinaisons valides uniquement</li>
+          <li><span class="ed-list-n">05</span>Tokens utilisés : pour permettre le théming</li>
+        </ul>
+      </div>
+
+      <hr class="ed-divider">
+
+      <div class="ed-section">
+        <div class="ed-section-label">05 · PÉDAGOGIE</div>
+        <h2 class="ed-h2">Échange et pratique. Jamais plus de 10 minutes de slides statiques.</h2>
+        <p class="ed-body">5 jours par cohorte, alternés entre présentation courte, démonstration live et mise en pratique immédiate. Les questions sont encouragées, les contre-exemples valorisés. Les étudiants apportent leurs propres projets comme cas d'étude vivants.</p>
+        <p class="ed-body">L'objectif n'est pas de sortir des bases scolaires : c'est de sortir des bases applicables. Des bases qui tiennent dans un vrai projet, avec de vrais arbitrages et de vrais délais.</p>
+      </div>
+
+      <hr class="ed-divider">
+
+      <div class="ed-section">
+        <div class="ed-section-label">06 · IMPACT</div>
+        <h2 class="ed-h2">2 promotions · 14 étudiants · 14 librairies documentées livrées.</h2>
+        <div class="ed-results">
+          <div class="ed-stat"><div class="ed-stat-n">2</div><div class="ed-stat-l">Promotions formées</div></div>
+          <div class="ed-stat"><div class="ed-stat-n">14</div><div class="ed-stat-l">Étudiants M1</div></div>
+          <div class="ed-stat"><div class="ed-stat-n">14</div><div class="ed-stat-l">DS documentés livrés</div></div>
+          <div class="ed-stat"><div class="ed-stat-n">5<span class="s"> j</span></div><div class="ed-stat-l">Format intensif reproductible</div></div>
         </div>
       </div>
-    </div>
 
-    <div class="section">
-      <div class="section-h">
-        <span class="num">03</span>
-        <span class="title">Modularité & réutilisabilité</span>
-        <span class="rule"></span>
-      </div>
-
-      <div class="block">
-        <div class="block-h"><span class="tag">SESSION C</span><span class="name">Décomposer pour mieux composer</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Exercice</div>
-            <p>Prendre un composant existant complexe (carte produit, modal multi-étapes) et le décomposer en briques plus petites. Identifier ce qui doit être un token, ce qui doit être un slot, ce qui doit rester en prop.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Apprentissage</div>
-            <p>Un composant trop "intelligent" devient impossible à maintenir. La modularité paie sur le long terme : moins de variants, plus de réutilisation, moins de drift.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Livrable</div>
-            <p>Chaque étudiant repart avec une version refactorisée de son composant, accompagnée d'une note explicative justifiant les choix de découpe.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-h">
-        <span class="num">04</span>
-        <span class="title">Documentation</span>
-        <span class="rule"></span>
-      </div>
-
-      <div class="block">
-        <div class="block-h"><span class="tag">SESSION D</span><span class="name">Documenter ce qui compte</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Principe</div>
-            <p>La doc n'est pas une formalité. C'est ce qui rend un composant utilisable par quelqu'un qui n'était pas dans la pièce quand on l'a conçu. Sans doc, un DS reste un musée privé.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Structure attendue</div>
-            <ul>
-              <li data-n="01">Usage — quand utiliser, quand éviter</li>
-              <li data-n="02">Bonnes pratiques — exemples ✓ / ✗</li>
-              <li data-n="03">Règles de cohérence — alignement, espacement, contenu</li>
-              <li data-n="04">Variantes — combinaisons valides uniquement</li>
-              <li data-n="05">Tokens utilisés — pour permettre le théming</li>
-            </ul>
-          </div>
-          <div class="block-col">
-            <div class="label">Livrable</div>
-            <p>Documentation complète pour chaque composant produit, dans Figma ou en MDX selon le profil de l'étudiant. Notation et feedback détaillé en fin de session.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-h">
-        <span class="num">05</span>
-        <span class="title">Pédagogie</span>
-        <span class="rule"></span>
-      </div>
-
-      <div class="block">
-        <div class="block-h"><span class="tag">MÉTHODE</span><span class="name">Échange + pratique, pas slides + écoute</span></div>
-        <div class="block-cols">
-          <div class="block-col">
-            <div class="label">Format</div>
-            <p>5 jours par cohorte, alternés entre présentation courte, démonstration live et mise en pratique. Aucun slide statique pendant plus de 10 minutes.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Posture</div>
-            <p>Open discussion. Questions encouragées, contre-exemples valorisés. Les étudiants apportent leurs propres projets pour servir de cas d'étude vivants.</p>
-          </div>
-          <div class="block-col">
-            <div class="label">Objectif</div>
-            <p>Ne pas sortir des "bases scolaires" : sortir des bases <strong style="color:var(--ink)">applicables</strong>. Que les étudiants soient capables de penser système le lendemain, pas juste de réciter Atomic Design.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-h">
-        <span class="num">06</span>
-        <span class="title">Impact mesuré</span>
-        <span class="rule"></span>
-      </div>
-
-      <div class="results-grid">
-        <div class="result-stat"><div class="num">2</div><div class="lbl">Années consécutives, deux promotions</div></div>
-        <div class="result-stat"><div class="num">14</div><div class="lbl">Étudiants M1 formés de bout en bout</div></div>
-        <div class="result-stat"><div class="num">14</div><div class="lbl">Design systems documentés livrés</div></div>
-        <div class="result-stat"><div class="num">5<span class="s"> j</span></div><div class="lbl">Format intensif, reproductible</div></div>
-      </div>
     </div>
 
     <div class="related">
@@ -235,7 +192,7 @@
         <span class="rule"></span>
       </div>
       <div class="contact">
-        <p class="contact-sub">Idéal : poste de Lead Design System CDI (remote) ou mission freelance ciblée — audit système, déploiement, structuration des ops.</p>
+        <p class="contact-sub">Idéal : poste de Lead Design System CDI (remote) ou mission freelance ciblée.</p>
         <div class="contact-grid">
           <a class="contact-row is-link" href="https://www.linkedin.com/in/mmolet" target="_blank" rel="noopener noreferrer">
             <span class="cr-id">CH.01</span>
@@ -251,22 +208,23 @@
         </div>
         <div class="contact-avail">
           <span class="ca-dot"></span>
-          <span>Disponibilité freelance — T3 2026</span>
+          <span>Disponibilité freelance T3 2026</span>
         </div>
         <div class="signoff">
-          <div>— Martin Molet</div>
+          <div>Martin Molet</div>
           <div class="so-sub">Product Designer · Design System &amp; Design Ops</div>
         </div>
       </div>
     </div>
+
   </section>
 </main>
 
 <footer class="statusbar">
-  <div class="sb-cell"><span class="sb-k">FILE</span><span>case.ecv.v1</span></div>
+  <div class="sb-cell"><span class="sb-k">FILE</span><span>case.ecv.v2</span></div>
   <div class="sb-cell"><span class="sb-k">SHEET</span><span>03 / 03</span></div>
   <div class="sb-cell"><span class="sb-k">SCALE</span><span>1:1</span></div>
-  <div class="sb-cell"><span class="sb-k">REV</span><span>Mai 2026</span></div>
+  <div class="sb-cell"><span class="sb-k">REV</span><span>Juin 2026</span></div>
   <div class="sb-cell"><a href="index.html" style="color:var(--accent)">← Retour portfolio</a></div>
 </footer>
 <script>
