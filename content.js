@@ -324,36 +324,36 @@ const CONTENT = {
     },
     home: {
       kicker: '01 — Sommaire',
-      title: 'J\'aide les équipes à\nscale\nleur DS.',
-      sub: '8 ans de Product Design, spécialisé design system et design ops. De l\'e-commerce à la banque retail, je transmets aux équipes une façon de travailler — pas seulement des composants.',
+      title: 'Je construis les systèmes\nqui permettent aux équipes\nde travailler mieux.',
+      sub: '8 ans de Product Design, spécialisé design system et design ops. De l\'e-commerce à la banque retail, je laisse aux équipes une façon de travailler, pas juste des composants.',
       cta1: 'Voir les études',
       cta2: 'Me contacter',
       metrics: [
-        { value: 40, suffix: '+', label: 'Designers formés sur le système Société Générale', note: 'Ateliers, open hours, tutoriels et guides écrits — de l\'adoption, pas de l\'imposition.' },
-        { value: 2, suffix: ' → 1', label: 'Design systems fusionnés en une seule librairie', note: 'Systèmes client + conseiller réunis, avec des modes dédiés. Moins de doublons, moins de dérive.' },
+        { value: 40, suffix: '+', label: 'Designers formés sur le système Société Générale', note: 'Ateliers, open hours, tutoriels et guides écrits. De l\'adoption, pas de l\'imposition.' },
+        { value: 2, suffix: ' → 1', label: 'Design systems fusionnés en une seule librairie', note: 'Systèmes client et conseiller réunis, avec des modes dédiés. Moins de doublons, moins de dérive.' },
         { value: 8, suffix: '+', label: 'Ans à livrer des systèmes en production', note: '7 sites e-commerce, banque retail, mobile gaming, souscription telecom.' },
       ],
     },
     work: {
-      kicker: '02 — Practices',
-      title: 'Quatre practices,\nun seul modèle opérationnel.',
-      sub: 'Je traite le design comme une infrastructure. Chaque practice est une couche de cette pile.',
+      kicker: '02 — Pratiques',
+      title: 'Quatre pratiques,\nun seul fil conducteur.',
+      sub: 'Je traite le design comme une infrastructure. Chaque pratique est une couche de cette pile.',
       sections: [
         {
           id: 'ds',
           tag: 'A',
           title: 'Design System',
-          oneLiner: 'Une librairie, ce n\'est pas un système. Le système, c\'est le contrat.',
+          oneLiner: 'Une librairie, c\'est pas un système. Le système, c\'est le contrat.',
           method: [
-            'Auditer les librairies existantes — composants, tokens, dérives, dette',
-            'Définir le contrat — nommage, structure, gouvernance',
-            'Tokeniser par le bas — primitives → sémantique → composant',
+            'Auditer les librairies existantes : composants, tokens, dérives, dette',
+            'Définir le contrat : nommage, structure, gouvernance',
+            'Tokeniser par le bas : primitives → sémantique → composant',
             'Migrer par vagues, jamais d\'un seul bloc',
             'Mesurer l\'adoption, pas la production',
           ],
           proof: [
             { k: 'Refonte Figma', v: 'Librairies Société Générale restructurées pour la lisibilité, la maintenabilité et l\'adoption.' },
-            { k: 'Variables & tokens', v: 'Déclinaisons desktop / mobile automatisées. Les erreurs manuelles tombent à zéro.' },
+            { k: 'Variables et tokens', v: 'Déclinaisons desktop / mobile automatisées. Les erreurs manuelles tombent à zéro.' },
             { k: '2 → 1 système', v: 'Systèmes client et conseiller réunis en une seule librairie avec modes dédiés.' },
           ],
         },
@@ -361,24 +361,24 @@ const CONTENT = {
           id: 'ops',
           tag: 'B',
           title: 'Design Ops',
-          oneLiner: 'Le bon chemin doit être le chemin naturel.',
+          oneLiner: 'Le bon chemin doit être le chemin le plus simple.',
           method: [
             'Cartographier le cycle design de bout en bout',
-            'Repérer les frictions — handoffs, revues, nommage, fichiers',
+            'Repérer les frictions : handoffs, revues, nommage, fichiers',
             'Standardiser ce qui doit l\'être, laisser de la liberté sur le reste',
-            'Documenter usages, règles et contraintes — pour designers et devs',
-            'Animer des open hours pour que le système reste une conversation vivante',
+            'Documenter usages, règles et contraintes pour designers et devs',
+            'Animer des open hours pour que le système reste vivant',
           ],
           proof: [
-            { k: 'Documentation opérationnelle', v: 'Composants documentés avec usages, règles et contraintes — sécurisés pour designers et développeurs.' },
-            { k: 'Automatisation des workflows', v: 'Migration Sketch → Figma chez Orange, avec un UI Kit entièrement refait.' },
-            { k: 'Theming multi-modes', v: 'Switch light / dark livré sur l\'app mobile FDJ, piloté par tokens.' },
+            { k: 'Documentation opérationnelle', v: 'Composants documentés avec usages, règles et contraintes pour designers et développeurs.' },
+            { k: 'Automatisation', v: 'Migration Sketch → Figma chez Orange, avec un UI Kit entièrement refait.' },
+            { k: 'Theming multi-modes', v: 'Switch light / dark livré sur l\'app FDJ, piloté par tokens.' },
           ],
         },
         {
           id: 'ai',
           tag: 'C',
-          title: 'Design AI',
+          title: 'Design et IA',
           oneLiner: 'Pas de hype. Du levier là où le système existe déjà.',
           method: [
             'Utiliser le design system comme grammaire de l\'IA',
@@ -389,13 +389,13 @@ const CONTENT = {
           proof: [
             { k: 'Auto-documentation', v: 'Props → MDX + exemples d\'usage, générés à chaque merge.' },
             { k: 'Assistant design', v: 'Helper Figma qui associe les calques libres aux tokens existants.' },
-            { k: 'Génération accélérée', v: 'Des écrans complets depuis un brief — en quelques minutes, pas en heures.' },
+            { k: 'Génération accélérée', v: 'Des écrans complets depuis un brief en quelques minutes.' },
           ],
         },
         {
           id: 'teach',
           tag: 'D',
-          title: 'Transmission · Mentorat',
+          title: 'Transmission et mentorat',
           oneLiner: 'Un système se transmet par les gens, pas par les fichiers.',
           method: [
             'Workshops calés sur le rôle, pas sur le niveau',
@@ -404,7 +404,7 @@ const CONTENT = {
             'Documenter le pourquoi, pas seulement le comment',
           ],
           proof: [
-            { k: 'ECV Aix-en-Provence', v: 'Atelier M1 — Atomic Design, variables, tokens, documentation, theming.' },
+            { k: 'ECV Aix-en-Provence', v: 'Atelier M1 : Atomic Design, variables, tokens, documentation, theming.' },
             { k: '40+ designers formés', v: 'Ateliers, open hours, tutoriels et guides écrits chez Société Générale.' },
             { k: 'Exercice fil rouge', v: 'Reprendre un bouton legacy et le rendre token-driven, accessible, thémé.' },
           ],
@@ -412,8 +412,8 @@ const CONTENT = {
       ],
     },
     cases: {
-      kicker: '03 — Études de cas',
-      title: '3 environements.',
+      kicker: '03 — Mes derniers travaux',
+      title: 'Mes derniers travaux.',
       items: [
         {
           id: 'sg',
