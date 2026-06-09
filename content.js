@@ -423,7 +423,7 @@ const CONTENT = {
           period: 'Mars 2024 — Sept. 2025',
           summary: 'Refonte et unification des librairies Figma pour la banque retail — une source unique pour le client et le conseiller.',
           context: 'Deux design systems en parallèle — un pour l\'app client, un pour l\'outillage conseiller. La dérive s\'accumulait. Les designers passaient plus de temps à se recaler sur les specs qu\'à concevoir. Les devs reconstruisaient des composants au lieu de les réutiliser.',
-          problem: 'Pas de contrat partagé. Des librairies dupliquées, difficiles à naviguer et à maintenir. Une adoption inégale selon les équipes. Aucune gouvernance documentée.',
+          problem: 'Pas de règles communes. Des librairies dupliquées, difficiles à naviguer et à maintenir. Une adoption inégale selon les équipes. Aucune gouvernance documentée.',
           action: [
             'Réorganisation des librairies Figma — classement alphabétique aligné sur Storybook',
             '280+ tokens de taille et 230+ tokens de couleur — une librairie, plusieurs modes',
