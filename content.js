@@ -324,7 +324,7 @@ const CONTENT = {
     },
     home: {
       kicker: '01 — Sommaire',
-      title: 'Je construis les systèmes\nqui permettent aux équipes\nde travailler mieux.',
+      title: 'Je construis les systèmes\nqui font scaler\nvos équipes design.',
       sub: '8 ans de Product Design, spécialisé design system et design ops. De l\'e-commerce à la banque retail, je laisse aux équipes une façon de travailler, pas juste des composants.',
       cta1: 'Voir les études',
       cta2: 'Me contacter',
