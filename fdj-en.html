@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Française des Jeux × Devoteam — System Designer | Martin Molet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="alternate" hreflang="fr" href="fdj.html">
+<link rel="alternate" hreflang="en" href="fdj-en.html">
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a class="back" href="index.html?lang=en#cases"><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M10 6H2M5.5 2.5L2 6l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg><span>All case studies</span></a>
+    <a class="brand" href="index.html?lang=en">Martin Molet</a>
+    <div class="nav-r">
+      <div class="lang" role="group" aria-label="Language"><a class="lang-opt" href="fdj.html" hreflang="fr" lang="fr" aria-label="Français"><svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#0055A4"/><rect x="1" width="1" height="2" fill="#FFFFFF"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg><span>FR</span></a><a class="lang-opt" href="fdj-en.html" hreflang="en" lang="en" aria-current="true" aria-label="English"><svg class="flag" viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="uk-t"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#FFFFFF" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#FFFFFF" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg><span>EN</span></a></div>
+      <a class="btn btn-primary btn-sm" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-top reveal">
+        <span class="tag tag-red">Mobile gaming</span>
+        <span class="eyebrow">Case study 03 / 03</span>
+      </div>
+      <h1 class="hero-title reveal" style="--i:1"><span>Française des Jeux</span><span><span class="x">×</span> Devoteam</span></h1>
+      <p class="hero-sum reveal" style="--i:2">From designer to system referent: rebuilding the mobile Figma library, automating variants and shipping a token-driven light/dark switch.</p>
+      <figure class="fig fig-hero reveal"><div class="fig-box">
+<div class="phones">
+  <div class="phone-col"><div class="phone"><div class="screen">
+  <div class="ph-status"><i></i><i></i></div>
+  <div class="ph-title">Tonight’s draw</div>
+  <div class="ph-card"><span class="ph-lbl">Your numbers</span><div class="balls"><span>7</span><span>12</span><span>23</span><span>31</span><span>44</span></div></div>
+  <div class="ph-card"><span class="ph-sk"></span><span class="ph-sk" style="width:60%"></span></div>
+  <div class="ph-card"><span class="ph-lbl">Next draw</span><span class="ph-sk" style="width:80%"></span><span class="ph-sk" style="width:45%"></span></div>
+  <div class="ph-btn">Confirm</div>
+  <div class="ph-nav"><i></i><i></i><i></i><i></i></div>
+</div></div><span class="lbl">mode · light</span></div>
+  <div class="phone-col"><div class="phone dark"><div class="screen">
+  <div class="ph-status"><i></i><i></i></div>
+  <div class="ph-title">Tonight’s draw</div>
+  <div class="ph-card"><span class="ph-lbl">Your numbers</span><div class="balls"><span>7</span><span>12</span><span>23</span><span>31</span><span>44</span></div></div>
+  <div class="ph-card"><span class="ph-sk"></span><span class="ph-sk" style="width:60%"></span></div>
+  <div class="ph-card"><span class="ph-lbl">Next draw</span><span class="ph-sk" style="width:80%"></span><span class="ph-sk" style="width:45%"></span></div>
+  <div class="ph-btn">Confirm</div>
+  <div class="ph-nav"><i></i><i></i><i></i><i></i></div>
+</div></div><span class="lbl">mode · dark</span></div>
+</div>
+<div class="tok-strip">
+  <span class="tkn"><span class="duo"><i style="background:#F7F6F3"></i><i style="background:#161719"></i></span>color.bg</span>
+  <span class="tkn"><span class="duo"><i style="background:#FFFFFF"></i><i style="background:#222325"></i></span>color.surface</span>
+  <span class="tkn"><span class="duo"><i style="background:#111111"></i><i style="background:#EDEDEA"></i></span>color.text</span>
+  <span class="tkn"><span class="duo"><i style="background:#FBF3DB"></i><i style="background:#3A3320"></i></span>color.highlight</span>
+</div></div><figcaption><b>Fig. 1</b><span>The same screen, two modes. Only the token values change.</span></figcaption></figure>
+      <div class="card facts reveal" style="--i:3">
+          <div class="fact"><div class="fact-k">Role</div><div class="fact-v">Consultant Product Designer · System Designer</div></div>
+          <div class="fact"><div class="fact-k">Period</div><div class="fact-v">Jul 2022 · Dec 2023 · 17 months</div></div>
+          <div class="fact"><div class="fact-k">Product</div><div class="fact-v">FDJ mobile app</div></div>
+          <div class="fact"><div class="fact-k">Stack</div><div class="fact-v">Figma · Variables · iOS · Android</div></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="intro">
+    <div class="wrap intro-grid">
+      <div class="eyebrow">Context</div>
+      <div>
+        <p class="lede reveal">A mobile gaming app with a fragmented Figma library. Variants maintained by hand, screen by screen. No theming contract: color, spacing and typography each lived their own life. Light/dark was impossible to ship without a tokenized foundation.</p>
+        <div class="card scope reveal" style="--i:1">
+            <div class="scope-cell"><div class="fact-k">My contribution</div><div class="fact-v">Product design · Library rebuild · Tokens · Light/dark</div></div>
+            <div class="scope-cell"><div class="fact-k">Progression</div><div class="fact-v">Contributing designer, then system referent</div></div>
+            <div class="scope-cell"><div class="fact-k">Scope</div><div class="fact-v">Mobile app · iOS · Android</div></div>
+            <div class="scope-cell"><div class="fact-k">Duration</div><div class="fact-v">17 months</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="chapters">
+    <div class="wrap">
+      <section class="chapter">
+        <div class="ch-label"><div class="ch-num">01</div><div class="ch-name">Product design</div></div>
+        <div class="ch-body reveal">
+        <h2>Designing and improving the flows before touching the system.</h2>
+        <p>System work didn’t happen in a silo. Alongside the library work, I designed and iterated on the mobile app’s flows. A screen-by-screen audit, spotting recurring friction, iterating with product and dev.</p>
+        <figure class="fig reveal"><div class="fig-box"><div class="screens"><div><div class="mini"><span class="sk" style="width:50%"></span><div class="blk" style="height:30%"></div><span class="sk"></span><span class="sk" style="width:70%"></span></div><span class="lbl">01 Home</span></div><div><div class="mini"><span class="sk" style="width:60%"></span><div class="g2"><i></i><i></i><i></i><i></i></div></div><span class="lbl">02 Games</span></div><div><div class="mini"><span class="sk" style="width:40%"></span><div class="g5"><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i></div><div class="cta"></div></div><span class="lbl">03 Grid</span></div><div><div class="mini"><div class="ok"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3L13 5" stroke="currentColor" stroke-width="2"/></svg></div><span class="sk" style="width:70%;margin:0 auto"></span><span class="sk" style="width:50%;margin:0 auto"></span><div class="cta"></div></div><span class="lbl">04 Validation</span></div></div></div><figcaption><b>Fig. 2</b><span>Screen-by-screen audit of the app’s key flows. Illustrative wireframes.</span></figcaption></figure>
+        <p>That deep product knowledge was the foundation of the whole system rebuild. You can’t tokenize well what you don’t really understand.</p>
+        </div>
+      </section>
+      <section class="chapter">
+        <div class="ch-label"><div class="ch-num">02</div><div class="ch-name">System referent</div></div>
+        <div class="ch-body reveal">
+        <h2>The move from designer to referent came from proving value, not asking for a title.</h2>
+        <p>First a contributing designer, then the clear entry point for every system question on the mobile app. Keeping visual consistency, tooling the design/dev workflow, guaranteeing the quality of shipped components.</p>
+        <figure class="fig reveal"><div class="fig-box"><div class="hub" role="img" aria-label="The DS referent at the center, connected to designers, developers, product owners and the library">
+<svg viewBox="0 0 420 220">
+  <line x1="210" y1="110" x2="70" y2="37"/><line x1="210" y1="110" x2="350" y2="37"/>
+  <line x1="210" y1="110" x2="70" y2="183"/><line x1="210" y1="110" x2="350" y2="183"/>
+  <g class="n c"><rect x="145" y="87" width="130" height="46" rx="8"/><text x="159" y="107">DS referent</text><text class="s" x="159" y="122">entry point</text></g>
+  <g class="n"><rect x="8" y="14" width="124" height="46" rx="8"/><text x="22" y="34">Designers</text><text class="s" x="22" y="49">system questions</text></g>
+  <g class="n"><rect x="288" y="14" width="124" height="46" rx="8"/><text x="302" y="34">Developers</text><text class="s" x="302" y="49">iOS · Android</text></g>
+  <g class="n"><rect x="8" y="160" width="124" height="46" rx="8"/><text x="22" y="180">Product Owners</text><text class="s" x="22" y="195">prioritization</text></g>
+  <g class="n"><rect x="288" y="160" width="124" height="46" rx="8"/><text x="302" y="180">Library</text><text class="s" x="302" y="195">shipped quality</text></g>
+</svg></div></div><figcaption><b>Fig. 3</b><span>A single entry point for every system question.</span></figcaption></figure>
+        <blockquote class="pull">One clear entry point for system questions. A team that knows who to talk to when a component needs to evolve.</blockquote>
+        <p>No more orphans, no more silent drift. The DS seen as a team tool rather than a repository people check reluctantly.</p>
+        </div>
+      </section>
+      <section class="chapter">
+        <div class="ch-label"><div class="ch-num">03</div><div class="ch-name">Figma library</div></div>
+        <div class="ch-body reveal">
+        <h2>A full rebuild: automated variants, tokens, light/dark switch.</h2>
+        <p>Variants were maintained by hand: for each component, as many copies as there were states, sizes and themes. Maintenance exploded with every new need. Adding a color meant editing dozens of files.</p>
+        <figure class="fig reveal"><div class="fig-box">
+<div class="ba wide-r">
+  <div><div class="lbl">Before · one copy per state, size and theme</div><div class="copies"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+  <div class="arr" aria-hidden="true"><svg viewBox="0 0 28 12" fill="none"><path d="M0 6h26M21 1l5 5-5 5" stroke="currentColor" stroke-width="1.4"/></svg></div>
+  <div class="win "><div class="win-bar"><i></i><i></i><i></i><span>Button · properties</span></div><div class="win-body"><div class="props">
+    <div class="prop"><span class="lbl">State</span><div class="seg"><span class="on">Default</span><span>Hover</span><span>Disabled</span></div></div>
+    <div class="prop"><span class="lbl">Size</span><div class="seg"><span>S</span><span class="on">M</span><span>L</span></div></div>
+    <div class="prop"><span class="lbl">Mode</span><div class="seg"><span class="on">Light</span><span>Dark</span></div></div>
+    <div class="prop-preview"><span class="mc-btn">Confirm</span></div>
+  </div></div></div>
+</div></div><figcaption><b>Fig. 4</b><span>Hand-maintained copies replaced by one component with properties.</span></figcaption></figure>
+        <ul class="list">
+            <li><span class="list-n">01</span><span>Variants automated with Figma variables</span></li>
+            <li><span class="list-n">02</span><span>Color, size, typography and radius tokens</span></li>
+            <li><span class="list-n">03</span><span>Light/dark switch in a single mode change</span></li>
+            <li><span class="list-n">04</span><span>Components rebuilt with slots for flexibility</span></li>
+            <li><span class="list-n">05</span><span>Documentation aligned with developers</span></li>
+          </ul>
+        <blockquote class="pull">100% of variants automated. One library instead of parallel copies. 3× design velocity on new screens.</blockquote>
+        </div>
+      </section>
+      <section class="chapter">
+        <div class="ch-label"><div class="ch-num">04</div><div class="ch-name">Collaboration</div></div>
+        <div class="ch-body reveal">
+        <h2>A DS isn’t held together by Figma files alone.</h2>
+        <p>It holds through the ongoing conversation between the designers who build it, the developers who ship it and the POs who prioritize it. Cross design/dev reviews before merge, a weekly sync with eng and product leads, documentation shared between Figma and code.</p>
+        <figure class="fig reveal"><div class="fig-box">
+<div class="steps">
+  <div class="node">Design<small>Figma</small></div>
+  <div class="node">Cross review<small>design + dev</small></div>
+  <div class="node">Merge<small>component shipped</small></div>
+  <div class="node dark">Documentation<small>Figma + code</small></div>
+</div>
+<div class="loop-back"><span class="lbl">weekly sync · eng + product</span></div></div><figcaption><b>Fig. 5</b><span>Cross reviews before merge, documentation shared between Figma and code.</span></figcaption></figure>
+        <p>The result: components land cleanly in code, with no surprises. Fewer post-release fix tickets.</p>
+        </div>
+      </section>
+      <section class="chapter is-impact">
+        <div class="ch-label"><div class="ch-num">05</div><div class="ch-name">Impact</div></div>
+        <div class="ch-body reveal">
+        <h2>17 months · light/dark shipped · 3× velocity.</h2>
+        <div class="results">
+            <div class="card result reveal" style="--i:0"><div class="result-n"><span data-count="1">1</span></div><div class="result-l">Light/dark mode shipped</div></div>
+            <div class="card result reveal" style="--i:1"><div class="result-n"><span data-count="100">100</span><span class="s">%</span></div><div class="result-l">Variants automated</div></div>
+            <div class="card result reveal" style="--i:2"><div class="result-n"><span data-count="3">3</span><span class="s">×</span></div><div class="result-l">Design velocity</div></div>
+            <div class="card result reveal" style="--i:3"><div class="result-n"><span data-count="17">17</span><span class="s"> mo</span></div><div class="result-l">System referent</div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="related">
+    <div class="wrap">
+      <div class="related-h"><span class="eyebrow">Other case studies</span><a class="back" href="index.html?lang=en#cases"><span>See all</span><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg></a></div>
+      <div class="related-grid">
+          <a class="card rel reveal" style="--i:0" href="sg-en.html">
+            <span class="tag tag-blue">Retail banking</span>
+            <div class="rel-name"><span>Société Générale × Devoteam</span><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg></div>
+            <p class="rel-sub">Scaling the AVENIR DS for retail banking.</p>
+          </a>
+          <a class="card rel reveal" style="--i:1" href="ecv-en.html">
+            <span class="tag tag-yellow">Teaching</span>
+            <div class="rel-name"><span>ECV Aix-en-Provence</span><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg></div>
+            <p class="rel-sub">Two M1 cohorts trained on Atomic Design &amp; tokens.</p>
+          </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-wrap" id="contact">
+    <div class="wrap">
+      <div class="card contact reveal">
+        <div>
+          <span class="eyebrow">Contact</span>
+          <h2 class="contact-title">Let’s work together.</h2>
+          <p class="contact-sub">Best fit: a Lead Design System permanent role (remote), or a focused freelance mission: system audit, rollout, ops setup.</p>
+        </div>
+        <div>
+          <a class="contact-row" href="https://www.linkedin.com/in/mmolet" target="_blank" rel="noopener noreferrer"><span class="k">LinkedIn</span><span class="v">linkedin.com/in/mmolet<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg></span></a>
+          <div class="contact-row"><span class="k">Location</span><span class="v">Marseille or remote</span></div>
+          <div class="contact-row"><span class="k">Availability</span><span class="tag tag-green"><span class="tag-dot"></span>ASAP</span></div>
+          <a class="btn btn-primary contact-cta" href="https://www.linkedin.com/in/mmolet" target="_blank" rel="noopener noreferrer">Message me on LinkedIn<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <a href="index.html?lang=en">Martin Molet · Product Designer · Design System &amp; Design Ops</a>
+    <span>Case study 03 / 03</span>
+  </div>
+</footer>
+
+<script src="case.js"></script>
+</body>
+</html>

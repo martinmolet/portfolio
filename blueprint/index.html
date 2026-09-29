@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Martin Molet — Lead Design System & Design Ops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../content.js"></script>
+
+<script type="text/babel">
+
+// tweaks-panel.jsx — inlined to avoid file:// XHR restriction
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;overflow-wrap:anywhere}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+  .twk-num{display:flex;align-items:center;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+`;
+
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*'); } catch(e) {}
+  }, []);
+  return [values, setTweak];
+}
+
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch(e) {}
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    try { window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); } catch(e) {}
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = { x: startRight - (ev.clientX - sx), y: startBottom - (ev.clientY - sy) };
+      clampToViewport();
+    };
+    const up = () => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks" onMouseDown={(e) => e.stopPropagation()} onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+function TweakSection({ label, children }) {
+  return <><div className="twk-sect">{label}</div>{children}</>;
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value} onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => { if (!trackRef.current) return; const v = segAt(ev.clientX); if (v !== valueRef.current) onChange(v); };
+    const up = () => { setDragging(false); window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`, width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>{o.label}</button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakColor({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <input type="color" className="twk-swatch" value={value} onChange={(e) => onChange(e.target.value)} />
+    </div>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'} onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakColor, TweakButton,
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// app.jsx — inlined to avoid file:// XHR restriction
+// ─────────────────────────────────────────────────────────────────────────────
+
+const { useState, useEffect, useRef, useMemo, useCallback } = React;
+
+const TWEAK_DEFAULTS = {
+  "accent": "coral",
+  "density": "comfortable",
+  "grid": false,
+  "crosshair": true,
+  "typePair": "mono-only"
+};
+
+const ACCENTS = {
+  cyan:    { hex: '#7DE2D1', label: 'Cyan'  },
+  amber:   { hex: '#F4C76B', label: 'Amber' },
+  iris:    { hex: '#A5A8FF', label: 'Iris'  },
+  coral:   { hex: '#FF9E80', label: 'Coral' },
+  white:   { hex: '#EDEDED', label: 'Bone'  },
+};
+
+function useTweaksLocal() {
+  const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
+  const setTweak = useCallback((keyOrObj, val) => {
+    const patch = typeof keyOrObj === 'string' ? { [keyOrObj]: val } : keyOrObj;
+    setTweaks(prev => ({ ...prev, ...patch }));
+    try { window.parent?.postMessage({ type: '__edit_mode_set_keys', edits: patch }, '*'); } catch (e) {}
+  }, []);
+  return [tweaks, setTweak];
+}
+
+function useCountUp(target, start, duration = 1400) {
+  const [v, setV] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let raf, t0;
+    const tick = (t) => {
+      if (!t0) t0 = t;
+      const p = Math.min(1, (t - t0) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setV(Math.round(target * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [start, target, duration]);
+  return v;
+}
+
+function useInView(ref, opts = { threshold: 0.3 }) {
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setSeen(true); io.disconnect(); }
+    }, opts);
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [ref]);
+  return seen;
+}
+
+function TopBar({ lang, setLang, content, onJump, sectionId }) {
+  return (
+    <header className="topbar">
+      <div className="tb-l">
+        <div className="logo">
+          <span className="logo-mark">◢◣</span>
+          <span className="logo-name">MARTIN.MOLET</span>
+          <span className="logo-role">// {content.meta.role}</span>
+        </div>
+      </div>
+      <nav className="tb-c">
+        {content.nav.map((n, i) => {
+          const ids = ['home', 'cases', 'experience', 'contact'];
+          const id = ids[i];
+          return (
+            <button key={n} className={`navlink ${sectionId === id ? 'is-active' : ''}`} onClick={() => onJump(id)}>
+              <span className="navnum">{String(i + 1).padStart(2, '0')}</span>
+              <span>{n}</span>
+            </button>
+          );
+        })}
+      </nav>
+      <div className="tb-r"></div>
+    </header>
+  );
+}
+
+function StatusBar({ content, sectionId }) {
+  const sections = ['home', 'cases', 'experience', 'contact'];
+  const idx = Math.max(0, sections.indexOf(sectionId));
+  return (
+    <footer className="statusbar">
+      <div className="sb-cell flex-1 right">
+        <span className="sb-k">STATUS</span>
+        <span className="status-pill"><span className="dot" /> {content.meta.status}</span>
+      </div>
+    </footer>
+  );
+}
+
+function HomeSheet({ content, onJump }) {
+  const ref = useRef();
+  const seen = useInView(ref);
+  return (
+    <section className="sheet" id="home" ref={ref}>
+      <SheetHeader kicker={content.home.kicker} />
+      <div className="hero">
+        <div className="hero-l">
+          <h1 className="hero-title">
+            {content.home.title.split('\n').map((l, i) => (
+              <span key={i} className="hero-line">{l.includes('scaler') ? l.split('scaler').map((part, j, arr) => j < arr.length - 1 ? [part, <span key={j} style={{color:'var(--accent)'}}>scaler</span>] : part) : l}</span>
+            ))}
+          </h1>
+          <p className="hero-sub">{content.home.sub}</p>
+          <div className="hero-cta">
+            <button className="btn btn-primary" onClick={() => onJump('cases')}>
+              <span>{content.home.cta1}</span>
+              <span className="btn-arrow">↗</span>
+            </button>
+            <button className="btn btn-ghost" onClick={() => onJump('contact')}>
+              <span>{content.home.cta2}</span>
+            </button>
+          </div>
+          <div className="hero-meta">
+            <div>
+              <span className="k">ROLE</span>
+              <span>{(() => {
+                const idx = content.meta.role.lastIndexOf(' & ');
+                return idx > 0
+                  ? <>{content.meta.role.slice(0, idx)}<br/>{content.meta.role.slice(idx + 1)}</>
+                  : content.meta.role;
+              })()}</span>
+            </div>
+            <div><span className="k">LOC</span><span style={{whiteSpace:'pre-line'}}>{content.meta.location}</span></div>
+            <div><span className="k">AVAIL</span><span style={{whiteSpace:'pre-line'}}>{content.meta.status}</span></div>
+          </div>
+        </div>
+        <div className="hero-r">
+          <div className="portrait">
+            <div className="portrait-frame">
+              <img src="martin.jpg" alt="Martin Molet" />
+              <div className="corner tl" />
+              <div className="corner tr" />
+              <div className="corner bl" />
+              <div className="corner br" />
+              <div className="dim-h"><span>720</span></div>
+              <div className="dim-v"><span>1080</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="metrics">
+        {content.home.metrics.map((m, i) => (
+          <MetricCard key={i} m={m} index={i} start={seen} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MetricCard({ m, index, start }) {
+  const v = useCountUp(m.value, start, 1200 + index * 200);
+  return (
+    <article className="metric">
+      <div className="metric-id">M.{String(index + 1).padStart(2, '0')}</div>
+      <div className="metric-value">
+        <span className="mv-num">{v}</span>
+        <span className="mv-suffix">{m.suffix}</span>
+      </div>
+      <div className="metric-label">{m.label}</div>
+      <div className="metric-note">{m.note}</div>
+    </article>
+  );
+}
+
+function WorkSheet({ content }) {
+  const [active, setActive] = useState('ds');
+  const sec = content.work.sections.find(s => s.id === active);
+  return (
+    <section className="sheet" id="work">
+      <SheetHeader kicker={content.work.kicker} title={content.work.title} sub={content.work.sub} />
+      <div className="practice-wrap">
+        <aside className="practice-tabs" role="tablist">
+          {content.work.sections.map(s => (
+            <button key={s.id} className={`practice-tab ${active === s.id ? 'on' : ''}`} onClick={() => setActive(s.id)}>
+              <span className="pt-tag">{s.tag}</span>
+              <span className="pt-title">{s.title}</span>
+              <span className="pt-arrow">{active === s.id ? '●' : '○'}</span>
+            </button>
+          ))}
+        </aside>
+        <div className="practice-pane" key={active}>
+          <div className="pp-head">
+            <span className="pp-tag">PRACTICE / {sec.tag}</span>
+            <h3 className="pp-title">{sec.title}</h3>
+            <p className="pp-one">{sec.oneLiner}</p>
+          </div>
+          <div className="pp-grid">
+            <div className="pp-col">
+              <div className="col-h"><span>Method</span><span className="col-rule" /></div>
+              <ol className="method">
+                {sec.method.map((step, i) => (
+                  <li key={i}><span className="m-num">{String(i + 1).padStart(2, '0')}</span><span>{step}</span></li>
+                ))}
+              </ol>
+            </div>
+            <div className="pp-col">
+              <div className="col-h"><span>Proof</span><span className="col-rule" /></div>
+              <ul className="proof">
+                {sec.proof.map((p, i) => (
+                  <li key={i}><div className="proof-k">{p.k}</div><div className="proof-v">{p.v}</div></li>
+                ))}
+              </ul>
+              {sec.id === 'ds' && <TokenSwitcher />}
+              {sec.id === 'ops' && <OpsDashboard />}
+              {sec.id === 'ai' && <AIDocPreview />}
+              {sec.id === 'teach' && <WorkshopBoard />}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SegSmall({ label, opts, val, onChange }) {
+  return (
+    <div className="seg">
+      <span className="seg-l">{label}</span>
+      <div className="seg-r">
+        {opts.map(o => (
+          <button key={o} className={val === o ? 'on' : ''} onClick={() => onChange(o)}>{o}</button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TokenSwitcher() {
+  const [theme, setTheme] = useState('dark');
+  const [density, setDensity] = useState('comfy');
+  const [contrast, setContrast] = useState(false);
+  const surface = theme === 'dark' ? '#0E1213' : '#F7F6F2';
+  const ink = theme === 'dark' ? '#E6E6E1' : '#13171A';
+  const muted = theme === 'dark' ? '#6F7A7A' : '#7A7A6F';
+  const accent = contrast ? '#FFFFFF' : 'var(--accent)';
+  const pad = density === 'comfy' ? 14 : density === 'cozy' ? 10 : 6;
+  return (
+    <div className="ts">
+      <div className="ts-h"><span>Live token switcher</span><span className="ts-h-r">live</span></div>
+      <div className="ts-controls">
+        <SegSmall label="Theme" opts={['dark', 'light']} val={theme} onChange={setTheme} />
+        <SegSmall label="Density" opts={['comfy', 'cozy', 'tight']} val={density} onChange={setDensity} />
+        <SegSmall label="Contrast" opts={['default', 'AAA']} val={contrast ? 'AAA' : 'default'} onChange={(v) => setContrast(v === 'AAA')} />
+      </div>
+      <div className="ts-preview" style={{ background: surface, color: ink, '--pad': pad + 'px' }}>
+        <div className="ts-card">
+          <div className="ts-row" style={{ color: muted }}><span>card.title</span><span>·</span><span>v2.4</span></div>
+          <div className="ts-h-card" style={{ color: ink }}>Themed component</div>
+          <div className="ts-body" style={{ color: muted }}>The same JSON tokens drive every render target — web, iOS, Android. Switching theme is one variable change.</div>
+          <div className="ts-actions">
+            <button className="ts-btn" style={{ borderColor: accent, color: accent }}>Action</button>
+            <button className="ts-btn ghost" style={{ color: ink, borderColor: muted }}>Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function OpsDashboard() {
+  const bars = [
+    { l: 'Adoption', v: 0.92 },
+    { l: 'Reuse', v: 0.78 },
+    { l: 'Drift', v: 0.08, bad: true },
+    { l: 'Debt', v: 0.21, bad: true },
+  ];
+  return (
+    <div className="ts">
+      <div className="ts-h"><span>Ops dashboard — wave 4</span><span className="ts-h-r">read-only</span></div>
+      <div className="ops-grid">
+        {bars.map(b => (
+          <div key={b.l} className="ops-row">
+            <div className="ops-l">{b.l}</div>
+            <div className="ops-track"><div className={`ops-fill ${b.bad ? 'bad' : ''}`} style={{ width: (b.v * 100) + '%' }} /></div>
+            <div className="ops-v">{Math.round(b.v * 100)}%</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AIDocPreview() {
+  return (
+    <div className="ts">
+      <div className="ts-h"><span>component / Button.mdx</span><span className="ts-h-r">auto-generated</span></div>
+      <pre className="code">{`# Button\n\nPrimary action surface.\nTokens: \`color.action\`, \`radius.sm\`, \`space.2\`.\n\n## Props\n- variant: 'primary' | 'ghost' | 'danger'\n- size: 'sm' | 'md' | 'lg'\n- icon?: IconToken\n\n## Usage\n> Use one primary per view.\n> Pair with ghost for cancel.`}</pre>
+    </div>
+  );
+}
+
+function WorkshopBoard() {
+  const items = ['Tokens 101 — half day', 'System governance — 90 min', 'Figma variables clinic — 2h', 'Component contract review — 1h'];
+  return (
+    <div className="ts">
+      <div className="ts-h"><span>Workshop catalog</span><span className="ts-h-r">2025 — 2026</span></div>
+      <ul className="ws">
+        {items.map((it, i) => (
+          <li key={i}><span className="ws-tick">▢</span><span>{it}</span><span className="ws-id">WS.{String(i + 1).padStart(2, '0')}</span></li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function CasesSheet({ content }) {
+  const [open, setOpen] = useState('sg');
+  return (
+    <section className="sheet" id="cases">
+      <SheetHeader kicker={content.cases.kicker} title={content.cases.title} />
+      <div className="cases">
+        {content.cases.items.map(c => (
+          <CaseRow key={c.id} c={c} open={open === c.id} onToggle={() => setOpen(open === c.id ? '' : c.id)} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function CaseRow({ c, open, onToggle }) {
+  const ref = useRef();
+  const seen = useInView(ref, { threshold: 0.2 });
+  return (
+    <article className={`case ${open ? 'open' : ''}`} ref={ref}>
+      <div className="case-head" onClick={onToggle} style={{cursor:'pointer'}}>
+        <div className="case-head-l">
+          <div className="case-id">CASE / {c.id.toUpperCase()}</div>
+          <div className="case-client">{c.client}</div>
+          <div className="case-summary">{c.summary}</div>
+          {c.detailUrl && (
+            <a href={c.detailUrl} className="case-detail-link" onClick={e => e.stopPropagation()}>Étude complète ↗</a>
+          )}
+        </div>
+        <div className="case-head-r">
+          <div className="case-meta-line"><span>{c.role}</span><span>·</span><span>{c.period}</span></div>
+          <div className="case-toggle">{open ? '— close' : '+ open'}</div>
+        </div>
+      </div>
+      <div className="case-body">
+        <div className="case-inner">
+          <CaseBlock label="Context" body={c.context} />
+          <CaseBlock label="Problem" body={c.problem} />
+          <div className="case-block">
+            <div className="cb-l"><span>Action</span><span className="cb-rule" /></div>
+            <ul className="case-actions">
+              {c.action.map((a, i) => (
+                <li key={i}><span className="ca-n">{String(i + 1).padStart(2, '0')}</span><span>{a}</span></li>
+              ))}
+            </ul>
+          </div>
+          <div className="case-block">
+            <div className="cb-l"><span>Result</span><span className="cb-rule" /></div>
+            <div className="case-results">
+              {c.result.map((r, i) => (
+                <CaseStat key={i} r={r} index={i} start={open && seen} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function CaseBlock({ label, body }) {
+  return (
+    <div className="case-block">
+      <div className="cb-l"><span>{label}</span><span className="cb-rule" /></div>
+      <p className="case-p">{body}</p>
+    </div>
+  );
+}
+
+function CaseStat({ r, index, start }) {
+  const num = parseInt(r.k.replace(/[^\d-]/g, ''), 10);
+  const isNumeric = !isNaN(num) && /^[−-]?\d+/.test(r.k.replace(/\s/g, ''));
+  const v = useCountUp(isNaN(num) ? 0 : Math.abs(num), start, 900 + index * 150);
+  const display = isNumeric ? (r.k.startsWith('−') || r.k.startsWith('-') ? '−' : '') + v : r.k;
+  return (
+    <div className="case-stat">
+      <div className="cs-num">{display}<span className="cs-suf">{r.s}</span></div>
+      <div className="cs-label">{r.v}</div>
+    </div>
+  );
+}
+
+function ExperienceSheet({ content }) {
+  return (
+    <section className="sheet" id="experience">
+      <SheetHeader kicker={content.experience.kicker} title={content.experience.title} />
+      <ol className="exp">
+        {content.experience.items.map((e, i) => (
+          <li key={i} className="exp-row">
+            <div className="exp-l">
+              <div className="exp-period">{e.period}</div>
+              <div className="exp-loc">{e.location}</div>
+            </div>
+            <div className="exp-c">
+              <div className="exp-org">{e.org}</div>
+              <div className="exp-role">{e.role}</div>
+            </div>
+            <ul className="exp-r">
+              {e.impact.map((im, j) => <li key={j}>{im}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ol>
+      <RecosBlock content={content} />
+    </section>
+  );
+}
+
+function RecosBlock({ content }) {
+  return (
+    <div className="recos">
+      <SheetHeader kicker={content.recos.kicker} title={content.recos.title} />
+      <div className="recos-grid">
+        {content.recos.items.map((r, i) => (
+          <figure key={i} className="reco">
+            <div className="reco-head">
+              <div className="reco-id">REC.{String(i + 1).padStart(2, '0')}</div>
+              {r.context && <div className="reco-ctx">{r.context}</div>}
+            </div>
+            <blockquote>"{r.quote}"</blockquote>
+            <figcaption>
+              <div className="reco-name">{r.name}</div>
+              <div className="reco-role">{r.role}</div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AboutSheet({ content }) {
+  return (
+    <section className="sheet" id="about">
+      <SheetHeader kicker={content.about.kicker} title={content.about.title} />
+      <div className="about-grid">
+        <div className="about-block"><div className="ab-l">NOW</div><p>{content.about.now}</p></div>
+        <div className="about-block"><div className="ab-l">NEXT</div><p>{content.about.next}</p></div>
+      </div>
+      <div className="principles">
+        <div className="col-h"><span>Principles</span><span className="col-rule" /></div>
+        <ul>
+          {content.about.principles.map((p, i) => (
+            <li key={i}>
+              <span className="p-num">P.{String(i + 1).padStart(2, '0')}</span>
+              <span className="p-k">{p.k}</span>
+              <span className="p-v">{p.v}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function ContactSheet({ content }) {
+  return (
+    <section className="sheet" id="contact">
+      <SheetHeader kicker={content.contact.kicker} title={content.contact.title} />
+      <div className="contact">
+        <p className="contact-sub">{content.contact.sub}</p>
+        <div className="contact-grid">
+          {content.contact.links.map((l, i) => {
+            const isLink = !!l.href;
+            const Tag = isLink ? 'a' : 'div';
+            const props = isLink ? { href: l.href, target: '_blank', rel: 'noopener noreferrer' } : {};
+            return (
+              <Tag key={i} className={`contact-row ${isLink ? 'is-link' : ''}`} {...props}>
+                <span className="cr-id">CH.{String(i + 1).padStart(2, '0')}</span>
+                <span className="cr-k">{l.k}</span>
+                <span className="cr-v">{l.v}</span>
+                {isLink && <span className="cr-arrow">↗</span>}
+              </Tag>
+            );
+          })}
+        </div>
+        <div className="contact-avail">
+          <span className="ca-dot" />
+          <span>{content.contact.availability}</span>
+        </div>
+        <div className="signoff">
+          <div>— Martin Molet</div>
+          <div className="so-sub">{content.meta.role}</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SheetHeader({ kicker, title, sub, small }) {
+  return (
+    <header className={`sh ${small ? 'sh-sm' : ''}`}>
+      <div className="sh-kicker">{kicker}</div>
+      {title && (
+        <h2 className="sh-title">
+          {title.split('\n').map((l, i) => <span key={i}>{l}</span>)}
+        </h2>
+      )}
+      {sub && <p className="sh-sub">{sub}</p>}
+    </header>
+  );
+}
+
+function PortfolioTweaks({ tweaks, setTweak }) {
+  const { TweaksPanel, TweakSection, TweakRadio, TweakSelect, TweakToggle } = window;
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Visual">
+        <TweakSelect
+          label="accent"
+          value={tweaks.accent}
+          onChange={(v) => setTweak('accent', v)}
+          options={Object.entries(ACCENTS).map(([k, v]) => ({ value: k, label: v.label }))}
+        />
+        <TweakRadio
+          label="density"
+          value={tweaks.density}
+          onChange={(v) => setTweak('density', v)}
+          options={[{ value: 'comfortable', label: 'Comfy' }, { value: 'compact', label: 'Compact' }]}
+        />
+        <TweakRadio
+          label="type"
+          value={tweaks.typePair}
+          onChange={(v) => setTweak('typePair', v)}
+          options={[{ value: 'mono-only', label: 'Mono only' }, { value: 'serif-mono', label: 'Serif + mono' }]}
+        />
+      </TweakSection>
+      <TweakSection label="Blueprint">
+        <TweakToggle label="grid overlay" value={tweaks.grid} onChange={(v) => setTweak('grid', v)} />
+        <TweakToggle label="cursor crosshair" value={tweaks.crosshair} onChange={(v) => setTweak('crosshair', v)} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+function App() {
+  const [lang, setLang] = useState('fr');
+  const [tweaks, setTweak] = useTweaksLocal();
+  const content = window.CONTENT[lang];
+  const [sectionId, setSectionId] = useState('home');
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const stageRef = useRef();
+
+  const accent = ACCENTS[tweaks.accent] || ACCENTS.cyan;
+  useEffect(() => {
+    document.documentElement.style.setProperty('--accent', accent.hex);
+    document.documentElement.style.setProperty('--accent-soft', accent.hex + '33');
+    document.documentElement.dataset.density = tweaks.density;
+    document.documentElement.dataset.grid = tweaks.grid ? 'on' : 'off';
+    document.documentElement.dataset.crosshair = tweaks.crosshair ? 'on' : 'off';
+    document.documentElement.dataset.typepair = tweaks.typePair;
+  }, [accent.hex, tweaks.density, tweaks.grid, tweaks.crosshair, tweaks.typePair]);
+
+  useEffect(() => {
+    const ids = ['home', 'cases', 'experience', 'contact'];
+    const els = ids.map(i => document.getElementById(i)).filter(Boolean);
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setSectionId(visible.target.id);
+    }, { threshold: [0.25, 0.5, 0.75] });
+    els.forEach(e => io.observe(e));
+    return () => io.disconnect();
+  }, [lang]);
+
+  useEffect(() => {
+    const onMove = (e) => setMouse({ x: e.clientX, y: e.clientY });
+    window.addEventListener('mousemove', onMove);
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
+
+  const onJump = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  return (
+    <div className="stage" ref={stageRef}>
+      {tweaks.grid && <div className="grid-bg" aria-hidden />}
+      {tweaks.crosshair && (
+        <>
+          <div className="cross-h" style={{ top: mouse.y }} aria-hidden />
+          <div className="cross-v" style={{ left: mouse.x }} aria-hidden />
+        </>
+      )}
+      <TopBar lang={lang} setLang={setLang} content={content} onJump={onJump} sectionId={sectionId} />
+      <main className="sheets">
+        <HomeSheet content={content} onJump={onJump} />
+        <CasesSheet content={content} />
+        <ExperienceSheet content={content} />
+        <ContactSheet content={content} />
+      </main>
+      <StatusBar content={content} sectionId={sectionId} />
+      <PortfolioTweaks tweaks={tweaks} setTweak={setTweak} />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+
+</script>
+</body>
+</html>

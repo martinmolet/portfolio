@@ -4,918 +4,685 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Martin Molet — Lead Design System & Design Ops</title>
+<meta name="description" content="Product Designer spécialisé design system et design ops. 8 ans, de l'e-commerce à la banque retail.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F6F3;
+  --surface: #FFFFFF;
+  --surface-2: #FBFBFA;
+  --line: #EAEAEA;
+  --line-soft: rgba(0, 0, 0, 0.06);
+  --ink: #111111;
+  --ink-2: #2F3437;
+  --muted: #787774;
+  --muted-2: #A09F9B;
+
+  --red-bg: #FDEBEC;    --red-fg: #9F2F2D;
+  --blue-bg: #E1F3FE;   --blue-fg: #1F6C9F;
+  --green-bg: #EDF3EC;  --green-fg: #346538;
+  --yellow-bg: #FBF3DB; --yellow-fg: #956400;
+
+  --sans: 'Geist', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  --serif: 'Newsreader', 'Lyon Text', Georgia, serif;
+  --mono: 'Geist Mono', 'SF Mono', 'JetBrains Mono', monospace;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --wrap: 1080px;
+  --gutter: 32px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink-2);
+  font: 400 16px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, p, figure, blockquote { margin: 0; }
+::selection { background: var(--yellow-bg); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ── Ambient layer ─────────────────────────────── */
+.ambient {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+}
+.ambient::before {
+  content: ''; position: absolute;
+  width: 70vmax; height: 70vmax; left: 45%; top: -25vmax;
+  background: radial-gradient(closest-side, rgba(214, 190, 160, 0.22), rgba(214, 190, 160, 0));
+  animation: drift 28s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-18vmax, 10vmax, 0); }
+}
+
+/* ── Nav ───────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(247, 246, 243, 0.8);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+.nav.is-scrolled { border-bottom-color: var(--line); }
+.nav-in { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 24px; }
+.brand { display: flex; align-items: baseline; gap: 10px; white-space: nowrap; }
+.brand-name { font: 500 20px/1 var(--serif); color: var(--ink); letter-spacing: -0.02em; }
+.brand-role { font: 400 12px/1 var(--mono); color: var(--muted); }
+.nav-links { display: flex; gap: 4px; }
+.nav-links a {
+  font-size: 14px; color: var(--muted); padding: 6px 10px; border-radius: 6px;
+  transition: color 200ms ease, background 200ms ease;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a.is-active { color: var(--ink); background: rgba(0, 0, 0, 0.04); }
+.nav-links a { white-space: nowrap; }
+@media (max-width: 1200px) { .brand-role { display: none; } }
+
+/* ── Language toggle ───────────────────────────── */
+.nav-r { display: flex; align-items: center; gap: 12px; }
+.lang { display: inline-flex; padding: 2px; gap: 2px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+.lang-opt {
+  display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 4px;
+  font: 500 12px/1 var(--mono); color: var(--muted); transition: background 200ms ease, color 200ms ease;
+}
+.lang-opt:hover { color: var(--ink); }
+.lang-opt[aria-pressed="true"] { background: var(--bg); color: var(--ink); }
+.lang-opt .flag { width: 18px; height: 12px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); flex-shrink: 0; }
+.lang-opt[aria-pressed="false"] .flag { opacity: 0.55; filter: saturate(0.6); transition: opacity 200ms ease, filter 200ms ease; }
+.lang-opt:hover .flag { opacity: 1; filter: none; }
+
+/* ── Primitives ────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 44px; padding: 0 20px; border-radius: 6px;
+  font-size: 15px; font-weight: 500; white-space: nowrap;
+  transition: background 200ms ease, border-color 200ms ease, transform 120ms ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn svg { width: 14px; height: 14px; }
+.btn-primary { background: var(--ink); color: #FFFFFF; }
+.btn-primary:hover { background: #333333; }
+.btn-ghost { border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.btn-ghost:hover { border-color: #D6D5D1; }
+.btn-sm { height: 36px; padding: 0 14px; font-size: 14px; }
+
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 9999px;
+  font: 500 11px/1.2 var(--sans); letter-spacing: 0.05em; text-transform: uppercase;
+}
+.tag-green  { background: var(--green-bg);  color: var(--green-fg); }
+.tag-blue   { background: var(--blue-bg);   color: var(--blue-fg); }
+.tag-red    { background: var(--red-bg);    color: var(--red-fg); }
+.tag-yellow { background: var(--yellow-bg); color: var(--yellow-fg); }
+.tag-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.tag-green .tag-dot { animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.35; } }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  transition: box-shadow 200ms ease;
+}
+.card:hover { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); }
+
+.eyebrow { font: 400 12px/1 var(--mono); color: var(--muted); letter-spacing: 0.02em; }
+
+/* ── Sections ──────────────────────────────────── */
+.section { padding: 128px 0; }
+.section + .section { border-top: 1px solid var(--line); }
+.sh { display: grid; grid-template-columns: 200px 1fr; gap: 32px; margin-bottom: 64px; }
+.sh-title {
+  font: 400 clamp(36px, 4.6vw, 56px)/1.08 var(--serif);
+  letter-spacing: -0.03em; color: var(--ink);
+}
+.sh-title span { display: block; }
+.sh-sub { margin-top: 20px; max-width: 560px; color: var(--muted); font-size: 17px; }
+
+/* ── Hero ──────────────────────────────────────── */
+.hero { position: relative; padding: 96px 0 112px; }
+.hero::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 30% 40%, #000 20%, transparent 75%);
+          mask-image: radial-gradient(ellipse 70% 60% at 30% 40%, #000 20%, transparent 75%);
+}
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); column-gap: 64px; align-items: start; }
+.hero-title {
+  font: 400 clamp(40px, 5.8vw, 80px)/1.02 var(--serif);
+  letter-spacing: -0.035em; color: var(--ink);
+  margin: 28px 0 32px;
+}
+.hero-title span { display: block; }
+.hero-title em { font-style: italic; color: var(--muted); }
+.hero-sub { font-size: 19px; max-width: 540px; color: var(--ink-2); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+
+.portrait { justify-self: end; width: 100%; max-width: 400px; margin-top: 52px; }
+.portrait-img {
+  position: relative; overflow: hidden; border-radius: 4px; aspect-ratio: 2 / 3; background: var(--surface-2);
+}
+.portrait-img img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 47% 50%;
+  filter: grayscale(1) sepia(0.12) contrast(1.05);
+}
+.portrait-img::after {
+  content: ''; position: absolute; inset: 0; opacity: 0.05; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.hero-meta {
+  display: grid; grid-template-columns: repeat(2, auto); justify-content: start; gap: 4px 48px;
+  margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--line); max-width: 540px; font-size: 14px;
+}
+.hero-meta dt { font: 400 12px/1.6 var(--mono); color: var(--muted-2); grid-row: 1; }
+.hero-meta dd { margin: 0; color: var(--ink-2); grid-row: 2; }
+
+/* ── Metrics bento ─────────────────────────────── */
+.metrics { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; margin-top: 88px; }
+.metric { padding: 32px; display: flex; flex-direction: column; min-height: 280px; }
+.metric:nth-child(1) { grid-column: span 6; }
+.metric:nth-child(2), .metric:nth-child(3) { grid-column: span 3; }
+.metric:nth-child(1) .metric-label { font-size: 18px; }
+.metric-value {
+  white-space: nowrap;
+  font: 400 64px/1 var(--serif); letter-spacing: -0.04em; color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.metric:nth-child(1) .metric-value { font-size: 112px; }
+.metric-suffix { color: var(--muted-2); }
+.metric-label { margin-top: auto; padding-top: 28px; font-weight: 500; color: var(--ink); line-height: 1.4; }
+.metric-note { margin-top: 8px; font-size: 14px; color: var(--muted); }
+
+/* ── Cases ─────────────────────────────────────── */
+.cases { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+.case { padding: 40px; grid-column: span 6; display: flex; flex-direction: column; }
+.case.is-feature { grid-column: span 12; display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; }
+.case-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.case-client {
+  font: 400 32px/1.15 var(--serif); letter-spacing: -0.025em; color: var(--ink);
+  margin: 24px 0 12px;
+}
+.case.is-feature .case-client { font-size: 40px; }
+.case-role { font: 400 13px/1.5 var(--mono); color: var(--muted); }
+.case-summary { margin-top: 20px; color: var(--ink-2); }
+.case-results {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line); border-radius: 8px; overflow: hidden;
+  margin-top: 32px; background: var(--surface-2);
+}
+.case.is-feature .case-results { margin-top: 0; align-self: start; }
+.stat { padding: 20px 22px; }
+.stat:nth-child(odd) { border-right: 1px solid var(--line); }
+.stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+.stat-num { font: 400 36px/1 var(--serif); letter-spacing: -0.03em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat-suf { font-size: 22px; color: var(--muted-2); margin-left: 2px; }
+.stat-label { margin-top: 10px; font-size: 13px; line-height: 1.45; color: var(--muted); }
+
+.case-more { margin-top: 28px; border-top: 1px solid var(--line); }
+.acc-btn {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 0; font-size: 14px; font-weight: 500; color: var(--ink); text-align: left;
+}
+.acc-icon { position: relative; width: 12px; height: 12px; flex-shrink: 0; }
+.acc-icon::before, .acc-icon::after {
+  content: ''; position: absolute; left: 0; top: 5px; width: 12px; height: 2px; background: var(--ink);
+  transition: transform 300ms var(--ease);
+}
+.acc-icon::after { transform: rotate(90deg); }
+.is-open .acc-icon::after { transform: rotate(0deg); }
+.acc-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 400ms var(--ease); }
+.is-open .acc-panel { grid-template-rows: 1fr; }
+.acc-inner { overflow: hidden; }
+.acc-body { padding: 4px 0 20px; display: grid; gap: 20px; font-size: 15px; }
+.acc-k { font: 400 12px/1 var(--mono); color: var(--muted-2); margin-bottom: 8px; }
+.acc-body ol { counter-reset: step; display: grid; gap: 8px; }
+.acc-body ol li { counter-increment: step; display: grid; grid-template-columns: 28px 1fr; }
+.acc-body ol li::before { content: counter(step, decimal-leading-zero); font: 400 12px/1.9 var(--mono); color: var(--muted-2); }
+
+.case-link {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 8px;
+  font-size: 14px; font-weight: 500; color: var(--ink);
+}
+.case-link svg { width: 12px; height: 12px; transition: transform 200ms var(--ease); }
+.case-link:hover svg { transform: translate(2px, -2px); }
+.case-link span { border-bottom: 1px solid var(--line); transition: border-color 200ms ease; }
+.case-link:hover span { border-color: var(--ink); }
+
+/* ── Experience ────────────────────────────────── */
+.exp { border-top: 1px solid var(--line); }
+.exp-row {
+  display: grid; grid-template-columns: 200px 1fr 1.25fr; gap: 32px;
+  padding: 28px 0; border-bottom: 1px solid var(--line);
+}
+.exp-period { font: 400 13px/1.6 var(--mono); color: var(--ink-2); }
+.exp-loc { font-size: 13px; color: var(--muted-2); margin-top: 2px; }
+.exp-org { font: 400 22px/1.25 var(--serif); letter-spacing: -0.015em; color: var(--ink); }
+.exp-role { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.exp-impact { display: grid; gap: 8px; font-size: 15px; }
+.exp-impact li { position: relative; padding-left: 18px; }
+.exp-impact li::before { content: ''; position: absolute; left: 0; top: 11px; width: 8px; height: 1px; background: var(--muted-2); }
+
+/* ── Recommendations ───────────────────────────── */
+.recos { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+.reco { padding: 32px; display: flex; flex-direction: column; gap: 28px; }
+.reco:nth-child(1) { grid-column: span 7; }
+.reco:nth-child(2) { grid-column: span 5; }
+.reco:nth-child(3) { grid-column: span 5; }
+.reco:nth-child(4) { grid-column: span 7; }
+.reco:nth-child(5), .reco:nth-child(6) { grid-column: span 6; }
+.reco blockquote { font: 400 18px/1.55 var(--serif); color: var(--ink); letter-spacing: -0.005em; }
+.reco:nth-child(1) blockquote, .reco:nth-child(4) blockquote { font-size: 21px; line-height: 1.5; }
+.reco figcaption { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.avatar {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: grid; place-items: center; font: 500 13px/1 var(--sans);
+}
+.reco-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+.reco-role { font-size: 13px; color: var(--muted); }
+
+/* ── Contact ───────────────────────────────────── */
+.contact { padding: 56px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: end; }
+.contact-title { font: 400 clamp(44px, 6vw, 72px)/1.02 var(--serif); letter-spacing: -0.035em; color: var(--ink); margin-top: 20px; }
+.contact-sub { margin-top: 20px; max-width: 480px; color: var(--muted); font-size: 17px; }
+.contact-side { display: grid; gap: 0; }
+.contact-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px 0; border-bottom: 1px solid var(--line);
+}
+.contact-row:first-child { border-top: 1px solid var(--line); }
+.contact-row .k { font: 400 12px/1 var(--mono); color: var(--muted-2); }
+.contact-row .v { font-size: 15px; color: var(--ink); display: inline-flex; align-items: center; gap: 8px; }
+.contact-row .v svg { width: 12px; height: 12px; transition: transform 200ms var(--ease); }
+a.contact-row:hover .v svg { transform: translate(2px, -2px); }
+.contact-cta { margin-top: 24px; }
+
+.foot { padding: 40px 0 56px; }
+.foot-in { display: flex; justify-content: space-between; gap: 16px; font: 400 12px/1.6 var(--mono); color: var(--muted-2); }
+
+/* ── Reveal ────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity 600ms var(--ease), transform 600ms var(--ease); transition-delay: calc(var(--i, 0) * 80ms); }
+.reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .ambient::before, .tag-green .tag-dot { animation: none; }
+}
+
+/* ── Responsive ────────────────────────────────── */
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .hero-grid { grid-template-columns: 1fr; row-gap: 48px; }
+  .portrait { justify-self: start; max-width: 360px; margin-top: 0; }
+  .hero-meta { grid-template-columns: 1fr; }
+  .hero-meta dt, .hero-meta dd { grid-row: auto; }
+  .hero-meta dd + dt { margin-top: 8px; }
+  .sh { grid-template-columns: 1fr; gap: 16px; }
+  .metric:nth-child(1) { grid-column: span 12; }
+  .metric:nth-child(2), .metric:nth-child(3) { grid-column: span 6; }
+  .case, .case.is-feature { grid-column: span 12; }
+  .case.is-feature { grid-template-columns: 1fr; gap: 32px; }
+  .reco:nth-child(n) { grid-column: span 12; }
+  .exp-row { grid-template-columns: 1fr; gap: 12px; }
+  .contact { grid-template-columns: 1fr; padding: 40px; }
+}
+@media (max-width: 600px) {
+  :root { --gutter: 16px; }
+  .section { padding: 88px 0; }
+  .hero { padding: 56px 0 72px; }
+  .brand-role { display: none; }
+  .lang-opt span { display: none; }
+  .nav-r { gap: 8px; }
+  .metrics { margin-top: 56px; }
+  .metric:nth-child(n) { grid-column: span 12; min-height: 0; }
+  .metric:nth-child(1) .metric-value { font-size: 80px; }
+  .case, .contact, .reco, .metric { padding: 24px; }
+  .case-client, .case.is-feature .case-client { font-size: 30px; }
+  .case-top { flex-wrap: wrap; }
+  .stat { padding: 16px; }
+  .stat-num { font-size: 30px; }
+  .foot-in { flex-direction: column; }
+}
+</style>
 </head>
 <body>
-<div id="root"></div>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<div class="ambient" aria-hidden="true"></div>
+<div id="app"></div>
+
 <script src="content.js"></script>
+<script>
+(function () {
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const arrow = '<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg>';
 
-<script type="text/babel">
-
-// tweaks-panel.jsx — inlined to avoid file:// XHR restriction
-
-const __TWEAKS_STYLE = `
-  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
-    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
-    background:rgba(250,249,247,.78);color:#29261b;
-    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
-    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
-    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
-    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
-  .twk-hd{display:flex;align-items:center;justify-content:space-between;
-    padding:10px 8px 10px 14px;cursor:move;user-select:none}
-  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
-  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
-    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
-  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
-  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
-    overflow-y:auto;overflow-x:hidden;min-height:0;
-    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
-  .twk-body::-webkit-scrollbar{width:8px}
-  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
-  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
-    border:2px solid transparent;background-clip:content-box}
-  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
-    border:2px solid transparent;background-clip:content-box}
-  .twk-row{display:flex;flex-direction:column;gap:5px}
-  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
-  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
-    color:rgba(41,38,27,.72)}
-  .twk-lbl>span:first-child{font-weight:500}
-  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
-  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-    color:rgba(41,38,27,.45);padding:10px 0 0}
-  .twk-sect:first-child{padding-top:0}
-  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
-    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
-    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
-  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
-  select.twk-field{padding-right:22px;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
-    background-repeat:no-repeat;background-position:right 8px center}
-  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
-    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
-  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
-    width:14px;height:14px;border-radius:50%;background:#fff;
-    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
-  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
-    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
-  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
-    background:rgba(0,0,0,.06);user-select:none}
-  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
-    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
-    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
-  .twk-seg.dragging .twk-seg-thumb{transition:none}
-  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
-    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
-    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;overflow-wrap:anywhere}
-  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
-    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
-  .twk-toggle[data-on="1"]{background:#34c759}
-  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
-    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
-  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
-  .twk-num{display:flex;align-items:center;height:26px;padding:0 0 0 8px;
-    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
-  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;user-select:none;padding-right:8px}
-  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
-    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
-    outline:none;color:inherit;-moz-appearance:textfield}
-  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
-  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
-  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
-    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
-  .twk-btn:hover{background:rgba(0,0,0,.88)}
-  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
-  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
-  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
-    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
-    background:transparent;flex-shrink:0}
-  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
-  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
-  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
-`;
-
-function useTweaks(defaults) {
-  const [values, setValues] = React.useState(defaults);
-  const setTweak = React.useCallback((keyOrEdits, val) => {
-    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
-      ? keyOrEdits : { [keyOrEdits]: val };
-    setValues((prev) => ({ ...prev, ...edits }));
-    try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*'); } catch(e) {}
-  }, []);
-  return [values, setTweak];
-}
-
-function TweaksPanel({ title = 'Tweaks', children }) {
-  const [open, setOpen] = React.useState(false);
-  const dragRef = React.useRef(null);
-  const offsetRef = React.useRef({ x: 16, y: 16 });
-  const PAD = 16;
-
-  const clampToViewport = React.useCallback(() => {
-    const panel = dragRef.current;
-    if (!panel) return;
-    const w = panel.offsetWidth, h = panel.offsetHeight;
-    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
-    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
-    offsetRef.current = {
-      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
-      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
-    };
-    panel.style.right = offsetRef.current.x + 'px';
-    panel.style.bottom = offsetRef.current.y + 'px';
-  }, []);
-
-  React.useEffect(() => {
-    if (!open) return;
-    clampToViewport();
-    const ro = new ResizeObserver(clampToViewport);
-    ro.observe(document.documentElement);
-    return () => ro.disconnect();
-  }, [open, clampToViewport]);
-
-  React.useEffect(() => {
-    const onMsg = (e) => {
-      const t = e?.data?.type;
-      if (t === '__activate_edit_mode') setOpen(true);
-      else if (t === '__deactivate_edit_mode') setOpen(false);
-    };
-    window.addEventListener('message', onMsg);
-    try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch(e) {}
-    return () => window.removeEventListener('message', onMsg);
-  }, []);
-
-  const dismiss = () => {
-    setOpen(false);
-    try { window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); } catch(e) {}
+  const FLAGS = {
+    fr: '<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#0055A4"/><rect x="1" width="1" height="2" fill="#FFFFFF"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg>',
+    en: '<svg class="flag" viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="uk-t"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#FFFFFF" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#FFFFFF" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg>',
   };
 
-  const onDragStart = (e) => {
-    const panel = dragRef.current;
-    if (!panel) return;
-    const r = panel.getBoundingClientRect();
-    const sx = e.clientX, sy = e.clientY;
-    const startRight = window.innerWidth - r.right;
-    const startBottom = window.innerHeight - r.bottom;
-    const move = (ev) => {
-      offsetRef.current = { x: startRight - (ev.clientX - sx), y: startBottom - (ev.clientY - sy) };
-      clampToViewport();
-    };
-    const up = () => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
-    window.addEventListener('mousemove', move);
-    window.addEventListener('mouseup', up);
+  const UI = {
+    fr: {
+      docTitle: 'Martin Molet — Lead Design System & Design Ops',
+      nav: { cases: 'Études de cas', parcours: 'Parcours', recos: 'Recommandations', contact: 'Contact' },
+      langLabel: 'Langue', emph: 'scaler',
+      role: 'Rôle', location: 'Lieu', portraitAlt: 'Portrait de Martin Molet',
+      k: { cases: '01 / Études de cas', parcours: '02 / Parcours', recos: '03 / Recommandations', contact: '04 / Contact' },
+      caseLabels: { sg: 'Banque retail', ecv: 'Enseignement', fdj: 'Mobile gaming' },
+      more: 'Contexte, problème, actions', context: 'Contexte', problem: 'Problème', actions: 'Actions',
+      readCase: 'Lire l’étude complète', caseSuffix: '',
+      contactTitle: 'Travaillons ensemble.', availability: 'Disponibilité', writeLinkedIn: 'Écrire sur LinkedIn',
+      updated: 'Mis à jour', q: ['« ', ' »'],
+    },
+    en: {
+      docTitle: 'Martin Molet — Lead Design System & Design Ops',
+      nav: { cases: 'Case studies', parcours: 'Experience', recos: 'Recommendations', contact: 'Contact' },
+      langLabel: 'Language', emph: 'ship faster',
+      role: 'Role', location: 'Location', portraitAlt: 'Portrait of Martin Molet',
+      k: { cases: '01 / Case studies', parcours: '02 / Experience', recos: '03 / Recommendations', contact: '04 / Contact' },
+      caseLabels: { sg: 'Retail banking', ecv: 'Teaching', fdj: 'Mobile gaming' },
+      more: 'Context, problem, actions', context: 'Context', problem: 'Problem', actions: 'Actions',
+      readCase: 'Read the full case study', caseSuffix: '-en',
+      contactTitle: 'Let’s work together.', availability: 'Availability', writeLinkedIn: 'Message me on LinkedIn',
+      updated: 'Updated', q: ['“', '”'],
+    },
   };
 
-  if (!open) return null;
-  return (
-    <>
-      <style>{__TWEAKS_STYLE}</style>
-      <div ref={dragRef} className="twk-panel" style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
-        <div className="twk-hd" onMouseDown={onDragStart}>
-          <b>{title}</b>
-          <button className="twk-x" aria-label="Close tweaks" onMouseDown={(e) => e.stopPropagation()} onClick={dismiss}>✕</button>
+  const NAV_IDS = ['cases', 'parcours', 'recos', 'contact'];
+  const CASE_TONES = { sg: 'blue', ecv: 'yellow', fdj: 'red' };
+  const AVATAR_TONES = ['blue', 'green', 'yellow', 'red', 'green', 'blue'];
+
+  // Language: ?lang= in the URL, then the saved choice, then the browser language.
+  const store = {
+    get() { try { return localStorage.getItem('lang'); } catch (e) { return null; } },
+    set(v) { try { localStorage.setItem('lang', v); } catch (e) {} },
+  };
+  const pick = (v) => (v === 'fr' || v === 'en' ? v : null);
+  let lang = pick(new URLSearchParams(location.search).get('lang'))
+    || pick(store.get())
+    || (/^fr\b/i.test(navigator.language || 'fr') ? 'fr' : 'en');
+
+  const langToggle = (t) => `
+    <div class="lang" role="group" aria-label="${t.langLabel}">
+      ${['fr', 'en'].map((l) => `<button type="button" class="lang-opt" data-lang="${l}" aria-pressed="${l === lang}" aria-label="${l === 'fr' ? 'Français' : 'English'}">${FLAGS[l]}<span>${l.toUpperCase()}</span></button>`).join('')}
+    </div>`;
+
+  const sectionHead = (kicker, title, sub) => `
+    <header class="sh reveal">
+      <div class="eyebrow">${esc(kicker)}</div>
+      <div>
+        <h2 class="sh-title">${title.split('\n').map((l) => `<span>${esc(l)}</span>`).join('')}</h2>
+        ${sub ? `<p class="sh-sub">${esc(sub)}</p>` : ''}
+      </div>
+    </header>`;
+
+  const stat = (r) => {
+    const n = parseInt(r.k, 10);
+    const numeric = /^\d+$/.test(r.k.trim());
+    return `
+      <div class="stat">
+        <div class="stat-num">${numeric ? `<span data-count="${n}">0</span>` : esc(r.k)}<span class="stat-suf">${esc(r.s)}</span></div>
+        <div class="stat-label">${esc(r.v)}</div>
+      </div>`;
+  };
+
+  const caseCard = (t) => (c, i) => {
+    const head = `
+      <div>
+        <div class="case-top">
+          <span class="tag tag-${CASE_TONES[c.id] || 'blue'}">${esc(t.caseLabels[c.id] || c.id)}</span>
+          <span class="eyebrow">${esc(c.period)}</span>
         </div>
-        <div className="twk-body">{children}</div>
-      </div>
-    </>
-  );
-}
+        <h3 class="case-client">${esc(c.client)}</h3>
+        <div class="case-role">${esc(c.role)}</div>
+        <p class="case-summary">${esc(c.summary)}</p>
+      </div>`;
+    const more = `
+      <div class="case-more">
+        <button class="acc-btn" aria-expanded="false">${t.more}<span class="acc-icon" aria-hidden="true"></span></button>
+        <div class="acc-panel"><div class="acc-inner"><div class="acc-body">
+          <div><div class="acc-k">${t.context}</div><p>${esc(c.context)}</p></div>
+          <div><div class="acc-k">${t.problem}</div><p>${esc(c.problem)}</p></div>
+          <div><div class="acc-k">${t.actions}</div><ol>${c.action.map((a) => `<li>${esc(a)}</li>`).join('')}</ol></div>
+        </div></div></div>
+      </div>`;
+    const href = c.detailUrl ? c.detailUrl.replace(/\.html$/, t.caseSuffix + '.html') : '';
+    const link = href ? `<a class="case-link" href="${esc(href)}"><span>${t.readCase}</span>${arrow}</a>` : '';
+    const results = `<div class="case-results">${c.result.map(stat).join('')}</div>`;
 
-function TweakSection({ label, children }) {
-  return <><div className="twk-sect">{label}</div>{children}</>;
-}
-
-function TweakRow({ label, value, children, inline = false }) {
-  return (
-    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
-      <div className="twk-lbl">
-        <span>{label}</span>
-        {value != null && <span className="twk-val">{value}</span>}
-      </div>
-      {children}
-    </div>
-  );
-}
-
-function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
-  return (
-    <TweakRow label={label} value={`${value}${unit}`}>
-      <input type="range" className="twk-slider" min={min} max={max} step={step}
-             value={value} onChange={(e) => onChange(Number(e.target.value))} />
-    </TweakRow>
-  );
-}
-
-function TweakToggle({ label, value, onChange }) {
-  return (
-    <div className="twk-row twk-row-h">
-      <div className="twk-lbl"><span>{label}</span></div>
-      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
-              role="switch" aria-checked={!!value} onClick={() => onChange(!value)}><i /></button>
-    </div>
-  );
-}
-
-function TweakRadio({ label, value, options, onChange }) {
-  const trackRef = React.useRef(null);
-  const [dragging, setDragging] = React.useState(false);
-  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
-  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
-  const n = opts.length;
-  const valueRef = React.useRef(value);
-  valueRef.current = value;
-
-  const segAt = (clientX) => {
-    const r = trackRef.current.getBoundingClientRect();
-    const inner = r.width - 4;
-    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
-    return opts[Math.max(0, Math.min(n - 1, i))].value;
+    if (i === 0) {
+      return `
+        <article class="card case is-feature reveal" style="--i:${i}">
+          <div style="display:flex;flex-direction:column">${head}${more}${link}</div>
+          ${results}
+        </article>`;
+    }
+    return `
+      <article class="card case reveal" style="--i:${i}">
+        ${head}${results}${more}${link}
+      </article>`;
   };
 
-  const onPointerDown = (e) => {
-    setDragging(true);
-    const v0 = segAt(e.clientX);
-    if (v0 !== valueRef.current) onChange(v0);
-    const move = (ev) => { if (!trackRef.current) return; const v = segAt(ev.clientX); if (v !== valueRef.current) onChange(v); };
-    const up = () => { setDragging(false); window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
-    window.addEventListener('pointermove', move);
-    window.addEventListener('pointerup', up);
-  };
+  const initials = (name) => name.replace('.', '').split(' ').map((p) => p[0]).join('');
 
-  return (
-    <TweakRow label={label}>
-      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
-           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
-        <div className="twk-seg-thumb"
-             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`, width: `calc((100% - 4px) / ${n})` }} />
-        {opts.map((o) => (
-          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>{o.label}</button>
-        ))}
-      </div>
-    </TweakRow>
-  );
-}
-
-function TweakSelect({ label, value, options, onChange }) {
-  return (
-    <TweakRow label={label}>
-      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
-        {options.map((o) => {
-          const v = typeof o === 'object' ? o.value : o;
-          const l = typeof o === 'object' ? o.label : o;
-          return <option key={v} value={v}>{l}</option>;
-        })}
-      </select>
-    </TweakRow>
-  );
-}
-
-function TweakColor({ label, value, onChange }) {
-  return (
-    <div className="twk-row twk-row-h">
-      <div className="twk-lbl"><span>{label}</span></div>
-      <input type="color" className="twk-swatch" value={value} onChange={(e) => onChange(e.target.value)} />
-    </div>
-  );
-}
-
-function TweakButton({ label, onClick, secondary = false }) {
-  return (
-    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'} onClick={onClick}>{label}</button>
-  );
-}
-
-Object.assign(window, {
-  useTweaks, TweaksPanel, TweakSection, TweakRow,
-  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
-  TweakColor, TweakButton,
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// app.jsx — inlined to avoid file:// XHR restriction
-// ─────────────────────────────────────────────────────────────────────────────
-
-const { useState, useEffect, useRef, useMemo, useCallback } = React;
-
-const TWEAK_DEFAULTS = {
-  "accent": "coral",
-  "density": "comfortable",
-  "grid": false,
-  "crosshair": true,
-  "typePair": "mono-only"
-};
-
-const ACCENTS = {
-  cyan:    { hex: '#7DE2D1', label: 'Cyan'  },
-  amber:   { hex: '#F4C76B', label: 'Amber' },
-  iris:    { hex: '#A5A8FF', label: 'Iris'  },
-  coral:   { hex: '#FF9E80', label: 'Coral' },
-  white:   { hex: '#EDEDED', label: 'Bone'  },
-};
-
-function useTweaksLocal() {
-  const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
-  const setTweak = useCallback((keyOrObj, val) => {
-    const patch = typeof keyOrObj === 'string' ? { [keyOrObj]: val } : keyOrObj;
-    setTweaks(prev => ({ ...prev, ...patch }));
-    try { window.parent?.postMessage({ type: '__edit_mode_set_keys', edits: patch }, '*'); } catch (e) {}
-  }, []);
-  return [tweaks, setTweak];
-}
-
-function useCountUp(target, start, duration = 1400) {
-  const [v, setV] = useState(0);
-  useEffect(() => {
-    if (!start) return;
-    let raf, t0;
-    const tick = (t) => {
-      if (!t0) t0 = t;
-      const p = Math.min(1, (t - t0) / duration);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setV(Math.round(target * eased));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [start, target, duration]);
-  return v;
-}
-
-function useInView(ref, opts = { threshold: 0.3 }) {
-  const [seen, setSeen] = useState(false);
-  useEffect(() => {
-    if (!ref.current) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { setSeen(true); io.disconnect(); }
-    }, opts);
-    io.observe(ref.current);
-    return () => io.disconnect();
-  }, [ref]);
-  return seen;
-}
-
-function TopBar({ lang, setLang, content, onJump, sectionId }) {
-  return (
-    <header className="topbar">
-      <div className="tb-l">
-        <div className="logo">
-          <span className="logo-mark">◢◣</span>
-          <span className="logo-name">MARTIN.MOLET</span>
-          <span className="logo-role">// {content.meta.role}</span>
+  const page = (C, t) => {
+    const heroTitle = C.home.title.split('\n')
+      .map((l) => '<span>' + esc(l).replace(t.emph, `<em>${t.emph}</em>`) + '</span>')
+      .join('');
+    return `
+    <nav class="nav">
+      <div class="wrap nav-in">
+        <a class="brand" href="#top">
+          <span class="brand-name">Martin Molet</span>
+          <span class="brand-role">Design System & Design Ops</span>
+        </a>
+        <div class="nav-links">
+          ${NAV_IDS.map((id) => `<a href="#${id}" data-nav="${id}">${esc(t.nav[id])}</a>`).join('')}
+        </div>
+        <div class="nav-r">
+          ${langToggle(t)}
+          <a class="btn btn-primary btn-sm" href="#contact">${esc(C.home.cta2)}</a>
         </div>
       </div>
-      <nav className="tb-c">
-        {content.nav.map((n, i) => {
-          const ids = ['home', 'cases', 'experience', 'contact'];
-          const id = ids[i];
-          return (
-            <button key={n} className={`navlink ${sectionId === id ? 'is-active' : ''}`} onClick={() => onJump(id)}>
-              <span className="navnum">{String(i + 1).padStart(2, '0')}</span>
-              <span>{n}</span>
-            </button>
-          );
-        })}
-      </nav>
-      <div className="tb-r"></div>
-    </header>
-  );
-}
+    </nav>
 
-function StatusBar({ content, sectionId }) {
-  const sections = ['home', 'cases', 'experience', 'contact'];
-  const idx = Math.max(0, sections.indexOf(sectionId));
-  return (
-    <footer className="statusbar">
-      <div className="sb-cell flex-1 right">
-        <span className="sb-k">STATUS</span>
-        <span className="status-pill"><span className="dot" /> {content.meta.status}</span>
-      </div>
-    </footer>
-  );
-}
-
-function HomeSheet({ content, onJump }) {
-  const ref = useRef();
-  const seen = useInView(ref);
-  return (
-    <section className="sheet" id="home" ref={ref}>
-      <SheetHeader kicker={content.home.kicker} />
-      <div className="hero">
-        <div className="hero-l">
-          <h1 className="hero-title">
-            {content.home.title.split('\n').map((l, i) => (
-              <span key={i} className="hero-line">{l.includes('scaler') ? l.split('scaler').map((part, j, arr) => j < arr.length - 1 ? [part, <span key={j} style={{color:'var(--accent)'}}>scaler</span>] : part) : l}</span>
-            ))}
-          </h1>
-          <p className="hero-sub">{content.home.sub}</p>
-          <div className="hero-cta">
-            <button className="btn btn-primary" onClick={() => onJump('cases')}>
-              <span>{content.home.cta1}</span>
-              <span className="btn-arrow">↗</span>
-            </button>
-            <button className="btn btn-ghost" onClick={() => onJump('contact')}>
-              <span>{content.home.cta2}</span>
-            </button>
-          </div>
-          <div className="hero-meta">
+    <main>
+      <section class="hero" id="top">
+        <div class="wrap">
+          <div class="hero-grid">
             <div>
-              <span className="k">ROLE</span>
-              <span>{(() => {
-                const idx = content.meta.role.lastIndexOf(' & ');
-                return idx > 0
-                  ? <>{content.meta.role.slice(0, idx)}<br/>{content.meta.role.slice(idx + 1)}</>
-                  : content.meta.role;
-              })()}</span>
+              <span class="tag tag-green reveal"><span class="tag-dot"></span>${esc(C.meta.status)}</span>
+              <h1 class="hero-title reveal" style="--i:1">${heroTitle}</h1>
+              <p class="hero-sub reveal" style="--i:2">${esc(C.home.sub)}</p>
+              <div class="hero-cta reveal" style="--i:3">
+                <a class="btn btn-primary" href="#cases">${esc(C.home.cta1)}${arrow}</a>
+                <a class="btn btn-ghost" href="#contact">${esc(C.home.cta2)}</a>
+              </div>
+              <dl class="hero-meta reveal" style="--i:4">
+                <dt>${t.role}</dt><dd>${esc(C.meta.role)}</dd>
+                <dt>${t.location}</dt><dd>${esc(C.meta.location)}</dd>
+              </dl>
             </div>
-            <div><span className="k">LOC</span><span style={{whiteSpace:'pre-line'}}>{content.meta.location}</span></div>
-            <div><span className="k">AVAIL</span><span style={{whiteSpace:'pre-line'}}>{content.meta.status}</span></div>
+            <figure class="portrait reveal" style="--i:2">
+              <div class="portrait-img"><img src="ppchill.jpg" alt="${t.portraitAlt}" width="960" height="960"></div>
+            </figure>
+          </div>
+
+          <div class="metrics" id="metrics">
+            ${C.home.metrics.map((m, i) => `
+              <article class="card metric reveal" style="--i:${i}">
+                <div class="metric-value"><span data-count="${m.value}">0</span><span class="metric-suffix">${esc(m.suffix)}</span></div>
+                <div class="metric-label">${esc(m.label)}</div>
+                <p class="metric-note">${esc(m.note)}</p>
+              </article>`).join('')}
           </div>
         </div>
-        <div className="hero-r">
-          <div className="portrait">
-            <div className="portrait-frame">
-              <img src="martin.jpg" alt="Martin Molet" />
-              <div className="corner tl" />
-              <div className="corner tr" />
-              <div className="corner bl" />
-              <div className="corner br" />
-              <div className="dim-h"><span>720</span></div>
-              <div className="dim-v"><span>1080</span></div>
-            </div>
+      </section>
+
+      <section class="section" id="cases">
+        <div class="wrap">
+          ${sectionHead(t.k.cases, C.cases.title)}
+          <div class="cases">${C.cases.items.map(caseCard(t)).join('')}</div>
+        </div>
+      </section>
+
+      <section class="section" id="parcours">
+        <div class="wrap">
+          ${sectionHead(t.k.parcours, C.experience.title)}
+          <ol class="exp">
+            ${C.experience.items.map((e, i) => `
+              <li class="exp-row reveal" style="--i:${Math.min(i, 3)}">
+                <div><div class="exp-period">${esc(e.period)}</div><div class="exp-loc">${esc(e.location)}</div></div>
+                <div><div class="exp-org">${esc(e.org)}</div><div class="exp-role">${esc(e.role)}</div></div>
+                <ul class="exp-impact">${e.impact.map((im) => `<li>${esc(im)}</li>`).join('')}</ul>
+              </li>`).join('')}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="recos">
+        <div class="wrap">
+          ${sectionHead(t.k.recos, C.recos.title)}
+          <div class="recos">
+            ${C.recos.items.map((r, i) => `
+              <figure class="card reco reveal" style="--i:${i % 2}">
+                <blockquote>${t.q[0]}${esc(r.quote)}${t.q[1]}</blockquote>
+                <figcaption>
+                  <span class="avatar tag-${AVATAR_TONES[i]}" aria-hidden="true">${esc(initials(r.name))}</span>
+                  <span><div class="reco-name">${esc(r.name)}</div><div class="reco-role">${esc(r.role)}</div></span>
+                </figcaption>
+              </figure>`).join('')}
           </div>
         </div>
-      </div>
-      <div className="metrics">
-        {content.home.metrics.map((m, i) => (
-          <MetricCard key={i} m={m} index={i} start={seen} />
-        ))}
-      </div>
-    </section>
-  );
-}
+      </section>
 
-function MetricCard({ m, index, start }) {
-  const v = useCountUp(m.value, start, 1200 + index * 200);
-  return (
-    <article className="metric">
-      <div className="metric-id">M.{String(index + 1).padStart(2, '0')}</div>
-      <div className="metric-value">
-        <span className="mv-num">{v}</span>
-        <span className="mv-suffix">{m.suffix}</span>
-      </div>
-      <div className="metric-label">{m.label}</div>
-      <div className="metric-note">{m.note}</div>
-    </article>
-  );
-}
-
-function WorkSheet({ content }) {
-  const [active, setActive] = useState('ds');
-  const sec = content.work.sections.find(s => s.id === active);
-  return (
-    <section className="sheet" id="work">
-      <SheetHeader kicker={content.work.kicker} title={content.work.title} sub={content.work.sub} />
-      <div className="practice-wrap">
-        <aside className="practice-tabs" role="tablist">
-          {content.work.sections.map(s => (
-            <button key={s.id} className={`practice-tab ${active === s.id ? 'on' : ''}`} onClick={() => setActive(s.id)}>
-              <span className="pt-tag">{s.tag}</span>
-              <span className="pt-title">{s.title}</span>
-              <span className="pt-arrow">{active === s.id ? '●' : '○'}</span>
-            </button>
-          ))}
-        </aside>
-        <div className="practice-pane" key={active}>
-          <div className="pp-head">
-            <span className="pp-tag">PRACTICE / {sec.tag}</span>
-            <h3 className="pp-title">{sec.title}</h3>
-            <p className="pp-one">{sec.oneLiner}</p>
-          </div>
-          <div className="pp-grid">
-            <div className="pp-col">
-              <div className="col-h"><span>Method</span><span className="col-rule" /></div>
-              <ol className="method">
-                {sec.method.map((step, i) => (
-                  <li key={i}><span className="m-num">{String(i + 1).padStart(2, '0')}</span><span>{step}</span></li>
-                ))}
-              </ol>
+      <section class="section" id="contact">
+        <div class="wrap">
+          <div class="card contact reveal">
+            <div>
+              <span class="eyebrow">${t.k.contact}</span>
+              <h2 class="contact-title">${t.contactTitle}</h2>
+              <p class="contact-sub">${esc(C.contact.sub)}</p>
             </div>
-            <div className="pp-col">
-              <div className="col-h"><span>Proof</span><span className="col-rule" /></div>
-              <ul className="proof">
-                {sec.proof.map((p, i) => (
-                  <li key={i}><div className="proof-k">{p.k}</div><div className="proof-v">{p.v}</div></li>
-                ))}
-              </ul>
-              {sec.id === 'ds' && <TokenSwitcher />}
-              {sec.id === 'ops' && <OpsDashboard />}
-              {sec.id === 'ai' && <AIDocPreview />}
-              {sec.id === 'teach' && <WorkshopBoard />}
+            <div>
+              <div class="contact-side">
+                ${C.contact.links.map((l) => l.href
+                  ? `<a class="contact-row" href="${esc(l.href)}" target="_blank" rel="noopener noreferrer"><span class="k">${esc(l.k)}</span><span class="v">${esc(l.v)}${arrow}</span></a>`
+                  : `<div class="contact-row"><span class="k">${esc(l.k)}</span><span class="v">${esc(l.v)}</span></div>`).join('')}
+                <div class="contact-row"><span class="k">${t.availability}</span><span class="tag tag-green"><span class="tag-dot"></span>${esc(C.contact.availability.split(/[—-]\s*/).pop())}</span></div>
+              </div>
+              <a class="btn btn-primary contact-cta" href="${esc(C.contact.links[0].href)}" target="_blank" rel="noopener noreferrer">${t.writeLinkedIn}${arrow}</a>
             </div>
           </div>
         </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap foot-in">
+        <span>Martin Molet · ${esc(C.meta.role)}</span>
+        <span>${t.updated} ${esc(C.meta.lastUpdated)}</span>
       </div>
-    </section>
-  );
-}
-
-function SegSmall({ label, opts, val, onChange }) {
-  return (
-    <div className="seg">
-      <span className="seg-l">{label}</span>
-      <div className="seg-r">
-        {opts.map(o => (
-          <button key={o} className={val === o ? 'on' : ''} onClick={() => onChange(o)}>{o}</button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function TokenSwitcher() {
-  const [theme, setTheme] = useState('dark');
-  const [density, setDensity] = useState('comfy');
-  const [contrast, setContrast] = useState(false);
-  const surface = theme === 'dark' ? '#0E1213' : '#F7F6F2';
-  const ink = theme === 'dark' ? '#E6E6E1' : '#13171A';
-  const muted = theme === 'dark' ? '#6F7A7A' : '#7A7A6F';
-  const accent = contrast ? '#FFFFFF' : 'var(--accent)';
-  const pad = density === 'comfy' ? 14 : density === 'cozy' ? 10 : 6;
-  return (
-    <div className="ts">
-      <div className="ts-h"><span>Live token switcher</span><span className="ts-h-r">live</span></div>
-      <div className="ts-controls">
-        <SegSmall label="Theme" opts={['dark', 'light']} val={theme} onChange={setTheme} />
-        <SegSmall label="Density" opts={['comfy', 'cozy', 'tight']} val={density} onChange={setDensity} />
-        <SegSmall label="Contrast" opts={['default', 'AAA']} val={contrast ? 'AAA' : 'default'} onChange={(v) => setContrast(v === 'AAA')} />
-      </div>
-      <div className="ts-preview" style={{ background: surface, color: ink, '--pad': pad + 'px' }}>
-        <div className="ts-card">
-          <div className="ts-row" style={{ color: muted }}><span>card.title</span><span>·</span><span>v2.4</span></div>
-          <div className="ts-h-card" style={{ color: ink }}>Themed component</div>
-          <div className="ts-body" style={{ color: muted }}>The same JSON tokens drive every render target — web, iOS, Android. Switching theme is one variable change.</div>
-          <div className="ts-actions">
-            <button className="ts-btn" style={{ borderColor: accent, color: accent }}>Action</button>
-            <button className="ts-btn ghost" style={{ color: ink, borderColor: muted }}>Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function OpsDashboard() {
-  const bars = [
-    { l: 'Adoption', v: 0.92 },
-    { l: 'Reuse', v: 0.78 },
-    { l: 'Drift', v: 0.08, bad: true },
-    { l: 'Debt', v: 0.21, bad: true },
-  ];
-  return (
-    <div className="ts">
-      <div className="ts-h"><span>Ops dashboard — wave 4</span><span className="ts-h-r">read-only</span></div>
-      <div className="ops-grid">
-        {bars.map(b => (
-          <div key={b.l} className="ops-row">
-            <div className="ops-l">{b.l}</div>
-            <div className="ops-track"><div className={`ops-fill ${b.bad ? 'bad' : ''}`} style={{ width: (b.v * 100) + '%' }} /></div>
-            <div className="ops-v">{Math.round(b.v * 100)}%</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function AIDocPreview() {
-  return (
-    <div className="ts">
-      <div className="ts-h"><span>component / Button.mdx</span><span className="ts-h-r">auto-generated</span></div>
-      <pre className="code">{`# Button\n\nPrimary action surface.\nTokens: \`color.action\`, \`radius.sm\`, \`space.2\`.\n\n## Props\n- variant: 'primary' | 'ghost' | 'danger'\n- size: 'sm' | 'md' | 'lg'\n- icon?: IconToken\n\n## Usage\n> Use one primary per view.\n> Pair with ghost for cancel.`}</pre>
-    </div>
-  );
-}
-
-function WorkshopBoard() {
-  const items = ['Tokens 101 — half day', 'System governance — 90 min', 'Figma variables clinic — 2h', 'Component contract review — 1h'];
-  return (
-    <div className="ts">
-      <div className="ts-h"><span>Workshop catalog</span><span className="ts-h-r">2025 — 2026</span></div>
-      <ul className="ws">
-        {items.map((it, i) => (
-          <li key={i}><span className="ws-tick">▢</span><span>{it}</span><span className="ws-id">WS.{String(i + 1).padStart(2, '0')}</span></li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function CasesSheet({ content }) {
-  const [open, setOpen] = useState('sg');
-  return (
-    <section className="sheet" id="cases">
-      <SheetHeader kicker={content.cases.kicker} title={content.cases.title} />
-      <div className="cases">
-        {content.cases.items.map(c => (
-          <CaseRow key={c.id} c={c} open={open === c.id} onToggle={() => setOpen(open === c.id ? '' : c.id)} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function CaseRow({ c, open, onToggle }) {
-  const ref = useRef();
-  const seen = useInView(ref, { threshold: 0.2 });
-  return (
-    <article className={`case ${open ? 'open' : ''}`} ref={ref}>
-      <div className="case-head" onClick={onToggle} style={{cursor:'pointer'}}>
-        <div className="case-head-l">
-          <div className="case-id">CASE / {c.id.toUpperCase()}</div>
-          <div className="case-client">{c.client}</div>
-          <div className="case-summary">{c.summary}</div>
-          {c.detailUrl && (
-            <a href={c.detailUrl} className="case-detail-link" onClick={e => e.stopPropagation()}>Étude complète ↗</a>
-          )}
-        </div>
-        <div className="case-head-r">
-          <div className="case-meta-line"><span>{c.role}</span><span>·</span><span>{c.period}</span></div>
-          <div className="case-toggle">{open ? '— close' : '+ open'}</div>
-        </div>
-      </div>
-      <div className="case-body">
-        <div className="case-inner">
-          <CaseBlock label="Context" body={c.context} />
-          <CaseBlock label="Problem" body={c.problem} />
-          <div className="case-block">
-            <div className="cb-l"><span>Action</span><span className="cb-rule" /></div>
-            <ul className="case-actions">
-              {c.action.map((a, i) => (
-                <li key={i}><span className="ca-n">{String(i + 1).padStart(2, '0')}</span><span>{a}</span></li>
-              ))}
-            </ul>
-          </div>
-          <div className="case-block">
-            <div className="cb-l"><span>Result</span><span className="cb-rule" /></div>
-            <div className="case-results">
-              {c.result.map((r, i) => (
-                <CaseStat key={i} r={r} index={i} start={open && seen} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function CaseBlock({ label, body }) {
-  return (
-    <div className="case-block">
-      <div className="cb-l"><span>{label}</span><span className="cb-rule" /></div>
-      <p className="case-p">{body}</p>
-    </div>
-  );
-}
-
-function CaseStat({ r, index, start }) {
-  const num = parseInt(r.k.replace(/[^\d-]/g, ''), 10);
-  const isNumeric = !isNaN(num) && /^[−-]?\d+/.test(r.k.replace(/\s/g, ''));
-  const v = useCountUp(isNaN(num) ? 0 : Math.abs(num), start, 900 + index * 150);
-  const display = isNumeric ? (r.k.startsWith('−') || r.k.startsWith('-') ? '−' : '') + v : r.k;
-  return (
-    <div className="case-stat">
-      <div className="cs-num">{display}<span className="cs-suf">{r.s}</span></div>
-      <div className="cs-label">{r.v}</div>
-    </div>
-  );
-}
-
-function ExperienceSheet({ content }) {
-  return (
-    <section className="sheet" id="experience">
-      <SheetHeader kicker={content.experience.kicker} title={content.experience.title} />
-      <ol className="exp">
-        {content.experience.items.map((e, i) => (
-          <li key={i} className="exp-row">
-            <div className="exp-l">
-              <div className="exp-period">{e.period}</div>
-              <div className="exp-loc">{e.location}</div>
-            </div>
-            <div className="exp-c">
-              <div className="exp-org">{e.org}</div>
-              <div className="exp-role">{e.role}</div>
-            </div>
-            <ul className="exp-r">
-              {e.impact.map((im, j) => <li key={j}>{im}</li>)}
-            </ul>
-          </li>
-        ))}
-      </ol>
-      <RecosBlock content={content} />
-    </section>
-  );
-}
-
-function RecosBlock({ content }) {
-  return (
-    <div className="recos">
-      <SheetHeader kicker={content.recos.kicker} title={content.recos.title} />
-      <div className="recos-grid">
-        {content.recos.items.map((r, i) => (
-          <figure key={i} className="reco">
-            <div className="reco-head">
-              <div className="reco-id">REC.{String(i + 1).padStart(2, '0')}</div>
-              {r.context && <div className="reco-ctx">{r.context}</div>}
-            </div>
-            <blockquote>"{r.quote}"</blockquote>
-            <figcaption>
-              <div className="reco-name">{r.name}</div>
-              <div className="reco-role">{r.role}</div>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function AboutSheet({ content }) {
-  return (
-    <section className="sheet" id="about">
-      <SheetHeader kicker={content.about.kicker} title={content.about.title} />
-      <div className="about-grid">
-        <div className="about-block"><div className="ab-l">NOW</div><p>{content.about.now}</p></div>
-        <div className="about-block"><div className="ab-l">NEXT</div><p>{content.about.next}</p></div>
-      </div>
-      <div className="principles">
-        <div className="col-h"><span>Principles</span><span className="col-rule" /></div>
-        <ul>
-          {content.about.principles.map((p, i) => (
-            <li key={i}>
-              <span className="p-num">P.{String(i + 1).padStart(2, '0')}</span>
-              <span className="p-k">{p.k}</span>
-              <span className="p-v">{p.v}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-function ContactSheet({ content }) {
-  return (
-    <section className="sheet" id="contact">
-      <SheetHeader kicker={content.contact.kicker} title={content.contact.title} />
-      <div className="contact">
-        <p className="contact-sub">{content.contact.sub}</p>
-        <div className="contact-grid">
-          {content.contact.links.map((l, i) => {
-            const isLink = !!l.href;
-            const Tag = isLink ? 'a' : 'div';
-            const props = isLink ? { href: l.href, target: '_blank', rel: 'noopener noreferrer' } : {};
-            return (
-              <Tag key={i} className={`contact-row ${isLink ? 'is-link' : ''}`} {...props}>
-                <span className="cr-id">CH.{String(i + 1).padStart(2, '0')}</span>
-                <span className="cr-k">{l.k}</span>
-                <span className="cr-v">{l.v}</span>
-                {isLink && <span className="cr-arrow">↗</span>}
-              </Tag>
-            );
-          })}
-        </div>
-        <div className="contact-avail">
-          <span className="ca-dot" />
-          <span>{content.contact.availability}</span>
-        </div>
-        <div className="signoff">
-          <div>— Martin Molet</div>
-          <div className="so-sub">{content.meta.role}</div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function SheetHeader({ kicker, title, sub, small }) {
-  return (
-    <header className={`sh ${small ? 'sh-sm' : ''}`}>
-      <div className="sh-kicker">{kicker}</div>
-      {title && (
-        <h2 className="sh-title">
-          {title.split('\n').map((l, i) => <span key={i}>{l}</span>)}
-        </h2>
-      )}
-      {sub && <p className="sh-sub">{sub}</p>}
-    </header>
-  );
-}
-
-function PortfolioTweaks({ tweaks, setTweak }) {
-  const { TweaksPanel, TweakSection, TweakRadio, TweakSelect, TweakToggle } = window;
-  return (
-    <TweaksPanel title="Tweaks">
-      <TweakSection label="Visual">
-        <TweakSelect
-          label="accent"
-          value={tweaks.accent}
-          onChange={(v) => setTweak('accent', v)}
-          options={Object.entries(ACCENTS).map(([k, v]) => ({ value: k, label: v.label }))}
-        />
-        <TweakRadio
-          label="density"
-          value={tweaks.density}
-          onChange={(v) => setTweak('density', v)}
-          options={[{ value: 'comfortable', label: 'Comfy' }, { value: 'compact', label: 'Compact' }]}
-        />
-        <TweakRadio
-          label="type"
-          value={tweaks.typePair}
-          onChange={(v) => setTweak('typePair', v)}
-          options={[{ value: 'mono-only', label: 'Mono only' }, { value: 'serif-mono', label: 'Serif + mono' }]}
-        />
-      </TweakSection>
-      <TweakSection label="Blueprint">
-        <TweakToggle label="grid overlay" value={tweaks.grid} onChange={(v) => setTweak('grid', v)} />
-        <TweakToggle label="cursor crosshair" value={tweaks.crosshair} onChange={(v) => setTweak('crosshair', v)} />
-      </TweakSection>
-    </TweaksPanel>
-  );
-}
-
-function App() {
-  const [lang, setLang] = useState('fr');
-  const [tweaks, setTweak] = useTweaksLocal();
-  const content = window.CONTENT[lang];
-  const [sectionId, setSectionId] = useState('home');
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  const stageRef = useRef();
-
-  const accent = ACCENTS[tweaks.accent] || ACCENTS.cyan;
-  useEffect(() => {
-    document.documentElement.style.setProperty('--accent', accent.hex);
-    document.documentElement.style.setProperty('--accent-soft', accent.hex + '33');
-    document.documentElement.dataset.density = tweaks.density;
-    document.documentElement.dataset.grid = tweaks.grid ? 'on' : 'off';
-    document.documentElement.dataset.crosshair = tweaks.crosshair ? 'on' : 'off';
-    document.documentElement.dataset.typepair = tweaks.typePair;
-  }, [accent.hex, tweaks.density, tweaks.grid, tweaks.crosshair, tweaks.typePair]);
-
-  useEffect(() => {
-    const ids = ['home', 'cases', 'experience', 'contact'];
-    const els = ids.map(i => document.getElementById(i)).filter(Boolean);
-    const io = new IntersectionObserver((entries) => {
-      const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setSectionId(visible.target.id);
-    }, { threshold: [0.25, 0.5, 0.75] });
-    els.forEach(e => io.observe(e));
-    return () => io.disconnect();
-  }, [lang]);
-
-  useEffect(() => {
-    const onMove = (e) => setMouse({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', onMove);
-    return () => window.removeEventListener('mousemove', onMove);
-  }, []);
-
-  const onJump = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    </footer>`;
   };
 
-  return (
-    <div className="stage" ref={stageRef}>
-      {tweaks.grid && <div className="grid-bg" aria-hidden />}
-      {tweaks.crosshair && (
-        <>
-          <div className="cross-h" style={{ top: mouse.y }} aria-hidden />
-          <div className="cross-v" style={{ left: mouse.x }} aria-hidden />
-        </>
-      )}
-      <TopBar lang={lang} setLang={setLang} content={content} onJump={onJump} sectionId={sectionId} />
-      <main className="sheets">
-        <HomeSheet content={content} onJump={onJump} />
-        <CasesSheet content={content} />
-        <ExperienceSheet content={content} />
-        <ContactSheet content={content} />
-      </main>
-      <StatusBar content={content} sectionId={sectionId} />
-      <PortfolioTweaks tweaks={tweaks} setTweak={setTweak} />
-    </div>
-  );
-}
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const countUp = (el) => {
+    const target = Number(el.dataset.count);
+    if (reduce) { el.textContent = target; return; }
+    const dur = 1200;
+    let t0;
+    const tick = (t) => {
+      t0 = t0 || t;
+      const p = Math.min(1, (t - t0) / dur);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+  let observers = [];
 
+  const render = (animate) => {
+    const C = window.CONTENT[lang];
+    const t = UI[lang];
+    observers.forEach((o) => o.disconnect());
+    observers = [];
+
+    document.documentElement.lang = lang;
+    document.title = t.docTitle;
+    document.getElementById('app').innerHTML = page(C, t);
+
+    // Language toggle
+    document.querySelectorAll('.lang-opt').forEach((b) => b.addEventListener('click', () => {
+      if (b.dataset.lang === lang) return;
+      lang = b.dataset.lang;
+      store.set(lang);
+      const url = new URL(location.href);
+      url.searchParams.delete('lang');
+      history.replaceState(null, '', url);
+      render(false);
+    }));
+
+    // Accordions
+    document.querySelectorAll('.case-more').forEach((el) => {
+      const btn = el.querySelector('.acc-btn');
+      btn.addEventListener('click', () => {
+        const open = el.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    });
+
+    // Scroll reveal. On a language switch, show everything at once.
+    if (animate) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('is-in');
+          e.target.querySelectorAll('[data-count]').forEach(countUp);
+          io.unobserve(e.target);
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+      observers.push(io);
+    } else {
+      document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-in'));
+      document.querySelectorAll('[data-count]').forEach((el) => { el.textContent = el.dataset.count; });
+    }
+
+    // Active nav + nav border
+    const nav = document.querySelector('.nav');
+    const links = document.querySelectorAll('[data-nav]');
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) links.forEach((a) => a.classList.toggle('is-active', a.dataset.nav === e.target.id));
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    NAV_IDS.forEach((id) => spy.observe(document.getElementById(id)));
+    const border = new IntersectionObserver(([e]) => nav.classList.toggle('is-scrolled', !e.isIntersecting));
+    border.observe(document.querySelector('.hero-title'));
+    observers.push(spy, border);
+  };
+
+  render(true);
+})();
 </script>
 </body>
 </html>

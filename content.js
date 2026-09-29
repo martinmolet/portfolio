@@ -6,19 +6,19 @@ const CONTENT = {
     meta: {
       role: 'Product Designer · Design System & Design Ops',
       location: 'Marseille / Remote',
-      status: 'Open to CDI · Freelance available',
+      status: 'Open to freelance or permanent roles',
       lastUpdated: 'Apr 2026',
       filename: 'martin-molet.portfolio.v4',
     },
     home: {
       kicker: '01 — Index',
       title: 'I build the systems\nthat let design teams\nship faster.',
-      sub: '8+ years as a Product Designer, focused on design systems and design ops. From e-commerce to retail banking, I leave teams with a way of working — not just components.',
+      sub: '8 years in Product Design, focused on design systems and design ops. From e-commerce to retail banking, I leave teams with a way of working, not just components.',
       cta1: 'See case studies',
       cta2: 'Get in touch',
       metrics: [
-        { value: 40, suffix: '+', label: 'Designers trained on the Société Générale system', note: 'Workshops, open hours, tutorials and written guides — adoption, not push.' },
-        { value: 2, suffix: ' → 1', label: 'Design systems unified into a single library', note: 'Client + advisor systems merged, with dedicated modes. Less duplication, fewer drifts.' },
+        { value: 40, suffix: '+', label: 'Designers trained on the Société Générale system', note: 'Workshops, open hours, tutorials and written guides. Adoption, not enforcement.' },
+        { value: 2, suffix: ' → 1', label: 'Design systems unified into a single library', note: 'Client and advisor systems merged, with dedicated modes. Less duplication, less drift.' },
         { value: 8, suffix: '+', label: 'Years shipping production design systems', note: '7 e-commerce sites, retail banking, mobile gaming, telecom subscriptions.' },
       ],
     },
@@ -101,7 +101,7 @@ const CONTENT = {
     },
     cases: {
       kicker: '03 — Case studies',
-      title: 'Three contexts,\nthree systems lived.',
+      title: 'My latest work.',
       items: [
         {
           id: 'sg',
@@ -111,19 +111,19 @@ const CONTENT = {
           period: 'Mar 2024 — Sep 2025',
           summary: 'Rebuilt and unified the Figma libraries for retail banking — one source for client and advisor surfaces.',
           context: 'Two parallel design systems — one for the client app, one for the advisor tooling. Drift was compounding. Designers spent more time aligning to spec than designing. Devs were rebuilding instead of reusing.',
-          problem: 'No shared contract. Libraries were duplicated, hard to navigate, hard to maintain. Adoption was uneven. No documented governance.',
+          problem: 'No shared rules. Duplicated libraries, hard to navigate and maintain. Uneven adoption across teams. No documented governance.',
           action: [
-            'Restructured both Figma libraries for readability, maintainability and adoption',
-            'Set up variables and tokens to automate desktop / mobile variants',
-            'Unified client + advisor systems into a single library with dedicated modes',
-            'Wrote operational documentation : usage, rules, constraints — for designers and devs',
-            'Trained 40+ designers via workshops, open hours, tutorials and guides',
+            'Reorganized the Figma libraries alphabetically, aligned with Storybook',
+            '280+ size tokens and 230+ color tokens: one library, several modes',
+            'Merged the client and advisor systems into a single themed library',
+            'Rebuilt 25+ components and 30+ icons with slots, variables and leaner variants',
+            'Trained 40+ designers through workshops, open hours, tutorials and written guides',
           ],
           result: [
             { k: '40', s: '+', v: 'Designers trained on the new system' },
-            { k: '2 → 1', s: '', v: 'Design systems unified' },
-            { k: '0', s: '', v: 'Manual desktop/mobile drift remaining' },
-            { k: '18', s: ' mo', v: 'Mission length, four releases shipped' },
+            { k: '280', s: '+', v: 'Size tokens, one source of truth' },
+            { k: '230', s: '+', v: 'Color tokens across two themed modes' },
+            { k: '4×', s: '', v: 'Faster screen variants' },
           ],
         },
         {
@@ -184,8 +184,8 @@ const CONTENT = {
           period: 'Apr 2026',
           location: 'Aix-en-Provence',
           impact: [
-            'Workshop for M1 students on building and documenting a Design System',
-            'Atomic Design, variables, design tokens, documentation, theming',
+            'Second consecutive year of the M1 workshop on designing and documenting a Design System',
+            'Atomic Design, variables, design tokens, Supernova documentation, theming',
           ],
         },
         {
@@ -205,8 +205,8 @@ const CONTENT = {
           period: 'Feb 2025',
           location: 'Aix-en-Provence',
           impact: [
-            'New workshop session for M1 students — same topic, deeper hands-on',
-            'Atomic Design, variables, design tokens, documentation, theming',
+            'M1 workshop on designing and documenting a Design System',
+            'Atomic Design, variables, design tokens, Zeroheight documentation, theming',
           ],
         },
         {
@@ -256,37 +256,37 @@ const CONTENT = {
     },
     recos: {
       kicker: '05 — Recommendations',
-      title: 'What people who shipped with me said.',
+      title: 'We worked together.',
       items: [
         {
           quote: 'Martin played a central role in scaling AVENIR — Société Générale Retail Banking\'s Design System. His Figma library architecture, his support of designers and developers, and his ability to set and apply a clear short and long-term vision make him a very complete Design System Manager.',
           name: 'Salomé M.',
-          role: 'Design Ops · Devoteam CreativeTech',
+          role: 'Design Ops Manager · SG x Devoteam',
         },
         {
           quote: 'Martin was essential to setting up the Design System at Société Générale. His Figma expertise let us roll out design tokens across every multi-theme component. The slot pattern he set up to automate responsive rendering massively improved designer throughput.',
           name: 'Ivan T.',
-          role: 'Application Lead · Société Générale',
+          role: 'Application Lead · SG',
         },
         {
           quote: 'It\'s thanks to Martin\'s relentless work that we shipped one of the most structuring DS projects: the token matrix. Today, we\'ve gained tremendous speed and flexibility in how we design components. Beyond the system work, Martin was always there to help and train Product Designers.',
           name: 'Justine L.',
-          role: 'Design System Designer',
+          role: 'Design System Designer · SG x Devoteam',
         },
         {
           quote: 'Martin has a 360° view of design system rules, with exemplary rigor. His ability to structure, evolve and spread a coherent DS culture made the work of every Product Designer and dev team materially easier. Pragmatic, accessible, fast — I recommend him without hesitation.',
           name: 'Marta M.',
-          role: 'Product Designer Manager · Upgrade',
+          role: 'Product Designer Manager · SG x Upgrade',
         },
         {
           quote: 'Working with Martin was as enjoyable as it was enriching. He brings calm, trust and positive momentum to a team. Beyond the technical chops, he\'s a teacher — always available to explain or unblock.',
           name: 'Sarah S.',
-          role: 'Product Designer · Devoteam',
+          role: 'Product Designer · SG x Devoteam',
         },
         {
           quote: 'Martin excels at managing design systems — it makes teamwork fluid and efficient. He has a real talent for rallying people and sharing ideas in an inspiring way. Technically he\'s top-tier, but what stands out is the human approach.',
           name: 'Marc Q.',
-          role: 'Product Designer · FDJ',
+          role: 'Product Designer · FDJ x Devoteam',
         },
       ],
     },
@@ -305,8 +305,8 @@ const CONTENT = {
     contact: {
       kicker: '06 — Contact',
       title: 'Let\'s talk.',
-      sub: 'Best for: Lead Design System CDI (remote), or scoped freelance missions — system audit, rollout, ops setup.',
-      availability: 'Freelance availability — Q3 2026',
+      sub: 'Best fit: a Lead Design System permanent role (remote), or a focused freelance mission: system audit, rollout, ops setup.',
+      availability: 'Freelance availability — ASAP',
       links: [
         { k: 'LinkedIn', v: 'linkedin.com/in/mmolet', href: 'https://www.linkedin.com/in/mmolet' },
         { k: 'Location', v: 'Marseille or remote' },
